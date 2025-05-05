@@ -1,0 +1,9 @@
+get-orders:
+  function: ./get-orders/index.js
+  web: 'yes'
+  runtime: nodejs:20
+  inputs:
+    LOG_LEVEL: debug
+  annotations:
+    require-adobe-auth: true
+    final: true

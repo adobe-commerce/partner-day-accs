@@ -1,0 +1,34 @@
+[
+  {
+    "event": {
+      "name": "observer.sales_order_save_commit_after",
+      "fields": [
+        {
+          "name": "entity_id"
+        },
+        {
+          "name": "increment_id"
+        },
+        {
+          "name": "items"
+        },
+        {
+          "name": "total_item_count"
+        },
+        {
+          "name": "grand_total"
+        },
+        {
+          "name": "status"
+        },
+        {
+          "name": "created_at"
+        },
+        {
+          "name": "updated_at"
+        }
+      ],
+      "priority":true
+    }
+  }
+]

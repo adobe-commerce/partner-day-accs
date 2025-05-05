@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "orderId": { "type":  "number" },
+    "trackNumber": { "type":  "string" }
+  },
+  "required": ["orderId", "trackNumber"],
+  "additionalProperties": false
+}

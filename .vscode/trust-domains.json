@@ -1,0 +1,5 @@
+{
+    "trust": [
+        "https://aio-login.adobeioruntime.net/api/v1/web/default/applogin*"
+    ]
+} 

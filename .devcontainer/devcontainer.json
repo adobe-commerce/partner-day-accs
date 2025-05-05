@@ -1,0 +1,28 @@
+{
+    "name": "Workshop Dev Container",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node",
+    "hostRequirements": {
+      "cpus": 4,
+      "memory": "16gb",
+      "storage": "32gb"
+    },
+    "features": {
+      "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "forwardPorts": [9080],
+    "postCreateCommand": "yarn global add @adobe/aio-cli@latest && yarn install && yarn build",
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint",
+          "ms-vscode.vscode-typescript-next",
+          "ms-vscode-remote.remote-containers",
+          "humao.rest-client"
+        ]
+      }
+    },
+    "mounts": [
+      "source=aio-cli-cache,target=/usr/local/share/npm-global,type=volume",
+      "source=node-modules-cache,target=/workspaces/starter-kit-workshop-poc/node_modules,type=volume"
+    ]
+}

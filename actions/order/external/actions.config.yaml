@@ -1,0 +1,25 @@
+consumer:
+  function: consumer/index.js
+  web: 'no'
+  runtime: nodejs:20
+  inputs:
+    LOG_LEVEL: debug
+  annotations:
+    require-adobe-auth: true
+    final: true
+shipment-created:
+  function: shipment-created/index.js
+  web: 'no'
+  runtime: nodejs:20
+  inputs:
+    LOG_LEVEL: debug
+    OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
+    OAUTH_CLIENT_SECRET: $OAUTH_CLIENT_SECRET
+    OAUTH_TECHNICAL_ACCOUNT_ID: $OAUTH_TECHNICAL_ACCOUNT_ID
+    OAUTH_ORG_ID: $OAUTH_ORG_ID
+    OAUTH_SCOPES: $OAUTH_SCOPES
+    OAUTH_HOST: $OAUTH_HOST
+    COMMERCE_BASE_URL: $COMMERCE_BASE_URL
+  annotations:
+    require-adobe-auth: true
+    final: true
