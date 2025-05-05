@@ -27,11 +27,11 @@ Password: TBD
 
 ### Setup
  
-1. Visit https://github.com/rojoangel/extensibility-lab
-2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. <img width="1701" alt="image" src="https://github.com/user-attachments/assets/63ef2b17-bf03-4e3c-848f-6d990c492261" />
-3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. <img width="881" alt="image" src="https://github.com/user-attachments/assets/aabc8b22-1ba3-4058-af6b-2f70ec505d0c" />
+1. Visit https://github.com/adobe-commerce/partner-day-accs
+2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
+3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
-5. Click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. <img width="1497" alt="image" src="https://github.com/user-attachments/assets/d060f11e-197f-44c6-9f68-2274c2ba22d6" />
+5. Click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![image](https://github.com/user-attachments/assets/55714254-19ae-4da0-8e6a-b49db080f8b9)
 6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
 7. Once done, you will be able to interact with the online IDE. <img width="2007" alt="image" src="https://github.com/user-attachments/assets/96c71fab-b179-442f-8378-9203d4facd83" />
 8. Navigate to the terminal and run the following command to clear the temporary github token:
