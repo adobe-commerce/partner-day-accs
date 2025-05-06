@@ -90,7 +90,7 @@ Congratulations on creating a codespace and completing the pre-requisite steps. 
 aio commerce init
 ```
 2. Make sure the CLI has selected the right github account. If so, Enter `y`.
-3. Enter a name that will be used as the name the storefront repo. Make sure it isnt used in the past.
+3. Enter a name that will be used as the name the storefront repo. Make sure it does not contain underscores and was not used in the past. We recommend a short repo name 
 4. Select the first template in the list `adobe-commerce/adobe-demo-store`
 5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`
 6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter
