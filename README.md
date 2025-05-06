@@ -312,7 +312,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
 
     Then select the project assigned to your seat: 
 
-    **L442 Seat <SEAT_NUMBER>**
+    **PD SJC <SEAT_NUMBER>**
 
     *Tip: Use search to find your project*
 
