@@ -312,7 +312,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
 
     Then select the project assigned to your seat: 
 
-    **L442 Seat <SEAT_NUMBER>**
+    **PD SJC <SEAT_NUMBER>**
 
     *Tip: Use search to find your project*
 
@@ -350,6 +350,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
         ![Alt text](docs/oauth-credential.png "OAuth Server-to-Server Credential")
 
     - Replace `<TENANT_ID>` in the value for the `COMMERCE_BASE_URL` with the tenant ID for your assigned seat.
+        - The tenant ID can be found from the Commerce Admin URL contained in the final output after creating the Commerce storefront. The Admin URL is formatted as `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
 
     - Fill in the `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
 
