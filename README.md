@@ -2,8 +2,6 @@
 
 # Commerce Partner Days - ACCS Session
 
-https://github.com/rojoangel/extensibility-lab
-
 ## Codespaces Setup
 
 ### Login
@@ -15,7 +13,7 @@ https://github.com/rojoangel/extensibility-lab
 2. Login with the following credentials. You will find your assigned seat number on your desk.
 ```
 Email: pd-sjc+<SEAT_NUMBER>@adobecreate.com
-Password: TBD
+Password: Check with the lab instructor
 ```
 ![image](https://github.com/user-attachments/assets/6f0bd9d3-2b78-46c3-ab7f-a15c1661a4fd)
 
@@ -98,7 +96,7 @@ aio commerce init
 6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter
 7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`
     - The instance will be followed by a URL formatted as `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`. Record the tenant ID for later use in the lab.
-8. From the list of projects, select the project assigned to you. You can search for your project by typing `TBD`
+8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD SJC <SEAT_NUMBER>`
 9. Select the Production workspace
 10. This will connect the selected instance through an API Mesh on the selected Project and Workspace
 11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target
@@ -153,6 +151,8 @@ The above config references a file called `sampleRatings.json`. Lets create this
 }
 ```
 
+For reference, here is the final [sampleRatings.json](./lab/mesh/sampleRatings.json) file.
+
 ### Define `rating` field on `products` query
 
 At this point we have added the Ratings source to the mesh. Now lets create the `ratings` field on the `products` query. Add the following contents to the `mesh_config.json` file under `meshConfig`:
@@ -198,6 +198,8 @@ Add the resolver file reference to the `meshConfig`:
 "additionalResolvers": ["./ratingsResolvers.js"],
 ```
 
+For reference, here are the final [ratingsResolver.js](./lab/mesh/ratingsResolver.js) and [mesh_config.json](./lab/mesh/mesh_config.json) files.
+
 ### Deploy mesh changes
 
 Finally, lets deploy the mesh config to publish the new changes:
@@ -242,6 +244,8 @@ Add the following block to the `overrideGQLOperations` array in `build.mjs` file
 },
 ```
 
+For reference, here is the final [build.mjs](./lab/storefront/build.mjs) file.
+
 This piece of code will instruct the dropin to fetch additional data from the Mesh.
 
 ### Consume Product Ratings
@@ -251,6 +255,8 @@ Add the following field to the `ProductDetails` model in `scripts/initializers/p
 ```js
 transformer: (data) => data,
 ```
+
+For reference, here is the final [pdp.js](./lab/storefront/pdp.js) file.
 
 This will instruct the model to pass the new data to the PDP block.
 
@@ -268,11 +274,13 @@ Next, on line 89, add the following code to select the new div and store the ref
 const $ratings = fragment.querySelector('.product-details__ratings');
 ```
 
-Lastly, use the stored reference to display product ratings. Add the following code on line 234:
+Lastly, use the stored reference to display product ratings. Add the following code on line 232 inside the `if` condition:
 
 ```js
 $ratings.append(`${product.rating.average} stars average (out of ${product.rating.total} ratings)`);
 ```
+
+For reference, here is the final [product-details.js](./lab/storefront/product-details.js) file.
 
 ### Reload dropins
 
