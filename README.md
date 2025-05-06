@@ -95,7 +95,6 @@ aio commerce init
 5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`
 6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter
 7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`
-    - The instance will be followed by a URL formatted as `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`. Record the tenant ID for later use in the lab.
 8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD SJC <SEAT_NUMBER>`
 9. Select the Production workspace
 10. This will connect the selected instance through an API Mesh on the selected Project and Workspace
@@ -344,15 +343,15 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
     cp env.dist .env
     ```
 
-    Then configure the `.env` file with all the information required:
+    Then configure the `.env` file with all the information required. For reference, the provided [sample .env file](./lab/starter-kit/env.sample).
 
     - To find the values for the OAuth config variables, click **OAuth Server-to-Server** in the Developer Console Workspace overview page for the Stage workspace.
 
         ![Alt text](docs/oauth-credential.png "OAuth Server-to-Server Credential")
 
-    - Set the REST endpoint for your ACCS instance as the value for the `COMMERCE_BASE_URL`. The endpoint should be in the following format: `https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>/`. Use the tenant ID you recorded while creating your Commerce storefront.
+    - Replace `<TENANT_ID>` in the value for the `COMMERCE_BASE_URL` with the tenant ID for your assigned seat.
 
-    - Fill in the `IO_CONSUMER_ID`, `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
+    - Fill in the `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
 
 1.	Link the project in the current directory to the project in the Adobe Developer Console by running the following commands in the terminal:
 
