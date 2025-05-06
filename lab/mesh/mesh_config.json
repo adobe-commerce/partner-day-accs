@@ -19,7 +19,7 @@
         "name": "CommerceSaaSGraphQl",
         "handler": {
           "graphql": {
-            "endpoint": "https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>/graphql",
+            "endpoint": "<ACCS_BACKEND_URL>/graphql",
             "useGETForQueries": true,
             "operationHeaders": {
               "Content-Type": "application/json",
