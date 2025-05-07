@@ -119,7 +119,7 @@ Let's stitch Commerce backend and Ratings API using API Mesh. In this section we
 
 Here is the sample Ratings API to use with the mesh: `https://ratings-api.apimesh-adobe-test.workers.dev`
 
-Let's add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array.
+Let's add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array. Make sure to add a comma after the Adobe Commerce Backend source that is already listed in the mesh config.
 
 ```json
 {
