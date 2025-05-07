@@ -6,7 +6,7 @@
 
 ### Login
 
-1. Go to the Adobe Developer console: http://developer.adobe.com/console
+1. Go to the Adobe Developer console: http://developer.adobe.com/console.
         
     The Developer Console is the gateway to access all the services and tooling available as part of the Adobe Developer Ecosystem.
 
@@ -18,14 +18,14 @@ Password: Check with the lab instructor
 ![image](https://github.com/user-attachments/assets/6f0bd9d3-2b78-46c3-ab7f-a15c1661a4fd)
 
 ![image](https://github.com/user-attachments/assets/f40f0c7d-2681-41d0-b6c6-7f9ea45131c3)
-3. Select `Adobe Commerce Labs` profile
+3. Select `Adobe Commerce Labs` profile.
 ![image](https://github.com/user-attachments/assets/1f229b81-e24f-414d-b9bb-49ca21632281)
-4. After logging in, accept Terms and Conditions
+4. After logging in, accept Terms and Conditions.
 ![image](https://github.com/user-attachments/assets/21cccf57-a0b7-4274-8d51-fd80cc2c767c)
 
 ### Setup
  
-1. Visit https://github.com/adobe-commerce/partner-day-accs
+1. Visit https://github.com/adobe-commerce/partner-day-accs.
 2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
 3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
@@ -36,7 +36,7 @@ Password: Check with the lab instructor
 ```bash
 unset GITHUB_TOKEN
 ```
-9. Now lets connect the terminal to your personal Github account. Run the following command:
+9. Now let's connect the terminal to your personal Github account. Run the following command:
 ```bash
 gh auth login
 ```
@@ -48,7 +48,7 @@ Once done you should see the following on the login screen:
 
 <img width="1255" alt="image" src="https://github.com/user-attachments/assets/3678bc9c-cd52-4505-8c7b-6514731e1a33" />
 
-10. Now lets connect the terminal to your assigned Adobe IMS account. Run the following command in the terminal:
+10. Now let's connect the terminal to your assigned Adobe IMS account. Run the following command in the terminal:
 ```bash
 aio auth login
 ```
@@ -69,7 +69,7 @@ No worries, make a note of the port number in the address bar, for instance:
 
 <img width="1022" alt="image" src="https://github.com/user-attachments/assets/4e88cc88-47bb-479b-8583-d2954ce43260" />
 
-Go to the ports tab next to the terminal in the Codespaces window
+Go to the ports tab next to the terminal in the Codespaces window.
 
 <img width="1663" alt="image" src="https://github.com/user-attachments/assets/4be13b53-12d8-4336-9536-f6252eff8fee" />
 
@@ -83,24 +83,24 @@ Navigate back to the error window and replace `127.0.0.1:<PORT_NUMBER>` with the
 
 ## Create Storefront
 
-Congratulations on creating a codespace and completing the pre-requisite steps. Now comes the fun part, lets create a storefront and connect it to a Commerce instance using API Mesh.
+Congratulations on creating a codespace and completing the pre-requisite steps. Now comes the fun part. Let's create a storefront and connect it to a Commerce instance using API Mesh.
 
 1. Run the commerce scaffolder CLI
 ```bash
 aio commerce init
 ```
-2. Make sure the CLI has selected the right github account. If so, Enter `y`.
-3. Enter a name that will be used as the name the storefront repo. Make sure it does not contain underscores and was not used in the past. We recommend a short repo name 
-4. Select the first template in the list `adobe-commerce/adobe-demo-store`
-5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`
-6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter
-7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`
-8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD SJC <SEAT_NUMBER>`
-9. Select the Production workspace
-10. This will connect the selected instance through an API Mesh on the selected Project and Workspace
-11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target
-12. Select the appropriate account to install the AEM Sync Bot and complete the login process if any
-13. Select the option to only install on selected repositories. Enter the name of the repo from 2nd question in the dropdown and click save.
+2. Make sure the CLI has selected the right github account. If so, enter `y`.
+3. Enter a name that will be used as the name the storefront repo. Make sure it does not contain underscores and was not used in the past. We also recommend using a short repo name.
+4. Select the first template in the list `adobe-commerce/adobe-demo-store`.
+5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`.
+6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter.
+7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`.
+8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD SJC <SEAT_NUMBER>`.
+9. Select the Production workspace.
+10. This will connect the selected instance through an API Mesh on the selected Project and Workspace.
+11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
+12. Select the appropriate account to install the AEM Sync Bot and complete the login process, if any.
+13. Select the option to only install on selected repositories. Enter the name of the repo from the 3rd step in the dropdown and click save.
 14. Go back to the terminal and click enter to move forward. At this point, the CLI will validate the code sync and continue with content cloning. This will take a minute or 2.
 15. Congratulations, you have created your own Storefront. Copy the final details and save it for future reference.
 
@@ -115,11 +115,11 @@ aio commerce init
 
 ### Stitch Ratings API with Adobe Commerce Backend
 
-Lets stitch Commerce backend and Ratings API using API Mesh. In this section we will create a new `ratings` field on the Products query and implement it using the Ratings API.
+Let's stitch Commerce backend and Ratings API using API Mesh. In this section we will create a new `ratings` field on the Products query and implement it using the Ratings API.
 
 Here is the sample Ratings API to use with the mesh: `https://ratings-api.apimesh-adobe-test.workers.dev`
 
-Lets add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array.
+Let's add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array.
 
 ```json
 {
@@ -141,7 +141,7 @@ Lets add the new Ratings API to the Mesh. Open the `mesh_config.json` and add th
 }
 ```
 
-The above config references a file called `sampleRatings.json`. Lets create this file with the following contents:
+The above config references a file called `sampleRatings.json`. Let's create this file with the following contents:
 
 ```json
 {
@@ -154,7 +154,7 @@ For reference, here is the final [sampleRatings.json](./lab/mesh/sampleRatings.j
 
 ### Define `rating` field on `products` query
 
-At this point we have added the Ratings source to the mesh. Now lets create the `ratings` field on the `products` query. Add the following contents to the `mesh_config.json` file under `meshConfig`:
+At this point we have added the Ratings source to the mesh. Now let's create the `ratings` field on the `products` query. Add the following contents to the `mesh_config.json` file under `meshConfig`:
 
 ```json
 "additionalTypeDefs": "type Rating { average: Int, total: Int } extend type SimpleProductView { rating: Rating }",
@@ -219,9 +219,9 @@ Lets update the storefront to display ratings in PDP pages.
 
 ### Storefront Codespace Setup
 
-Go to the new storefront repo created by the terminal. Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete, typically takes around 2 minutes.
+Go to the new storefront repo created by the terminal. Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
 
-Once the codespace it ready, lets make code some chagnes to consume and display product ratings on the product pages.
+Once the codespace it ready, let's make code some changes to consume and display product ratings on the product pages.
 
 ### Query Product Ratings
 
@@ -245,7 +245,7 @@ Add the following block to the `overrideGQLOperations` array in `build.mjs` file
 
 For reference, here is the final [build.mjs](./lab/storefront/build.mjs) file.
 
-This piece of code will instruct the dropin to fetch additional data from the Mesh.
+This piece of code will instruct the drop-in to fetch additional data from the Mesh.
 
 ### Consume Product Ratings
 
@@ -281,9 +281,9 @@ $ratings.append(`${product.rating.average} stars average (out of ${product.ratin
 
 For reference, here is the final [product-details.js](./lab/storefront/product-details.js) file.
 
-### Reload dropins
+### Reload drop-ins
 
-Run the following command to re-install the update dropins:
+Run the following command to re-install the updated drop-ins:
 
 ```bash
 yarn install:dropins
@@ -324,7 +324,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
 
     ![Alt text](docs/workspace-add-api.png "Add API to workspace")
 
-    Add the following API services, one at a time:
+    Then add the following API services:
     - Repeat **Add service** > **API** > I/O Events > Next > Save configured API
     - Repeat **Add service** > **API** > Adobe I/O Events for Adobe Commerce > Next > Save configured API
 
@@ -343,7 +343,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
     cp env.dist .env
     ```
 
-    Then configure the `.env` file with all the information required. For reference, the provided [sample .env file](./lab/starter-kit/env.sample).
+    Then configure the `.env` file with all the information required. For reference, the provided [sample .env file](./lab/starter-kit/env.sample) shows how the file will look after configuration is complete.
 
     - To find the values for the OAuth config variables, click **OAuth Server-to-Server** in the Developer Console Workspace overview page for the Stage workspace.
 
@@ -386,7 +386,7 @@ The purpose of this exercise is to demonstrate sending events from Commerce to A
 
 ### 2. Onboarding
 
-The starter kit provides boilerplate code for synchronizing entities across systems and onboarding scripts to simplify setup. During installation, there are low/no manual activities required.
+The starter kit provides boilerplate code for synchronizing entities across systems and onboarding scripts to simplify setup. During installation, there is minimal activity required.
 
 To ensure flexibility for the onboarding scripts, the starter kit code provides a few different JSON configuration files to match your business requirements. 
 
@@ -412,7 +412,7 @@ All the files were pre-configured for this lab. The most important files are des
 
 - `scripts/commerce-event-subscribe/config/commerce-event-subscribe.json`
 
-  Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales._order_save_commit_after` that will be used in this lab is provided in this file.
+  Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales._order_save_commit_after` event that will be used in this lab is provided in this file.
 
 Now it's time to realize the onboarding. Go to your terminal and run the following commands:
 ```bash
