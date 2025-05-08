@@ -301,6 +301,8 @@ Go to any PDP page to verify the changes.
 
 The purpose of this exercise is to demonstrate sending events from Commerce to Adobe Developer App Builder. You will use a simplified version of the Adobe Commerce Integration Starter Kit to configure Commerce and an App Builder project, allowing for the sending of events about saved orders.
 
+For this part of the lab, you should make changes in the repo containing this README. The storefront repo will no longer be used.
+
 ### 1. Configure the Starter Kit
 
 1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization. 
