@@ -1,5 +1,3 @@
-:exclamation: draft :exclamation:
-
 # Commerce Partner Days - ACCS Session
 
 ## Codespaces Setup
