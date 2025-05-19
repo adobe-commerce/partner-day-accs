@@ -111,9 +111,26 @@ aio commerce init
 
 ## Mesh Extensibility (Phase 2)
 
-### Stitch Ratings API with Adobe Commerce Backend
-
 Let's stitch Commerce backend and Ratings API using API Mesh. In this section we will create a new `ratings` field on the Products query and implement it using the Ratings API.
+
+There are 2 options to achieve this:
+
+1. Use a prebuilt mesh config
+2. Implement the mesh config changes manually
+
+### 1. Use a Pre-Built Mesh Config
+
+Using the terminal, move to the `lab/mesh` folder.
+
+```bash
+cd lab/mesh/
+```
+
+Copy and paste the commerce backend URL from the CLI into the `mesh_config.json` file on line 22.
+
+That's it, move over to the [deploy section](#deploy-mesh-changes) to continue with the next steps.
+
+### 2.1 Stitch Ratings API with Adobe Commerce Backend
 
 Here is the sample Ratings API to use with the mesh: `https://ratings-api.apimesh-adobe-test.workers.dev`
 
@@ -150,7 +167,7 @@ The above config references a file called `sampleRatings.json`. Let's create thi
 
 For reference, here is the final [sampleRatings.json](./lab/mesh/sampleRatings.json) file.
 
-### Define `rating` field on `products` query
+### 2.2 Define `rating` field on `products` query
 
 At this point we have added the Ratings source to the mesh. Now let's create the `ratings` field on the `products` query. Add the following contents to the `mesh_config.json` file under `meshConfig`:
 
@@ -158,7 +175,7 @@ At this point we have added the Ratings source to the mesh. Now let's create the
 "additionalTypeDefs": "type Rating { average: Int, total: Int } extend type SimpleProductView { rating: Rating }",
 ```
 
-### Implement `rating` field on `products` query
+### 2.3 Implement `rating` field on `products` query
 
 The above code defined a new type called `Rating` and added it to the `SimpleProductView` under a new field called `rating`. Now lets implement that field using the new Ratings API. Create a new file called `ratingsResolvers.js` and add the following contents:
 
