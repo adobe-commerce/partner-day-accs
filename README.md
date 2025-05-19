@@ -331,8 +331,6 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     **PD BAN <SEAT_NUMBER>**
 
-    *Tip: Use search to find your project*
-
     Select the **Stage** workspace.
 
 1. Three services need to be added to this workspace to prepare for securely receive events from Adobe Commerce.
@@ -419,7 +417,7 @@ All the files were pre-configured for this lab. The most important files are des
 
 - `scripts/onboarding/config/events.json`
 
-  Defines all the meaningful events that the integration needs to care about. For this lab, we'll focus on the `com.adobe.commerce.observer.sales._order_save_commit_after` event listed at the beginning of this file.
+  Defines all the meaningful events that the integration needs to care about. For this lab, we'll focus on the `com.adobe.commerce.observer.sales_order_save_commit_after` event listed at the beginning of this file.
   
   If more events were required, we would specify them in this file. Although not used for this lab, the full starter kit also provides support for product, customer, and stock events.
 
@@ -429,7 +427,7 @@ All the files were pre-configured for this lab. The most important files are des
 
 - `scripts/commerce-event-subscribe/config/commerce-event-subscribe.json`
 
-  Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales._order_save_commit_after` event that will be used in this lab is provided in this file.
+  Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales_order_save_commit_after` event that will be used in this lab is provided in this file.
 
 Now it's time to realize the onboarding. Go to your terminal and run the following commands:
 ```bash
