@@ -56,6 +56,6 @@
       }
     ],
     "additionalTypeDefs": "type Rating { average: Int, total: Int } extend type SimpleProductView { rating: Rating }",
-    "additionalResolvers": ["./ratingsResolvers.js"]
+    "additionalResolvers": ["./ratingsResolver.js"]
   }
 }
