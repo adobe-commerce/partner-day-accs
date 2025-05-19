@@ -391,9 +391,9 @@ For this part of the lab, you should make changes in the repo containing this RE
     aio app deploy
     ```
 
-    Take note of the link to the deployed application in the Experience Cloud shell. This will be used later in the lab.
+    Take note of the link to the deployed `check-order` web action and the link to the deployed application in the Experience Cloud shell. These will be used later in the lab.
 
-    ![Alt text](docs/deployed-app-url.png "Application's Experience Cloud shell URL")
+    ![Alt text](docs/deployed-app-urls.png "Deployed application URLs")
 
     After running the command and clicking the **Runtime** tab in the Developer Console for your Stage workspace, runtime actions are visible.
 
@@ -413,21 +413,37 @@ All the files were pre-configured for this lab. The most important files are des
 
   Defines the providers required during the integration. The "key" field will reference the providers in other configuration files. The rest of the fields are descriptive.
 
-  For this specific lab, we will focus on creating a Commerce provider for sending events to App Builder. Although not used for this specific case, the starter kit also supports creation of backoffice providers for sending information from backoffice systems to Commerce.
+  In this lab, we will create a Commerce provider for sending events from Commerce to App Builder and a Backoffice provider that we will use to send information from from App Builder to Commerce.
 
 - `scripts/onboarding/config/events.json`
 
-  Defines all the meaningful events that the integration needs to care about. For this lab, we'll focus on the `com.adobe.commerce.observer.sales_order_save_commit_after` event listed at the beginning of this file.
+  Defines all the meaningful events that the integration needs to care about.
+  
+  For this lab, we'll send the `com.adobe.commerce.observer.sales_order_save_commit_after` event listed at the beginning of this file from Commerce to the Commerce provider. Additionally, we'll have our App Builder app send the `be-observer.sales_order_shipment_create` at the bottom of the file to the Backoffice provider in response to UI button clicks.
+  
+  For simplicity, the App Buider app sends events to the Backoffice provider in this lab, but a third-party back office system could instead send events to the Backoffice provider in a real-world scenario.
   
   If more events were required, we would specify them in this file. Although not used for this lab, the full starter kit also provides support for product, customer, and stock events.
 
 - `scripts/onboarding/config/starter-kit-registrations.json`
 
-  Defines the required event registrations that will be created in App Builder. For this lab, the file has been configured so that only a registration for order events from Commerce will be created. When the registration is created, order save Commerce events will trigger runtime action code that we've added in the `actions/order/commerce` directory to save order data within the App Builder app.
+  Defines the required event registrations that will be created in App Builder.
+  
+  For this lab, the file has been configured so that only registration for order events from the Commerce provider and a registration for shipment creation events from the Backoffice provider will be created.
+  
+  When the registration for the Commerce provider event is created, order save Commerce events will trigger runtime action code that we've added in the `actions/order/commerce` directory to save order data within the App Builder app.
+
+  When the registration for the Backoffice provider event is created, shipment creation events will trigger runtime action code that we've added in the `actions/order/external` directory to send a shipment creation request to Commerce via REST API.
 
 - `scripts/commerce-event-subscribe/config/commerce-event-subscribe.json`
 
   Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales_order_save_commit_after` event that will be used in this lab is provided in this file.
+
+For the purposes of this lab, an additional onboarding script and configuration file have been added to automate configuration of an Adobe Commerce Webhook using a webhook subscription API available in ACCS. The configuration file for the webhooks onboarding script is
+
+- `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
+
+  Defines the webhooks that must be subscribed to in Adobe Commerce. Configuration for an `observer.sales_order_place_before` webhook that will be used in this lab is provided in this file.
 
 Now it's time to realize the onboarding. Go to your terminal and run the following commands:
 ```bash
@@ -436,7 +452,7 @@ npm run onboard
 
 After successfully running this command, an event registration within your Stage workspace will be visible in the Developer Console.
 
-![Alt text](docs/workspace-overview-registration.png "Workspace overview with event registration")
+![Alt text](docs/workspace-overview-registrations.png "Workspace overview with event registrations")
 
 ![Alt text](docs/registration-details.png "Event registration details")
 
@@ -445,12 +461,77 @@ Then, to automatically subscribe to the order save Commerce event, go to your te
 npm run commerce-event-subscribe
 ```
 
-### 3. Send information from Adobe Commerce to App Builder
+Finally, we need to configure an order save webhook. Before doing so, open `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`. 
 
-Navigate to the link for the deployed application in the Experience Cloud shell that was included in the console output after running the `aio app deploy` command. The application contains a single page UI with a panel labeled **Latest Orders Received**. The panel is initially empty, but a grid with information about saved orders will appear after Commerce order save events are received and saved by the App Builder app's runtime action. The grid refreshes at regular intervals, allowing for the display of new order information.
+On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy`. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
 
-In the storefront for your Commerce instance, place at least one order. After Commerce order save events are received in App Builder, the panel in the app's UI will look similar to the following:
+The order save webhook can then be automatically configured by running the following command
+```bash
+npm run commerce-webhook-subscribe
+```
 
-![Alt text](docs/order-grid-ui.png "Application UI Order Grid")
+### 3. Synchronous communication between Commerce and App Builder
 
-This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
+The Commerce webhook configured using the `npm run commerce-webhook-subscribe` command allows for synchronous communication between Commerce and App Builder before an order is placed.
+
+**TODO**
+
+### 4. Send events from Adobe Commerce to App Builder
+
+In this part of the lab, we will demonstrate the sending of events from Commerce to App Builder.
+
+1. Navigate to the link for the deployed application in the Experience Cloud shell that was included in the console output after running the `aio app deploy` command.
+
+    The application contains a panel labeled **Latest Orders Received**. The panel is initially empty, but a grid with information about saved orders will appear after Commerce order save events are received and saved by the App Builder app's runtime action configured in the **Commerce Order Sync** event registration. The grid refreshes at regular intervals, allowing for the display of new order information.
+
+1. In the storefront for your Commerce instance, place at least one order.
+
+1. After placing an order, you can confirm that the event was received in the Developer Console by selecting the **Commerce Order Sync** event in the workspace's left navigation and going to the **Debug Tracing** tab.
+
+    ![Alt text](docs/dev-console-commerce-events.png "Received Commerce events in the Developer Console")
+
+1. Once the panel in the deployed application's UI refreshes, an order information grid like the following will appear in the **Latest Orders Received** panel:
+
+    ![Alt text](docs/order-grid-ui.png "Application UI Order Grid")
+
+The runtime action that receives Commerce order save events in this part of the lab simply stores received order information for display in the UI, but the action code could also be modified to send information received from Commerce to a third-party back office system.
+
+### 5. Send information from App Builder to Adobe Commerce
+
+In this part of the lab, we will demonstrate the sending of information from an external system to Commerce.
+
+1. In the **Latest Orders Received** grid in the deployed application's UI, click the **Ship** button in the row for a pending order.
+
+    ![Alt text](docs/order-grid-ship-button.png "Order 'Ship' button")
+
+1. A panel labeled **Ship Order** will appear with the relevant order number and a tracking number input field.
+
+    ![Alt text](docs/ship-order-ui.png "Ship Order panel")
+
+    Enter a tracking number of your choice into the tracking number input field and click the blue **Ship** button at the bottom of the panel. A green **Shipment created** badge will appear at the bottom of the panel when successful.
+
+    ![Alt text](docs/ship-order-success.png "Ship Order success")
+
+    This indicates that a shipment creation event has successfully been sent to the Backoffice provider.
+
+1. You can confirm that the shipment created event was received in the Developer Console by selecting the **Backoffice Order Sync** event in the workspace's left navigation and going to the **Debug Tracing** tab.
+
+    ![Alt text](docs/dev-console-backoffice-events.png "Received Backoffice events in the Developer Console")
+
+1. The **Backoffice Order Sync** event registration sends shipment created events to a runtime action, which uses the event payload to build a request for creating the shipment in Commerce via REST API. We can navigate to the Commerce Admin to see the created shipment for the order selected in the App Builder app's UI. The URL for the Commerce Admin assigned to your seat is formatted as
+
+    `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
+    
+    This URL is also present in the final output of the command run during the storefront creation part of the lab.
+
+    Login to the admin by using your assigned seat's email and selecting the `Adobe Commerce Labs` organization.
+    
+    Once you are logged in, navigate to **Sales** > **Orders** and click **View** in the orders grid fo the order that you entered a shipping tracking number for in the App Builder app's UI. Then select **Shipments** from the left navigation.
+
+    You should see a grid with a recently-created shipment.
+
+    ![Alt text](docs/order-shipment-grid.png "Order shipment grid")
+
+    Click **View** in the **Action** column for this new shipment. On the **View Shipment** page, scroll down to the **Payment & Shipping Method** section. Under **Shipping and Tracking Information**, you should see information for your shipment, including the tracking number that you entered in the App Builder app's UI.
+
+    ![Alt text](docs/shipping-tracking-number.png "Shipping tracking number in Admin")

@@ -1,3 +1,16 @@
+create-shipment:
+  function: ./create-shipment/index.js
+  web: 'yes'
+  runtime: nodejs:20
+  inputs:
+    LOG_LEVEL: debug
+    OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
+    IO_CONSUMER_ID: $IO_CONSUMER_ID
+    IO_MANAGEMENT_BASE_URL: $IO_MANAGEMENT_BASE_URL
+    AIO_runtime_namespace: $AIO_RUNTIME_NAMESPACE
+  annotations:
+    require-adobe-auth: true
+    final: true
 get-orders:
   function: ./get-orders/index.js
   web: 'yes'

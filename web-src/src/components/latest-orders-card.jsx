@@ -28,11 +28,13 @@ import { useWebAction } from "../hooks/use-web-action";
 
 /**
  * A component to display details of the latest saved orders.
+ * @param {Function} setOrderIds - Function to set the currently-selected order IDs.
  * @param {Object} ims - Credentials for the active IMS org.
  * @param {number} updateInterval - The interval in milliseconds to update the order list.
  * 
  */
 export function LatestOrdersCard({
+  setOrderIds,
   ims,
   updateInterval = 10000
 }) {
@@ -89,6 +91,7 @@ export function LatestOrdersCard({
               <Column>Amount</Column>
               <Column>Item Count</Column>
               <Column>Status</Column>
+              <Column>Actions</Column>
             </TableHeader>
             <TableBody>
               {orders && orders.map((order) => (
@@ -97,6 +100,19 @@ export function LatestOrdersCard({
                   <Cell>{order.grand_total}</Cell>
                   <Cell>{order.total_item_count}</Cell>
                   <Cell>{order.status}</Cell>
+                  <Cell>
+                    {order.status === "pending"? (
+                    <Button 
+                      variant="secondary"
+                      onPress={() => setOrderIds({
+                        entity_id: order.entity_id,
+                        increment_id: order.increment_id
+                      })}
+                    >
+                      <Text>Ship</Text>
+                    </Button>
+                    ) : null }
+                  </Cell>
                 </Row>
               ))}
             </TableBody>

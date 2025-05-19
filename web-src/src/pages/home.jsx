@@ -9,17 +9,28 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-import React from "react";
+import React, { useState } from "react";
 import { Flex, View} from "@adobe/react-spectrum";
 
 import { LatestOrdersCard } from "../components/latest-orders-card";
+import { ShipOrderCard } from "../components/ship-order-card";
 
 /** Main component that displays the home page of the dashboard. */
 export function Home(props) {
+  const [orderIds, setOrderIds] = useState({});
+
   return (
     <View height="100%" overflow="auto">
       <Flex direction="column" gap="size-200">
-        <LatestOrdersCard ims={props.ims}/>
+        <LatestOrdersCard
+          setOrderIds={setOrderIds}
+          ims={props.ims}
+        />
+        <ShipOrderCard
+          orderIds={orderIds}
+          setOrderIds={setOrderIds}
+          ims={props.ims}
+        />
       </Flex>
     </View>
   );
