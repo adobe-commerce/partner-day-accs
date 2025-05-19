@@ -177,7 +177,7 @@ At this point we have added the Ratings source to the mesh. Now let's create the
 
 ### 2.3 Implement `rating` field on `products` query
 
-The above code defined a new type called `Rating` and added it to the `SimpleProductView` under a new field called `rating`. Now lets implement that field using the new Ratings API. Create a new file called `ratingsResolvers.js` and add the following contents:
+The above code defined a new type called `Rating` and added it to the `SimpleProductView` under a new field called `rating`. Now lets implement that field using the new Ratings API. Create a new file called `ratingsResolver.js` and add the following contents:
 
 ```js
 module.exports = {
@@ -209,7 +209,7 @@ module.exports = {
 Add the resolver file reference to the `meshConfig`:
 
 ```json
-"additionalResolvers": ["./ratingsResolvers.js"],
+"additionalResolvers": ["./ratingsResolver.js"],
 ```
 
 For reference, here are the final [ratingsResolver.js](./lab/mesh/ratingsResolver.js) and [mesh_config.json](./lab/mesh/mesh_config.json) files.
