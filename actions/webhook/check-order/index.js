@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 
 const { Core } = require('@adobe/aio-sdk')
 const { HTTP_OK } = require('../../../actions/constants')
+const Openwhisk = require('../../openwhisk')
 const { validateData } = require('./validator')
 const { checkOrderLimit } = require('./order')
 const { stringParameters } = require('../../utils')
@@ -35,7 +36,11 @@ async function main (params) {
       return webhookErrorResponse(validationResult.message)
     }
 
-    const checkIsValidResult = await checkOrderLimit(params.order)
+    const openwhiskClient = new Openwhisk(params.API_HOST, params.API_AUTH)
+    const res = await openwhiskClient.invokeAction('emea_partner_days_2025/get-config', params)
+
+    logger.debug(`Stock validation config: ${stringParameters(res)}`)
+    const checkIsValidResult = await checkOrderLimit(params.order, res.response.result.body)
     if (!checkIsValidResult.success) {
       logger.error(`${checkIsValidResult.message}`)
       return webhookErrorResponse(checkIsValidResult.message)

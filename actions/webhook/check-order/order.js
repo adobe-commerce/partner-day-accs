@@ -9,32 +9,32 @@ the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTA
 OF ANY KIND, either express or implied. See the License for the specific language
 governing permissions and limitations under the License.
 */
-const stateLib = require('@adobe/aio-lib-state')
-const {Core} = require("@adobe/aio-sdk");
-const { STOCK_ITEM_QTY_KEY } = require('../../../actions/constants')
+const { Core } = require('@adobe/aio-sdk')
 
 /**
  * This method check the stock of received items in an external backoffice application
  * @param {object} params include the parameters received in the runtime action
+ * @param {object} stockValidationConfig the current stock validation configuration
  * @returns {object} success status and error message
  */
-async function checkOrderLimit (params) {
+async function checkOrderLimit (params, stockValidationConfig) {
   const logger = Core.Logger('webhook-check-order', { level: params.LOG_LEVEL || 'debug' })
-  // @TODO implement the logic to check authentication with you external application
-  // @TODO return { success: false, message: 'error message'} in case of failure
 
-  const state = await stateLib.init()
-  const stockItemQty = (await state.get(STOCK_ITEM_QTY_KEY))?.value || 3
-  logger.debug(`${STOCK_ITEM_QTY_KEY}: ${stockItemQty}`)
-
-  let isValid = true;
-  let listOfInvalidItems = [];
-  params.items.forEach(item => {
-    if (item.qty_ordered > stockItemQty) {
-      isValid = false;
-      listOfInvalidItems.push(item);
+  if (!stockValidationConfig.enableStockValidation) {
+    return {
+      success: true
     }
-  });
+  }
+  logger.debug(`Validating order items' quantity is less than: ${stockValidationConfig.maxAmount}`)
+
+  let isValid = true
+  const listOfInvalidItems = []
+  params.items.forEach(item => {
+    if (item.qty_ordered > stockValidationConfig.maxAmount) {
+      isValid = false
+      listOfInvalidItems.push(item)
+    }
+  })
 
   if (isValid) {
     return {
@@ -44,7 +44,7 @@ async function checkOrderLimit (params) {
 
   return {
     success: false,
-    message: `The following items have exceeded the item order limit: ${listOfInvalidItems.map(item => item.sku).join((','))}`
+    message: `The following items have exceeded the item quantity limit: ${listOfInvalidItems.map(item => item.sku).join((','))}`
   }
 }
 

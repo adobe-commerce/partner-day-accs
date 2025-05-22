@@ -12,6 +12,7 @@
   "dependencies": {
     "@adobe/aio-lib-ims": "^7.0.2",
     "@adobe/aio-lib-state": "^5.1.0",
+    "@adobe/aio-lib-files": "^4.1.0",
     "@adobe/aio-sdk": "^6.0.0",
     "@adobe/commerce-sdk-auth": "^0.1.0",
     "@adobe/exc-app": "^1.4.1",
