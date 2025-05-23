@@ -41,7 +41,7 @@ async function main (params) {
 
     const state = await stateLib.init()
     const storedData = await state.get(ORDER_KEY_PREFIX + params.data.orderId)
-    let parsedData;
+    let parsedData
     if (!storedData || !(parsedData = JSON.parse(storedData.value)).items) {
       logger.error(`Order item data not found for order with id: ${params.data.orderId}`)
       return actionErrorResponse(HTTP_BAD_REQUEST, `Order item data not found for order with id: ${params.data.orderId}`)

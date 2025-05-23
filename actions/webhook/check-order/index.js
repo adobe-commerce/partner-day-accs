@@ -17,6 +17,7 @@ const { validateData } = require('./validator')
 const { checkOrderLimit } = require('./order')
 const { stringParameters } = require('../../utils')
 const { webhookErrorResponse, webhookSuccessResponse } = require('../../responses')
+const { checkMissingRequestInputs } = require('../../../actions/utils')
 
 /**
  * This web action is used to check stock of cart items on real time.
@@ -37,7 +38,9 @@ async function main (params) {
     }
 
     const openwhiskClient = new Openwhisk(params.API_HOST, params.API_AUTH)
-    const res = await openwhiskClient.invokeAction('emea_partner_days_2025/get-config', params)
+    const res = await openwhiskClient.invokeAction('emea_partner_days_2025/get-config', {
+      __ow_headers: params.__ow_headers
+    })
 
     logger.debug(`Stock validation config: ${stringParameters(res)}`)
     const checkIsValidResult = await checkOrderLimit(params.order, res.response.result.body)

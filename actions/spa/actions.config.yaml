@@ -7,7 +7,7 @@ create-shipment:
     OAUTH_CLIENT_ID: $OAUTH_CLIENT_ID
     IO_CONSUMER_ID: $IO_CONSUMER_ID
     IO_MANAGEMENT_BASE_URL: $IO_MANAGEMENT_BASE_URL
-    AIO_runtime_namespace: $AIO_RUNTIME_NAMESPACE
+    AIO_runtime_namespace: $AIO_runtime_namespace
   annotations:
     require-adobe-auth: true
     final: true
