@@ -10,6 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 const { Core } = require('@adobe/aio-sdk')
+const { checkMissingRequestInputs } = require('../../../actions/utils')
 
 /**
  * This method check the stock of received items in an external backoffice application
@@ -19,6 +20,14 @@ const { Core } = require('@adobe/aio-sdk')
  */
 async function checkOrderLimit (params, stockValidationConfig) {
   const logger = Core.Logger('webhook-check-order', { level: params.LOG_LEVEL || 'debug' })
+
+  const errorMessage = checkMissingRequestInputs(stockValidationConfig, ['enableStockValidation', 'maxAmount'], [])
+  if (errorMessage) {
+    return {
+      success: false,
+      message: 'Failed to read stock validation configuration'
+    }
+  }
 
   if (!stockValidationConfig.enableStockValidation) {
     return {
