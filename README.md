@@ -454,3 +454,57 @@ In the storefront for your Commerce instance, place at least one order. After Co
 ![Alt text](docs/order-grid-ui.png "Application UI Order Grid")
 
 This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
+
+## Troubleshooting Guide
+
+### aio CLI
+
+1. In case you need guidance on commands or flags 
+
+    Run `aio --help` to see all available commands and flags. 
+
+    For specific commands, use the `--help` flag. For example: 
+
+        aio console --help 
+
+        aio commerce –help 
+
+1. In case of invalid login
+
+    Run `aio config clear` 
+
+    Run `aio auth login –-force`
+
+    Switch over to the browser and use the lab username and password to login 
+
+    Select **Adobe Commerce Labs** profile 
+
+    Switch back to the terminal to continue 
+
+1. In case of a failed init: 
+
+    Run `aio api-mesh delete`
+
+    Re-run `aio commerce init`
+
+1. In case of wrong Org selection during init  
+
+    Run `aio console org select` 
+
+1. In case of wrong Project selection during init 
+
+    Run `aio console project select`
+
+1. In case of wrong Workspace selection during init 
+
+    Run `aio console workspace select`
+
+1. In case of invalid Tenant selection 
+
+    Cancel the current CLI execution by running control+c 
+
+    Run `aio commerce init`
+
+1. In case of invalid Mesh installation 
+
+    Run `aio api-mesh update mesh-config.json`
