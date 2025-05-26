@@ -31,6 +31,10 @@ application:
         license: Apache-2.0
         actions:
           $include: ./actions/spa/actions.config.yaml
+      # payment-method:
+      #   license: Apache-2.0
+      #   actions:
+      #     $include: ./actions/payment-method/actions.config.yaml
 productDependencies:
   - code: COMMC
     minVersion: 2.4.4
