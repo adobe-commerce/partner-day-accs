@@ -288,7 +288,7 @@ Next, on line 89, add the following code to select the new div and store the ref
 const $ratings = fragment.querySelector('.product-details__ratings');
 ```
 
-Lastly, use the stored reference to display product ratings. Add the following code on line 232 inside the `if` condition:
+Lastly, use the stored reference to display product ratings. Add the following code on line 231 inside the `if` condition:
 
 ```js
 $ratings.append(`${product.rating.average} stars average (out of ${product.rating.total} ratings)`);
