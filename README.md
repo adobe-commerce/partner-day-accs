@@ -465,9 +465,11 @@ This demo App Builder app simply stores and displays received order information,
 
     For specific commands, use the `--help` flag. For example: 
 
-        aio console --help 
+        aio auth login --help 
 
-        aio commerce –help 
+        aio commerce init -–help 
+
+### aio auth login
 
 1. In case of invalid login
 
@@ -480,6 +482,8 @@ This demo App Builder app simply stores and displays received order information,
     Select **Adobe Commerce Labs** profile 
 
     Switch back to the terminal to continue 
+
+### aio commerce init
 
 1. In case of a failed init: 
 
@@ -508,3 +512,13 @@ This demo App Builder app simply stores and displays received order information,
 1. In case of invalid Mesh installation 
 
     Run `aio api-mesh update mesh-config.json`
+
+1. In case the storefront repository is not available to be selected during the AEM Sync Bot installation
+
+    Cancel the current CLI execution by running control+c
+
+    Run `unset GITHUB_TOKEN`
+
+    Run `gh auth login`
+
+    Run `aio commerce init`
