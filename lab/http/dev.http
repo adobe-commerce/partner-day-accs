@@ -1,0 +1,207 @@
+### Get an IMS access token
+# @name accessToken
+POST https://ims-na1.adobelogin.com/ims/token/v3
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{$dotenv OAUTH_CLIENT_ID}}&client_secret={{$dotenv OAUTH_CLIENT_SECRET}}&scope=AdobeID,openid,read_organizations,additional_info.projectedProductContext,additional_info.roles,adobeio_api,read_client_secret,manage_client_secrets,event_receiver_api
+
+### Call starter-kit/info
+POST https://localhost:9080/api/v1/web/starter-kit/info
+Authorization: Bearer {{accessToken.response.body.access_token}}
+x-gw-ims-org-id: {{$dotenv OAUTH_ORG_ID}}
+Content-Type: application/json
+
+### Call spa/get-orders
+POST https://localhost:9080/api/v1/web/spa/get-orders
+Authorization: Bearer {{accessToken.response.body.access_token}}
+x-gw-ims-org-id: {{$dotenv OAUTH_ORG_ID}}
+Content-Type: application/json
+
+### Call order-commerce/consumer
+POST https://localhost:9080/api/v1/web/order-commerce/consumer
+Authorization: Bearer {{accessToken.response.body.access_token}}
+x-gw-ims-org-id: {{$dotenv OAUTH_ORG_ID}}
+Content-Type: application/json
+
+{
+    "type": "com.adobe.commerce.observer.sales_order_save_commit_after",
+    "data":{
+      "key":"48d8aad5-a048-41f6-8a40-3c376008d4ef",
+      "value":{
+         "entity_id":"1",
+         "increment_id":"000000001",
+         "items":[
+            {
+               "sku":"ADB256",
+               "name":"Adobe for All tee",
+               "weight":"1.000000",
+               "is_qty_decimal":false,
+               "qty_ordered":1,
+               "quote_item_id":"1",
+               "is_virtual":"0",
+               "original_price":15,
+               "price":15,
+               "base_price":15,
+               "tax_percent":0,
+               "tax_amount":0,
+               "row_weight":1,
+               "row_total":15,
+               "base_original_price":"15.000000",
+               "base_tax_amount":0,
+               "base_row_total":15,
+               "store_id":1,
+               "discount_tax_compensation_amount":0,
+               "base_discount_tax_compensation_amount":0,
+               "product_id":"85",
+               "product_type":"simple",
+               "price_incl_tax":15,
+               "base_price_incl_tax":15,
+               "row_total_incl_tax":15,
+               "base_row_total_incl_tax":15,
+               "free_shipping":false,
+               "discount_percent":0,
+               "discount_amount":0,
+               "base_discount_amount":0,
+               "custom_attributes":{
+                  "tax_string":{
+                     "attribute_code":"tax_string"
+                  }
+               },
+               "product_options":{
+                  "info_buyRequest":{
+                     "qty":1,
+                     "options":[
+                        
+                     ],
+                     "super_attribute":[
+                        
+                     ],
+                     "links":[
+                        
+                     ]
+                  },
+                  "giftcard_is_redeemable":0
+               },
+               "order_id":"1",
+               "custom_attributes_serializable":[
+                  
+               ],
+               "item_id":"1",
+               "id":"1",
+               "created_at":"2025-05-22 16:30:45",
+               "updated_at":"2025-05-22 16:30:45",
+               "extension_attributes":[
+                  
+               ]
+            }
+         ],
+         "total_item_count":1,
+         "grand_total":20,
+         "status":"pending",
+         "created_at":"2025-05-22 16:30:45",
+         "updated_at":"2025-05-22 16:30:45"
+      },
+      "source":"labMerchant.Stage",
+      "_metadata":{
+         "commerceEdition":"Adobe Commerce",
+         "commerceVersion":"1.0.0-beta",
+         "eventsClientVersion":"1.12.1",
+         "storeId":"1",
+         "websiteId":"1",
+         "storeGroupId":"1"
+      }
+   }
+}
+
+### Call order-commerce/created
+POST https://localhost:9080/api/v1/web/order-commerce/created
+Authorization: Bearer {{accessToken.response.body.access_token}}
+x-gw-ims-org-id: {{$dotenv OAUTH_ORG_ID}}
+Content-Type: application/json
+
+{
+    "type": "com.adobe.commerce.observer.sales_order_save_commit_after",
+    "data":{
+        "entity_id":"1",
+        "increment_id":"000000001",
+        "items":[
+        {
+            "sku":"ADB256",
+            "name":"Adobe for All tee",
+            "weight":"1.000000",
+            "is_qty_decimal":false,
+            "qty_ordered":1,
+            "quote_item_id":"1",
+            "is_virtual":"0",
+            "original_price":15,
+            "price":15,
+            "base_price":15,
+            "tax_percent":0,
+            "tax_amount":0,
+            "row_weight":1,
+            "row_total":15,
+            "base_original_price":"15.000000",
+            "base_tax_amount":0,
+            "base_row_total":15,
+            "store_id":1,
+            "discount_tax_compensation_amount":0,
+            "base_discount_tax_compensation_amount":0,
+            "product_id":"85",
+            "product_type":"simple",
+            "price_incl_tax":15,
+            "base_price_incl_tax":15,
+            "row_total_incl_tax":15,
+            "base_row_total_incl_tax":15,
+            "free_shipping":false,
+            "discount_percent":0,
+            "discount_amount":0,
+            "base_discount_amount":0,
+            "custom_attributes":{
+                "tax_string":{
+                    "attribute_code":"tax_string"
+                }
+            },
+            "product_options":{
+                "info_buyRequest":{
+                    "qty":1,
+                    "options":[
+                    
+                    ],
+                    "super_attribute":[
+                    
+                    ],
+                    "links":[
+                    
+                    ]
+                },
+                "giftcard_is_redeemable":0
+            },
+            "order_id":"1",
+            "custom_attributes_serializable":[
+                
+            ],
+            "item_id":"1",
+            "id":"1",
+            "created_at":"2025-05-22 16:30:45",
+            "updated_at":"2025-05-22 16:30:45",
+            "extension_attributes":[
+                
+            ]
+        }
+        ],
+        "total_item_count":1,
+        "grand_total":20,
+        "status":"pending",
+        "created_at":"2025-05-22 16:30:45",
+        "updated_at":"2025-05-22 16:30:45"
+    },
+    "source":"labMerchant.Stage",
+    "_metadata":{
+        "commerceEdition":"Adobe Commerce",
+        "commerceVersion":"1.0.0-beta",
+        "eventsClientVersion":"1.12.1",
+        "storeId":"1",
+        "websiteId":"1",
+        "storeGroupId":"1"
+    }
+}
