@@ -25,12 +25,6 @@ After scaffolding your storefront, you'll have access to these URLs:
 
 ## Payment Method Integration
 
-Below is a diagram of an OOPE payment gateway integration.
-
-![Alt text](docs/oope-payment-diagram.png "OOPE Payment Gateway Integration")
-
-### Simplified Integration Approach
-
 For this lab, we'll implement a simplified version using Adobe App Builder:
 
 1. A runtime action (`payment-method/create-session`) simulates the payment gateway
@@ -74,7 +68,7 @@ export BEARER_TOKEN="paste here"
 ```bash
 curl -s \
   -H "Authorization: Bearer $BEARER_TOKEN" \
-  https://$REST_API/V1/oope_payment_method | jq .
+  $REST_API/V1/oope_payment_method | jq .
 ```
 2. Review the output to ensure "PARTNER-PAY" is not already in the list
 
@@ -84,16 +78,16 @@ curl -s \
 PAYMENT_METHOD_JSON='{
   "payment_method": {
     "code": "PARTNER-PAY",
-    "title": "PARTNER PAY title",
+    "title": "PARTNER PAY",
     "active": true
   }
 }'
 
 curl -XPOST \
-  -H "Authorization: Bearer $BEARER_TOKEN" \
+  -s -H "Authorization: Bearer $BEARER_TOKEN" \
   -H 'Content-type: application/json' \
   -d "$PAYMENT_METHOD_JSON" \
-  https://$REST_API/V1/oope_payment_method
+  $REST_API/V1/oope_payment_method | jq .
 ```
 
 ### Step 5: Verify Payment Method Creation
@@ -101,7 +95,7 @@ curl -XPOST \
 ```bash
 curl -s \
   -H "Authorization: Bearer $BEARER_TOKEN" \
-  https://$REST_API/V1/oope_payment_method | jq .
+  $REST_API/V1/oope_payment_method | jq .
 ```
 2. Confirm that "PARTNER-PAY" appears in the list of payment methods
 
