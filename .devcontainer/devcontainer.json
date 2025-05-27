@@ -10,7 +10,7 @@
       "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "forwardPorts": [9080],
-    "postCreateCommand": "yarn global add @adobe/aio-cli@latest && yarn install && yarn build",
+    "postCreateCommand": "yarn global add @adobe/aio-cli@latest && yarn install && yarn build && sudo apt-get update && sudo apt-get install -y httpie",
     "customizations": {
       "vscode": {
         "extensions": [
