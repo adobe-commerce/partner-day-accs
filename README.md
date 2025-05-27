@@ -469,6 +469,16 @@ This demo App Builder app simply stores and displays received order information,
 
         aio commerce init -–help 
 
+1. In case of getting the error below
+    
+    ```
+    ›   Error: [CoreConsoleAPISDK:ERROR_GET_PROJECTS_BY_ORG_ID] 451 - Unknown ("Use POST /console/services/ims/organizations/:orgId/terms API to accept developer terms for your org first. You 
+    ›   can use GET /console/services/ims/terms to retrieve the current developer terms.")
+    ```
+
+    Open https://developer.adobe.com/console/ in your browser and accept the Terms & Conditions while logging in.
+
+
 ### aio auth login
 
 1. In case of invalid login
