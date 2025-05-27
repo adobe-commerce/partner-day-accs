@@ -154,7 +154,7 @@ aio app deploy
 #### UI Render
 1. Go to the storefront repository
 1. Open the block `blocks/commerce-checkout/commerce-checkout.js`
-1. In Line 340, add the following code to render a warning message when the payment method is selected
+1. In Line 339,  add the following code to render a warning message when the payment method is selected
 ```javascript
 "PARTNER-PAY": {
     render: (ctx) => {
@@ -205,7 +205,7 @@ aio app deploy
 3. Go back to the browser and re-load the checkout page. It should display the message in a styled box.
 
 #### Payment Logic
-1. In Line 470, add the following code to create the session and set the payment session identifier:
+1. In Line 470, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
 // Add payment session creation for PARTNER-PAY
