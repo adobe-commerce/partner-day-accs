@@ -11,6 +11,7 @@
   - [Part I: Create Payment Method](#part-i-create-payment-method)
   - [Part II: Add Payment Method Logic](#part-ii-add-payment-method-logic)
   - [Part III: Storefront Integration](#part-iii-storefront-integration)
+- [Bonus Track: Enhanced Cart Experience](#bonus-track-enhanced-cart-experience)
 
 ---
 
@@ -198,7 +199,7 @@ aio app deploy
 
 ## Part III: Storefront Integration
 
-### 3.1 UI Render
+### Step 3.1: UI Render
 1. Go to the storefront repository
 2. Open the block `blocks/commerce-checkout/commerce-checkout.js`
 3. In Line 339, add the following code to render a warning message when the payment method is selected:
@@ -222,7 +223,7 @@ aio app deploy
 4. Run `npm start` to start the storefront in your local environment
 5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
 
-### 3.2 UI Styling
+### Step 3.2: UI Styling
 1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`
 2. Append the following CSS rules to the end of the file:
 
@@ -255,7 +256,7 @@ aio app deploy
 
 3. Go back to the browser and re-load the checkout page. It should display the message in a styled box.
 
-### 3.3 Payment Logic
+### Step 3.3: Payment Logic
 1. In Line 470, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
@@ -291,4 +292,39 @@ if (code === "PARTNER-PAY") {
 2. Place an order with PARTNER-PAY payment method. Now it should work.
 
 ---
+
+## Bonus Track: Enhanced Cart Experience
+
+In this optional section, we'll enhance the shopping cart experience by displaying promotional information in the footer of cart items.
+
+### Prerequisites
+A custom cart price rule. For instance, a cart price rule 25% Off $75+ with Code PARTNER01.  [Cart price rules overview](https://experienceleague.adobe.com/en/docs/commerce-admin/marketing/promotions/cart-rules/price-rules-cart) describes how to create a cart price rule.
+
+### Step 4.1: Add Product Categories to Cart
+1. Navigate to your storefront codespace
+2. Open the block `blocks/commerce-cart/commerce-cart.js`
+3. Locate the `slots` configuration (around line 83)
+4. Add the following to display promotional information in the footer of a cart item:
+
+```javascript
+slots: {
+    Footer: (ctx) => {
+        // Runs on mount
+        const wrapper = document.createElement('div');
+        ctx.appendChild(wrapper);
+
+        // Append Product Promotions on every update
+        ctx.onChange((next) => {
+            wrapper.innerHTML = '';
+
+            next.item?.discount?.label?.forEach((label) => {
+                const discount = document.createElement('div');
+                discount.style.color = '#3d3d3d';
+                discount.innerText = label;
+                wrapper.appendChild(discount);
+            });
+        });
+    }
+}
+```
 
