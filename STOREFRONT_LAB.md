@@ -3,8 +3,7 @@
 ## Table of Contents
 - [Overview](#overview)
 - [What You'll Learn](#what-youll-learn)
-- [Prerequisites](#prerequisites)
-- [Important Links](#important-links)
+- [Links](#links)
 - [Payment Method Integration](#payment-method-integration)
 
 ## Overview
@@ -29,6 +28,19 @@ After scaffolding your storefront, you'll have access to these URLs:
 Below is a diagram of an OOPE payment gateway integration.
 
 ![Alt text](docs/oope-payment-diagram.png "OOPE Payment Gateway Integration")
+
+### Simplified Integration Approach
+
+For this lab, we'll implement a simplified version using Adobe App Builder:
+
+1. A runtime action (`payment-method/create-session`) simulates the payment gateway
+2. The payment session ID is shared between components using Adobe App Builder State storage
+3. A webhook (`payment-method/validate-payment`) validates the payment before order placement
+
+Here's the simplified integration flow:
+
+![Alt text](docs/partner-pay-diagram.png "PARTNER-PAY Integration")
+
 
 ### Step 1: Set Up Environment Variables
 1. Open your partner-day-accs codespace
@@ -229,5 +241,5 @@ if (code === "PARTNER-PAY") {
     }
 }
 ```
-1. place an order with PARTNER-PAY payment method. Now it should work.
+2. place an order with PARTNER-PAY payment method. Now it should work.
 
