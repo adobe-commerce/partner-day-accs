@@ -439,12 +439,6 @@ All the files were pre-configured for this lab. The most important files are des
 
   Defines the event names and fields that must be subscribed to in Adobe Commerce. Information for the `com.adobe.commerce.observer.sales_order_save_commit_after` event that will be used in this lab is provided in this file.
 
-For the purposes of this lab, an additional onboarding script and configuration file have been added to automate configuration of an Adobe Commerce Webhook using a webhook subscription API available in ACCS. The configuration file for the webhooks onboarding script is
-
-- `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
-
-  Defines the webhooks that must be subscribed to in Adobe Commerce. Configuration for an `observer.sales_order_place_before` webhook that will be used in this lab is provided in this file.
-
 Now it's time to realize the onboarding. Go to your terminal and run the following commands:
 ```bash
 npm run onboard
@@ -461,22 +455,7 @@ Then, to automatically subscribe to the order save Commerce event, go to your te
 npm run commerce-event-subscribe
 ```
 
-Finally, we need to configure an order save webhook. Before doing so, open `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`. 
-
-On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy`. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
-
-The order save webhook can then be automatically configured by running the following command
-```bash
-npm run commerce-webhook-subscribe
-```
-
-### 3. Synchronous communication between Commerce and App Builder
-
-The Commerce webhook configured using the `npm run commerce-webhook-subscribe` command allows for synchronous communication between Commerce and App Builder before an order is placed.
-
-**TODO**
-
-### 4. Send events from Adobe Commerce to App Builder
+### 2. Send events from Adobe Commerce to App Builder
 
 In this part of the lab, we will demonstrate the sending of events from Commerce to App Builder.
 
@@ -496,7 +475,7 @@ In this part of the lab, we will demonstrate the sending of events from Commerce
 
 The runtime action that receives Commerce order save events in this part of the lab simply stores received order information for display in the UI, but the action code could also be modified to send information received from Commerce to a third-party back office system.
 
-### 5. Send information from App Builder to Adobe Commerce
+### 3. Send information from App Builder to Adobe Commerce
 
 In this part of the lab, we will demonstrate the sending of information from an external system to Commerce.
 
@@ -535,3 +514,27 @@ In this part of the lab, we will demonstrate the sending of information from an 
     Click **View** in the **Action** column for this new shipment. On the **View Shipment** page, scroll down to the **Payment & Shipping Method** section. Under **Shipping and Tracking Information**, you should see information for your shipment, including the tracking number that you entered in the App Builder app's UI.
 
     ![Alt text](docs/shipping-tracking-number.png "Shipping tracking number in Admin")
+
+## Adobe Commerce Webhooks
+
+Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
+
+In this part of the lab, we will use a script to configure the webhook via a webhook subscription REST API available in ACCS. This script reads from a configuration file that defines the webhook subscriptions to be created. The configuraiton file is:
+
+- `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
+
+### TODO: EDIT BELOW 
+
+This configuration file contains configuration details for a `observer.sales_order_place_before` webhook. Before we run the script, we need to configure
+
+The Commerce webhook configured using the `npm run commerce-webhook-subscribe` command allows for synchronous communication between Commerce and App Builder before an order is placed.
+
+Finally, we need to configure an order save webhook. Before doing so, open `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`. 
+
+On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy`. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
+
+The order save webhook can then be automatically configured by running the following command
+```bash
+npm run commerce-webhook-subscribe
+```
+

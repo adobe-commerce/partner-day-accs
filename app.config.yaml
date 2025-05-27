@@ -31,6 +31,18 @@ application:
         license: Apache-2.0
         actions:
           $include: ./actions/spa/actions.config.yaml
+      emea_partner_days_2025:
+        license: Apache-2.0
+        actions:
+          get-config:
+            function: actions/data/getConfig.js
+            web: 'yes'
+            runtime: 'nodejs:20'
+            inputs:
+              LOG_LEVEL: debug
+              annotations:
+                require-adobe-auth: false
+                final: true
 productDependencies:
   - code: COMMC
     minVersion: 2.4.4
