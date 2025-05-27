@@ -17,23 +17,6 @@ This lab will guide you through creating and integrating a custom payment method
 - How to handle payment sessions and validation
 - Best practices for payment method implementation
 
-## Prerequisites
-1. **Adobe Commerce Access**
-   - Active Adobe Commerce sandbox environment
-   - Admin access to your sandbox
-   - Valid tenant ID
-
-2. **Development Environment**
-   - Terminal with `curl` and `jq` installed
-   - Adobe I/O CLI (`aio`) installed and configured
-   - Access to your Stage workspace
-   - Code editor (VS Code recommended)
-
-3. **Required Accounts**
-   - Adobe Commerce admin credentials
-   - Adobe I/O Console access
-   - Stage workspace access
-
 ## Important Links
 After scaffolding your storefront, you'll have access to these important URLs:
 - **Storefront Preview**: `https://main--{repo}--{owner}.aem.page/`
