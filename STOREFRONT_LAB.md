@@ -8,17 +8,16 @@
 - [Payment Method Integration](#payment-method-integration)
 
 ## Overview
-This lab will guide you through creating and integrating a custom OOPE payment method into your Adobe Commerce storefront, including setting up the payment processing logic and webhook subscriptions. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components.
+This lab will guide you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method into your Adobe Commerce storefront. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components. This hands-on experience will help you understand the complete payment integration lifecycle in Adobe Commerce.
 
 ## What You'll Learn
 - How to create and configure a custom payment method in Adobe Commerce
 - How to set up webhook subscriptions for payment validation
 - How to integrate payment method logic into the storefront
 - How to handle payment sessions and validation
-- Best practices for payment method implementation
 
-## Important Links
-After scaffolding your storefront, you'll have access to these important URLs:
+## Links
+After scaffolding your storefront, you'll have access to these URLs:
 - **Storefront Preview**: `https://main--{repo}--{owner}.aem.page/`
 - **Content Editor**: `https://da.live/#/{owner}/{repo}`
 - **Configuration Manager**: `https://da.live/#/{owner}/{repo}/configs-stage`
@@ -26,6 +25,10 @@ After scaffolding your storefront, you'll have access to these important URLs:
 - **REST API Endpoint**: `https://na1-sandbox.api.commerce.adobe.com/{tenant_id}`
 
 ## Payment Method Integration
+
+Below is a diagram of an OOPE payment gateway integration.
+
+![Alt text](docs/oope-payment-diagram.png "OOPE Payment Gateway Integration")
 
 ### Step 1: Set Up Environment Variables
 1. Open your partner-day-accs codespace
@@ -139,10 +142,63 @@ aio app deploy
 3. You should see the error message "Invalid payment session"
 4. This confirms that the validate-payment webhook is working correctly
 
-### Step 10: Payment Method UI Logic
+### Step 10: Payment Method UI
+
+#### UI Render
 1. Go to the storefront repository
-2. Open the block `blocks/commerce-checkout/commerce-checkout.js`
-3. In Line 457, add the following code to create the session and set the payment session identifier:
+1. Open the block `blocks/commerce-checkout/commerce-checkout.js`
+1. In Line 340, add the following code to render a warning message when the payment method is selected
+```javascript
+"PARTNER-PAY": {
+    render: (ctx) => {
+        const $content = document.createElement('div');
+        $content.innerHTML = `
+        <div class="payment-method-card">
+            <div class="payment-method-card__message">
+            <p>This is a test payment method for demonstration purposes only.</p>
+            </div>
+        </div>
+        `;
+        ctx.replaceHTML($content);
+    },
+},
+```
+4. `npm start` to start the storefront in your local environment
+5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
+
+#### UI Styling
+1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`
+2. Append the following CSS rules to the end of the file
+```css
+/* Payment Method Card */
+.checkout__payment-methods .payment-method-card {
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--shape-border-radius-medium);
+    padding: var(--spacing-medium);
+    margin-top: var(--spacing-small);
+}
+
+.payment-method-card {
+    background-color: var(--color-neutral-50);
+    border-radius: var(--shape-border-radius-medium);
+    padding: var(--spacing-medium);
+}
+
+.payment-method-card__message {
+    font: var(--type-body-2-default-font);
+    color: var(--color-neutral-700);
+}
+
+.payment-method-card__warning {
+    color: var(--color-error-600);
+    font-weight: 500;
+    margin-top: var(--spacing-small);
+}
+```
+3. Go back to the browser and re-load the checkout page. It should display the message in a styled box.
+
+#### Payment Logic
+1. In Line 470, add the following code to create the session and set the payment session identifier:
 
 ```javascript
 // Add payment session creation for PARTNER-PAY
@@ -173,3 +229,5 @@ if (code === "PARTNER-PAY") {
     }
 }
 ```
+1. place an order with PARTNER-PAY payment method. Now it should work.
+
