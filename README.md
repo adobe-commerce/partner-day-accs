@@ -37,6 +37,10 @@ Password: Check with the lab instructor
 
 ### Continue to Configure Codespaces
 
+0. Start the codespace in the repository you cloned under your GitHub account from https://github.com/adobe-commerce/partner-day-accs
+
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/61624b79-ff3a-46c1-ae3c-ffa56f6980ee" />
+
 1. Navigate to the terminal and run the following command to clear the temporary github token:
 ```bash
 unset GITHUB_TOKEN
