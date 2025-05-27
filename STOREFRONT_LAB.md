@@ -1,7 +1,38 @@
 # Commerce Partner Days - EDS Storefront Session
 
+## Table of Contents
+- [Overview](#overview)
+- [What You'll Learn](#what-youll-learn)
+- [Prerequisites](#prerequisites)
+- [Important Links](#important-links)
+- [Payment Method Integration](#payment-method-integration)
+
 ## Overview
-This lab will guide you through creating and integrating a custom payment method into your Adobe Commerce storefront, including setting up the payment processing logic and webhook subscriptions.
+This lab will guide you through creating and integrating a custom payment method into your Adobe Commerce storefront, including setting up the payment processing logic and webhook subscriptions. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components.
+
+## What You'll Learn
+- How to create and configure a custom payment method in Adobe Commerce
+- How to set up webhook subscriptions for payment validation
+- How to integrate payment method logic into the storefront
+- How to handle payment sessions and validation
+- Best practices for payment method implementation
+
+## Prerequisites
+1. **Adobe Commerce Access**
+   - Active Adobe Commerce sandbox environment
+   - Admin access to your sandbox
+   - Valid tenant ID
+
+2. **Development Environment**
+   - Terminal with `curl` and `jq` installed
+   - Adobe I/O CLI (`aio`) installed and configured
+   - Access to your Stage workspace
+   - Code editor (VS Code recommended)
+
+3. **Required Accounts**
+   - Adobe Commerce admin credentials
+   - Adobe I/O Console access
+   - Stage workspace access
 
 ## Important Links
 After scaffolding your storefront, you'll have access to these important URLs:
@@ -11,15 +42,7 @@ After scaffolding your storefront, you'll have access to these important URLs:
 - **Admin URL**: `https://na1-sandbox.admin.commerce.adobe.com/{tenant_id}`
 - **REST API Endpoint**: `https://na1-sandbox.api.commerce.adobe.com/{tenant_id}`
 
-## Prerequisites
-1. Ensure you have access to your Adobe Commerce sandbox environment
-2. Have your tenant ID ready
-3. Have a terminal with `curl` and `jq` installed
-4. Have the Adobe I/O CLI (`aio`) installed and configured
-5. Have access to your Stage workspace
-
 ## Payment Method Integration
-In this section, we'll create a new payment method called "PARTNER-PAY" and integrate it into your storefront.
 
 ### Step 1: Set Up Environment Variables
 1. Open your terminal
@@ -83,11 +106,11 @@ curl -s \
 ### Step 7: Enable Payment Method Logic
 1. Open your `app.config.yaml` file
 2. Locate and uncomment the payment-method block
-3. Deploy the runtime actions:
+3. Deploy the changes:
 ```bash
 aio app deploy
 ```
-4. Verify that two new runtime actions are created:
+4. Verify that the create-session action and the validate-payment webhook are created:
    - `actions/payment-method/create-session.js`
    - `actions/payment-method/validate-payment.js`
 5. Note down the new URLs generated after deployment
@@ -120,19 +143,43 @@ aio app deploy
 - Value: `PARTNER-PAY`
 - Operator: `equal`
 
-## Troubleshooting
-If you encounter any issues:
-- Verify your bearer token is valid and not expired
-- Check that your tenant ID is correct
-- Ensure you have the necessary permissions to create payment methods
-- Clear your browser cache if the payment method doesn't appear in the storefront
-- Verify the webhook URL is correct and accessible
-- Check the webhook logs in the Admin Panel for any errors
+### Step 9: Test Payment Validation
+1. Go to the checkout page
+2. Try to place an order
+3. You should see the error message "Invalid payment session"
+4. This confirms that the validate-payment webhook is working correctly
 
-## Next Steps
-After completing this lab, you can:
-- Customize the payment method's appearance
-- Add additional payment method configurations
-- Implement payment processing logic
-- Set up webhook monitoring and logging
-- Add error handling and retry mechanisms
+### Step 10: Payment Method UI Logic
+1. Go to the storefront repository
+2. Open the block `blocks/commerce-checkout/commerce-checkout.js`
+3. In Line 457, add the following code to create the session and set the payment session identifier:
+
+```javascript
+// Add payment session creation for PARTNER-PAY
+if (code === "PARTNER-PAY") {
+    const PAYMENT_SESSION_API = '<create-session-url>';
+
+    try {
+        const response = await fetch(PAYMENT_SESSION_API);
+        const responseData = await response.json();
+        const paymentSessionId = responseData?.message?.paymentSessionId;
+
+        if (!paymentSessionId) {
+            throw new Error('Unable to process payment at this time. Please try again later.');
+        }
+
+        await checkoutApi.setPaymentMethod({
+            code: 'PARTNER-PAY',
+            additional_data: [
+                {
+                    key: 'paymentSessionId',
+                    value: paymentSessionId,
+                },
+            ],
+        });
+    } catch (error) {
+        console.error('Payment session creation failed:', error);
+        throw new Error('Payment processing failed. Please try again.');
+    }
+}
+```
