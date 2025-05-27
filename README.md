@@ -519,22 +519,18 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
 Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
 
-In this part of the lab, we will use a script to configure the webhook via a webhook subscription REST API available in ACCS. This script reads from a configuration file that defines the webhook subscriptions to be created. The configuraiton file is:
+1. We will use a script to configure the webhook via a webhook subscription REST API available in ACCS. This script reads from a configuration file that defines the webhook subscriptions to be created. This configuration file is `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
 
-- `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
+    The file contains configuration details for a `observer.sales_order_place_before` webhook.
 
-### TODO: EDIT BELOW 
+    On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
 
-This configuration file contains configuration details for a `observer.sales_order_place_before` webhook. Before we run the script, we need to configure
+1. Then, to automatically configure the order save webhook, run the following command:
+    ```bash
+    npm run commerce-webhook-subscribe
+    ```
 
-The Commerce webhook configured using the `npm run commerce-webhook-subscribe` command allows for synchronous communication between Commerce and App Builder before an order is placed.
+1. The code for the `check-order` action, located in `actions/webhook/check-order/index.js`, retrieves item stock limit configuration data from a `get-config` action and uses it to perform validation of order item quantities. The `get-config` action is currently hardcoded to indicate that item quantities in an order should not be greater than 1.
 
-Finally, we need to configure an order save webhook. Before doing so, open `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`. 
-
-On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy`. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
-
-The order save webhook can then be automatically configured by running the following command
-```bash
-npm run commerce-webhook-subscribe
-```
+    To see the effect of this, navigate to the product details page of an item in your storefront, set the quanity to a value greater than 1, and then add the item to your cart. Then proceed to place an order.
 
