@@ -454,3 +454,124 @@ In the storefront for your Commerce instance, place at least one order. After Co
 ![Alt text](docs/order-grid-ui.png "Application UI Order Grid")
 
 This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
+
+## Local Development
+
+0. Make sure the application is built buy running
+    ```bash
+    npm install
+    ```
+### Front-end development
+
+1. Start the application by running
+    ```bash
+    aio app run
+    ```
+    When you use this command the following happens:
+    - Front-end code is built and served on localhost
+    - Web action calls from your front-end are directed to Runtime
+    - Action logs are output in the terminal
+
+1. Wait for this output to be shown on the terminal
+    ```
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    ```
+
+1. Change the 9080 port protocol to HTTPS in VSCode `PORTS` tab by clicking on the 9080 port number, selecting `Change port protocol` and `HTTPS`
+
+1. Click on the https://localhost:9080 link on the terminal to open the app front-end
+
+1. Let's change the message shown in the app front-end by replacing `Latest Orders Received` with `Latest Orders Processed` in line 81 of `web-src/src/components/latest-orders-card.jsx`
+
+1. The front-end will reload and show the new text
+
+1. Press `CTRL+C` to terminate the local server
+
+### Backend development
+
+1. Start the application by running
+    ```bash
+    aio app dev
+    ```
+    When you use this command the following happens:
+    - Front-end code is built and served on localhost
+    - Action calls from your front end are run in a debuggable local node process
+    - Action logs are output immediately to the terminal
+
+1. Wait for this output to be shown on the terminal
+    ```
+    Building the app...
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    Your actions:
+    web actions:
+      -> https://localhost:9080/api/v1/web/starter-kit/info
+      -> https://localhost:9080/api/v1/web/webhook/check-order
+      -> https://localhost:9080/api/v1/web/spa/get-orders
+    non-web actions:
+      -> order-commerce/consumer
+      -> order-commerce/created
+    press CTRL+C to terminate the dev environment
+    2025-05-27T14:34:01.742Z [watcher] info: watching action files at /workspaces/accs-lab-debug/actions...
+    2025-05-27T14:34:01.747Z [serve] info: server running on port : 9080
+    2025-05-27T14:34:06.891Z [serve] info: 2869 static asset(s) changed
+    2025-05-27T14:34:06.891Z [serve] info: ✨ Built 3 bundles in 5140ms!
+    ```
+
+1. Let's call the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+    - the response will be shown in a new editor window at the right
+      ```
+      {
+        "success": true,
+        "message": {
+          "starter_kit_version": "1.0.2",
+          "registrations": {
+            "product": [],
+            "customer": [],
+            "order": [
+              "commerce"
+            ],
+            "stock": []
+          }
+        }
+    }
+    ``` 
+
+1. Let's change the response
+  - open the `actions/starter-kit-info/index.js` file in the editor
+  - insert `edited: true,` on line 40
+
+1. Let's call again the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+    - the response will now include the new field
+      ```
+      {
+        "success": true,
+        "message": {
+          "edited": true,
+          "starter_kit_version": "1.0.2",
+          "registrations": {
+            "product": [],
+            "customer": [],
+            "order": [
+              "commerce"
+            ],
+            "stock": []
+          }
+        }
+      }
+      ``` 
+1. Rerun `aio app dev` if you see this error in the terminal
+    ```
+    [watcher] error: Error encountered while building actions. Stopping auto refresh.
+    ```
+
+1. Press `CTRL+C` to terminate the local server
