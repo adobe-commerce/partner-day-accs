@@ -35,11 +35,20 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/{tenant_id}
 ```
 
 ### Step 2: Generate and Set Access Token
-1. Go to your Stage workspace
-2. Navigate to Credentials > OAuth Server-to-Server section
-3. Click on "Generate access token" button
-4. Copy the generated token
-5. Set the token in your terminal:
+1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
+1. Click **Projects** in the Developer Console top menu.
+
+    ![Alt text](docs/developer-console-home.png "Developer console home")
+
+    Then select the project assigned to your seat:
+
+    **PD SY <SEAT_NUMBER>**
+
+    Select the **Stage** workspace.
+1. Navigate to Credentials > OAuth Server-to-Server section
+1. Click on "Generate access token" button
+1. Copy the generated token
+1. Set the token in your terminal:
 ```bash
 export BEARER_TOKEN="paste here"
 ```
@@ -93,10 +102,7 @@ curl -s \
 ```bash
 aio app deploy
 ```
-4. Verify that the create-session action and the validate-payment webhook are created:
-   - `actions/payment-method/create-session.js`
-   - `actions/payment-method/validate-payment.js`
-5. Note down the new URLs generated after deployment
+4. Run `aio app get-url` and verify that both the [payment-method/create-session](./actions/payment-method/create-session.js) action and the [payment-method/validate-payment](./actions/payment-method/validate-payment.js) webhook are listed in the output.
 
 ### Step 8: Configure Webhook Subscription
 1. Log in to the Admin Panel using the Admin URL
