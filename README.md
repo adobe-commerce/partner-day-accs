@@ -523,6 +523,10 @@ This demo App Builder app simply stores and displays received order information,
 
     Run `aio api-mesh update mesh-config.json`
 
+1. In case of failure while validating Code Sync
+
+    Run `aio commerce init --skipGit` and use the org/site name previously entered.
+
 1. In case the storefront repository is not available to be selected during the AEM Sync Bot installation
 
     Cancel the current CLI execution by running control+c
