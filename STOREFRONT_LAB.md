@@ -8,7 +8,7 @@
 - [Payment Method Integration](#payment-method-integration)
 
 ## Overview
-This lab will guide you through creating and integrating a custom payment method into your Adobe Commerce storefront, including setting up the payment processing logic and webhook subscriptions. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components.
+This lab will guide you through creating and integrating a custom OOPE payment method into your Adobe Commerce storefront, including setting up the payment processing logic and webhook subscriptions. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components.
 
 ## What You'll Learn
 - How to create and configure a custom payment method in Adobe Commerce
@@ -28,10 +28,11 @@ After scaffolding your storefront, you'll have access to these important URLs:
 ## Payment Method Integration
 
 ### Step 1: Set Up Environment Variables
-1. Open your terminal
-2. Set your REST API endpoint (replace `{tenant_id}` with your actual tenant ID):
+1. Open your partner-day-accs codespace
+1. Open the terminal
+1. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat)
 ```bash
-export REST_API=https://na1-sandbox.api.commerce.adobe.com/{tenant_id}
+export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 ```
 
 ### Step 2: Generate and Set Access Token
@@ -115,7 +116,7 @@ aio app deploy
 - Webhook Type: `before`
 - Batch Name: `validate_payment`
 - Hook Name: `oope_payment_methods_sales_order_place_before`
-- URL: `https://<your-validate-payment-app>` (use the URL from Step 7)
+- URL: `https://<payment-method/validate-payment>` (use the URL from Step 7)
 - Active: `Yes`
 - Method: `POST`
 
@@ -146,7 +147,7 @@ aio app deploy
 ```javascript
 // Add payment session creation for PARTNER-PAY
 if (code === "PARTNER-PAY") {
-    const PAYMENT_SESSION_API = '<create-session-url>';
+    const PAYMENT_SESSION_API = '<payment-method/validate-session>'; // (use the URL from Step 7)
 
     try {
         const response = await fetch(PAYMENT_SESSION_API);
