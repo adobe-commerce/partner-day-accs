@@ -21,7 +21,8 @@ After scaffolding your storefront, you'll have access to these URLs:
 - **Content Editor**: `https://da.live/#/{owner}/{repo}`
 - **Configuration Manager**: `https://da.live/#/{owner}/{repo}/configs-stage`
 - **Admin URL**: `https://na1-sandbox.admin.commerce.adobe.com/{tenant_id}`
-- **REST API Endpoint**: `https://na1-sandbox.api.commerce.adobe.com/{tenant_id}`
+- **REST Endpoint**: `https://na1-sandbox.api.commerce.adobe.com/{tenant_id}`
+- **Admin URL**: `https://na1-sandbox.admin.commerce.adobe.com/{tenant_id}`
 
 ## Payment Method Integration
 
@@ -115,7 +116,7 @@ aio app deploy
 4. Run `aio app get-url` and verify that both the [payment-method/create-session](./actions/payment-method/create-session.js) action and the [payment-method/validate-payment](./actions/payment-method/validate-payment.js) webhook are listed in the output.
 
 ### Step 8: Configure Webhook Subscription
-1. Log in to the Admin Panel using the Admin URL
+1. Log in to the Admin Panel using the Admin URL `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` (replace `<TENANT_ID>` with the tenant ID for your assigned seat)
 2. Navigate to System > Webhooks > Webhooks Subscriptions
 3. Click the "Add New Webhook" button
 4. Configure the webhook with the following settings:
