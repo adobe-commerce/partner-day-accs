@@ -532,5 +532,16 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
 1. The code for the `check-order` action, located in `actions/webhook/check-order/index.js`, retrieves item stock limit configuration data from a `get-config` action and uses it to perform validation of order item quantities. The `get-config` action is currently hardcoded to indicate that item quantities in an order should not be greater than 1.
 
-    To see the effect of this, navigate to the product details page of an item in your storefront, set the quanity to a value greater than 1, and then add the item to your cart. Then proceed to place an order.
+    To see the effect of this, navigate to the product details page of an item in your storefront, set the quanity to a value greater than 1, and then add the item to your cart. Then proceed to place an order. 
+
+    You should see an error like the following in the storefront indicating that placing an order failed.
+
+    **TODO: insert image**
+
+    In this case, when the `observer.sales_order_place_before` event was triggered, Commerce made a synchronous call to the `check-order` App Builder action. The action checked order item quantities, found an item with a quantity greater than the configured limit of 1, and sent a response back to Commerce to cause an exception to be raised. This exception prevented the order from being successfully placed.
+
+    Navigate back to your cart and change the quantity of the added item to 1. After retrying with a reduced item quantity, you should see that the order placement was successful.
+
+In this part of the lab, we explored one way in which we can extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can edit the webhook behavior using a singe page app UI injected into the Commerce Admin.
+
 

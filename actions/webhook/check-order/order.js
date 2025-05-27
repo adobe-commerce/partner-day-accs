@@ -53,7 +53,7 @@ async function checkOrderLimit (params, stockValidationConfig) {
 
   return {
     success: false,
-    message: `The following items have exceeded the item quantity limit: ${listOfInvalidItems.map(item => item.sku).join((','))}`
+    message: `The following items have exceeded the item quantity limit: ${listOfInvalidItems.map(item => item.sku).join((', '))}`
   }
 }
 

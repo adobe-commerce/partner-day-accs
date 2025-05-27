@@ -17,7 +17,6 @@ const { validateData } = require('./validator')
 const { checkOrderLimit } = require('./order')
 const { stringParameters } = require('../../utils')
 const { webhookErrorResponse, webhookSuccessResponse } = require('../../responses')
-const { checkMissingRequestInputs } = require('../../../actions/utils')
 
 /**
  * This web action is used to check stock of cart items on real time.
