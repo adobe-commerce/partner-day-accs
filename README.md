@@ -1,8 +1,22 @@
 # Commerce Partner Days - ACCS Session
 
-## Codespaces Setup
+## Pre-Event Setup
 
-### Login
+These steps should be completed before you arrive to the event.
+
+### Codespaces Setup
+ 
+1. Visit https://github.com/adobe-commerce/partner-day-accs.
+2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
+3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
+4. Congratulations, you now have the tools to create and extend your own commerce store.
+5. Click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![image](https://github.com/user-attachments/assets/55714254-19ae-4da0-8e6a-b49db080f8b9)
+6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
+7. Once done, you will be able to interact with the online IDE. <img width="2007" alt="image" src="https://github.com/user-attachments/assets/96c71fab-b179-442f-8378-9203d4facd83" />
+
+## At The Event Setup
+
+### Login to Developer Console
 
 1. Go to the Adobe Developer console: http://developer.adobe.com/console.
         
@@ -21,20 +35,13 @@ Password: Check with the lab instructor
 4. After logging in, accept Terms and Conditions.
 ![image](https://github.com/user-attachments/assets/21cccf57-a0b7-4274-8d51-fd80cc2c767c)
 
-### Setup
- 
-1. Visit https://github.com/adobe-commerce/partner-day-accs.
-2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
-3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
-4. Congratulations, you now have the tools to create and extend your own commerce store.
-5. Click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![image](https://github.com/user-attachments/assets/55714254-19ae-4da0-8e6a-b49db080f8b9)
-6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
-7. Once done, you will be able to interact with the online IDE. <img width="2007" alt="image" src="https://github.com/user-attachments/assets/96c71fab-b179-442f-8378-9203d4facd83" />
-8. Navigate to the terminal and run the following command to clear the temporary github token:
+### Continue to Configure Codespaces
+
+1. Navigate to the terminal and run the following command to clear the temporary github token:
 ```bash
 unset GITHUB_TOKEN
 ```
-9. Now let's connect the terminal to your personal Github account. Run the following command:
+2. Now let's connect the terminal to your personal Github account. Run the following command:
 ```bash
 gh auth login
 ```
@@ -46,7 +53,7 @@ Once done you should see the following on the login screen:
 
 <img width="1255" alt="image" src="https://github.com/user-attachments/assets/3678bc9c-cd52-4505-8c7b-6514731e1a33" />
 
-10. Now let's connect the terminal to your assigned Adobe IMS account. Run the following command in the terminal:
+3. Now let's connect the terminal to your assigned Adobe IMS account. Run the following command in the terminal:
 ```bash
 aio auth login
 ```
@@ -78,6 +85,8 @@ Look for an auto-forwarded port with the same port number as earlier from the er
 Navigate back to the error window and replace `127.0.0.1:<PORT_NUMBER>` with the copied text, and click enter. This will connect the IMS login on the browser to the Codespaces terminal.
 
 <img width="936" alt="image" src="https://github.com/user-attachments/assets/019f8f26-2be2-41e8-b6b1-279e4e20dba2" />
+
+You're all done and ready to create a Storefront.
 
 ## Create Storefront
 
