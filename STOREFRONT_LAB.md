@@ -1,4 +1,4 @@
-# Commerce Partner Days - EDS Storefront Session
+# Commerce Partner Days - Storefront Drop-ins Lab
 
 ---
 
