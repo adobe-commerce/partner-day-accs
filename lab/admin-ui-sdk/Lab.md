@@ -4,8 +4,13 @@
 - [Problem Statement](#problem-statement)
 - [Helpful resources](#helpful-resources)
 - [Step-by-Step instructions](#step-by-step-instructions)
-    1. [Admin UI SDK menu extension point](#part-1-admin-ui-sdk-menu-extension-point)
-    2. [Secure runtime actions (Bonus)](#part-3-secure-runtime-actions-bonus)
+  - [Step 1: Configuration files](#step-1-configuration-files)
+  - [Step 2: Migrate from application to extension](#step-2-migrate-from-application-to-extension)
+  - [Step 3: Register the menu extension point](#step-3-register-the-menu-extension-point)
+  - [Step 4: Deploy the extension to the Stage workspace](#step-4-deploy-the-extension-to-the-stage-workspace)
+  - [Step 5: Configure the Adobe Commerce Admin Panel](#step-5-configure-the-adobe-commerce-admin-panel)
+  - [Step 6: Test the integration](#step-6-test-the-integration)
+  - [Step 7: Add the configuration component](#step-7-add-the-configuration-component)
 - [Troubleshooting](#troubleshooting)
 
 ## Objective
@@ -24,9 +29,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 ## Step-by-Step instructions
 
-### Part 1: Admin UI SDK menu extension point
-
-#### Step 1: Configuration files
+### Step 1: Configuration files
 
 1. Create the `install.yaml` file
 
@@ -40,7 +43,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     > A sample file is provided in the `lab/admin-ui-sdk` folder.
 
-#### Step 2: Migrate from application to extension
+### Step 2: Migrate from application to extension
 
 1. Create a new `src/commerce-backend-ui-1` folder.
 
@@ -95,7 +98,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     ✔ Building web assets for 'commerce/backend-ui/1'
     ```
 
-#### Step 3: Register the menu extension point
+### Step 3: Register the menu extension point
 
 1. Create the registration runtime action
 
@@ -152,7 +155,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     ✔ Building web assets for 'commerce/backend-ui/1'
     ```
 
-#### Step 4: Deploy the extension to the Stage workspace
+### Step 4: Deploy the extension to the Stage workspace
 
 1. Verify the selected project & workspace by running the following command:
 
@@ -205,7 +208,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     New Extension Point(s) in Workspace 'Stage': 'commerce/backend-ui/1'
     ```
 
-#### Step 5: Configure the Adobe Commerce Admin Panel
+### Step 5: Configure the Adobe Commerce Admin Panel
 
 1. Go the Adobe Commerce Admin Panel.
 
@@ -227,7 +230,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     ![Extensions saved successfully](../../docs/admin-ui-sdk/extensions-saved-success.png)
 
-#### Step 6: Test the integration
+### Step 6: Test the integration
 
 1. In the menu, a new section `EMEA Partner Days` is created.
 
@@ -237,7 +240,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 3. Open the menu, it'll load your application from App Builder.
 
-#### Step 7: Add the configuration component
+### Step 7: Add the configuration component
 
 1. Create the `Config` component under `web-src/src/components`.
 
@@ -308,9 +311,32 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 9. You can now change the configuration values, save it and test the webhook.
 
-### Part 3: Secure runtime actions (Bonus)
-
-# TODO
-
 ## Troubleshooting
-# TODO
+
+### 1. Org is not selected
+
+- When running `aio console where` if the org is not selected, you can run `aio console org select` and find your org.
+
+- If the org is not found in the list, logout using `aio auth logout` and login using `aio auth login`. Then run `aio console org select`.
+
+- If you're still not finding the correct org, logout with `aio auth logout` and force login using `aio auth login -f`. Then run `aio console org select`.
+
+- If none of the above steps are woking, please reach out to an available technical assistant for help.
+
+### 2. Application is not found in the `Configure extensions` screen
+
+- Check that the selected workspace is the correct one, and click on `Apply` button to reload all applications.
+
+- Make sure you deployed your changes to the correct workspace. You can run `aio console where` for more details on the selected org, project and workspace.
+
+- Check your `.env` file is updated and pointing to the correct project and workspace. If not, run `aio app use`, then deploy again `aio app deploy --force-build --force-deploy`.
+
+- If none of the above steps are woking, please reach out to an available technical assistant for help.
+
+### 3. Menu is not appearing in the Adobe Commerce Admin Panel
+
+- Check that the application is selected in the `Configure extensions` screen.
+
+- Go to Stores > Settings > Configuration > Adobe Services > Admin UI SDK, and in the general configuration section click on `Refresh registrations` button. Once you get a banner notification confirming registrations are refreshed successfully, check your menu.
+
+- If none of the above steps are woking, please reach out to an available technical assistant for help.
