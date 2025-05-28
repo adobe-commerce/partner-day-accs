@@ -96,7 +96,7 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 8. Set the token in your terminal:
 
 ```bash
-export BEARER_TOKEN="paste here"
+export ACCESS_TOKEN="paste here"
 ```
 
 ### Step 1.3: Verify Existing Payment Methods
@@ -104,7 +104,7 @@ export BEARER_TOKEN="paste here"
 
 ```bash
 curl -s \
-  -H "Authorization: Bearer $BEARER_TOKEN" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
   $REST_API/V1/oope_payment_method | jq .
 ```
 
@@ -123,7 +123,7 @@ PAYMENT_METHOD_JSON='{
 }'
 
 curl -XPOST \
-  -s -H "Authorization: Bearer $BEARER_TOKEN" \
+  -s -H "Authorization: Bearer $ACCESS_TOKEN" \
   -H 'Content-type: application/json' \
   -d "$PAYMENT_METHOD_JSON" \
   $REST_API/V1/oope_payment_method | jq .
@@ -134,7 +134,7 @@ curl -XPOST \
 
 ```bash
 curl -s \
-  -H "Authorization: Bearer $BEARER_TOKEN" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
   $REST_API/V1/oope_payment_method | jq .
 ```
 
@@ -150,50 +150,109 @@ curl -s \
 
 ## Part II: Add Payment Method Logic
 
-### Step 2.1: Enable Payment Method Logic
-1. Open your `app.config.yaml` file
-2. Locate and uncomment the payment-method block
-3. Deploy the changes:
+In this section, you'll connect your new payment method to backend logic using Adobe App Builder. This ensures that the payment method is validated before an order is placed.
 
-```bash
-aio app deploy
-```
+---
 
-4. Run `aio app get-url` and verify that both the [payment-method/create-session](./actions/payment-method/create-session.js) action and the [payment-method/validate-payment](./actions/payment-method/validate-payment.js) webhook are listed in the output.
+### Step 2.1: Enable Payment Method Logic in App Builder
 
-### Step 2.2: Configure Webhook Subscription
-1. Log in to the Admin Panel using the Admin URL `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` (replace `<TENANT_ID>` with the tenant ID for your assigned seat)
-2. Navigate to System > Webhooks > Webhooks Subscriptions
-3. Click the "Add New Webhook" button
-4. Configure the webhook with the following settings:
+1. **Open your App Builder project** (in your codespace or local environment).
+2. Locate the `app.config.yaml` file in the root of your App Builder project.
+3. Find the section for the payment method logic (it may be commented out).
+4. **Uncomment** the relevant block for `payment-method` so it is enabled.
+5. **Deploy your changes** to App Builder by running:
+   ```bash
+   aio app deploy
+   ```
+6. After deployment, run:
+   ```bash
+   aio app get-url
+   ```
+   - Confirm that both the following endpoints are listed:
+     - `payment-method/create-session`
+     - `payment-method/validate-payment`
+   - **Note:** You will need the URL for `validate-payment` in the next step.
 
-#### Hook Settings
-| Setting | Value |
-|---------|-------|
-| Webhook Method | `observer.sales_order_place_before` |
-| Webhook Type | `before` |
-| Batch Name | `validate_payment` |
-| Hook Name | `oope_payment_methods_sales_order_place_before` |
-| URL | `https://<payment-method/validate-payment>` (use the URL from Step 7) |
-| Active | `Yes` |
-| Method | `POST` |
+---
 
-#### Hook Fields
-| Field | Name | Source |
-|-------|------|--------|
-| Field 1 | `payment_method` | `data.order.payment.method` |
-| Field 2 | `payment_additional_information` | `data.order.payment.additional_information` |
+### Step 2.2: Subscribe to the Webhook
 
-#### Hook Rules
-| Name | Value | Operator |
-|------|-------|----------|
-| `data.order.payment.method` | `PARTNER-PAY` | `equal` |
+1. In your terminal, set up the webhook subscription by running:
+   ```bash
+   WEBHOOK_JSON='
+   {
+     "webhook": {
+       "webhook_method": "observer.sales_order_place_before",
+       "webhook_type": "before",
+       "batch_name": "validate_payment",
+       "hook_name": "oope_payment_methods_sales_order_place_before",
+       "url": "https://<your-validate-payment-endpoint-url>",
+       "required": true,
+       "method": "POST",
+       "fields": [
+         {"name": "payment_method", "source": "data.order.payment.method"},
+         {"name": "payment_additional_information", "source": "data.order.payment.additional_information"}
+       ],
+       "rules": [
+         {"field": "data.order.payment.method", "operator": "equal", "value": "PARTNER-PAY"}
+       ]
+     }
+   }'
 
-### Step 2.3: Test Payment Validation
-1. Go to the checkout page
-2. Try to place an order
-3. You should see the error message "Invalid payment session"
-4. This confirms that the validate-payment webhook is working correctly
+   curl -s -X POST $REST_API/V1/webhooks/subscribe \
+     -H "Authorization: Bearer $ACCESS_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d "$WEBHOOK_JSON" | jq .
+   ```
+   - Replace `https://<your-validate-payment-endpoint-url>` with the actual URL from your deployed App Builder action (from Step 2.1).
+
+---
+
+### Step 2.3: Verify Webhook Subscription in Admin
+
+1. Log in to the Admin Panel:
+   `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
+2. Go to **System > Webhooks > Webhooks Subscriptions**.
+3. You should see your new webhook listed. Click "Select" to view its details.
+4. Confirm the following settings:
+
+   **Hook Settings**
+   | Setting         | Value                                               |
+   |-----------------|-----------------------------------------------------|
+   | Webhook Method  | `observer.sales_order_place_before`                 |
+   | Webhook Type    | `before`                                            |
+   | Batch Name      | `validate_payment`                                  |
+   | Hook Name       | `oope_payment_methods_sales_order_place_before`     |
+   | URL             | `https://<your-validate-payment-endpoint-url>`      |
+   | Active          | `Yes`                                               |
+   | Method          | `POST`                                              |
+
+   **Hook Fields**
+   | Field Name                  | Source                                   |
+   |-----------------------------|------------------------------------------|
+   | payment_method              | data.order.payment.method                |
+   | payment_additional_information | data.order.payment.additional_information |
+
+   **Hook Rules**
+   | Field                        | Operator | Value         |
+   |------------------------------|----------|--------------|
+   | data.order.payment.method    | equal    | PARTNER-PAY  |
+
+---
+
+### Step 2.4: Test Payment Validation
+
+1. Go to your storefront checkout page.
+2. Try to place an order using the "PARTNER-PAY" payment method.
+3. You should see an error message:
+   **"Invalid payment session"**
+4. This confirms that your webhook is active and the validation logic is working.
+
+---
+
+**Tips:**
+- If you do not see the webhook in the Admin Panel, double-check your `WEBHOOK_JSON` and ensure the correct endpoint URL is used.
+- If the error message does not appear, check the logs for your App Builder action and ensure it is deployed and accessible.
 
 ---
 
