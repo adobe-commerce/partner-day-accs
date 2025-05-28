@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 
 async function main() {
     const extensionId = 'emea_partner_days_2025'
+    const seatNumber = 1;
 
     return {
         statusCode: 200,
@@ -19,8 +20,8 @@ async function main() {
             registration: {
                 menuItems: [
                     {
-                        id: `${extensionId}::config`,
-                        title: 'Configuration',
+                        id: `${extensionId}::${seatNumber}::config`,
+                        title: `Configuration ${extensionId}`,
                         parent: `${extensionId}::emea_partner_days`,
                         sortOrder: 1,
                     },

@@ -123,6 +123,8 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
         > A sample file is provided in the `lab/admin-ui-sdk/registration` folder.
 
+    - Open the `registration/index.js` and update the `seatNumber` constant with your assigned seat.
+
 2. Create the ExtensionRegistration component
 
     The ExtensionRegistration component allows to register the application using the `adobe/uix-sdk`.
