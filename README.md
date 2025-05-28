@@ -550,12 +550,12 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
     You should see an error like the following in the storefront indicating that placing an order failed.
 
-    **TODO: insert image**
+    ![Alt text](docs/failed-order-placement.png "Failed order placement")
 
     In this case, when the `observer.sales_order_place_before` event was triggered, Commerce made a synchronous call to the `check-order` App Builder action. The action checked order item quantities, found an item with a quantity greater than the configured limit of 1, and sent a response back to Commerce to cause an exception to be raised. This exception prevented the order from being successfully placed.
 
     Navigate back to your cart and change the quantity of the added item to 1. After retrying with a reduced item quantity, you should see that the order placement was successful.
 
-In this part of the lab, we explored one way in which we can extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can edit the webhook behavior using a singe page app UI injected into the Commerce Admin.
+    ![Alt text](docs/successful-order-placement.png "Successful order placement")
 
-
+In this part of the lab, we explored one way to extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
