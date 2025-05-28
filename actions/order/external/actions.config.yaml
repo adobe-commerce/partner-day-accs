@@ -19,6 +19,7 @@ shipment-created:
     OAUTH_ORG_ID: $OAUTH_ORG_ID
     OAUTH_SCOPES: $OAUTH_SCOPES
     COMMERCE_BASE_URL: $COMMERCE_BASE_URL
+    TENANT_ID: $TENANT_ID
   annotations:
     require-adobe-auth: true
     final: true

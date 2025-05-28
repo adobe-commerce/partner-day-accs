@@ -27,6 +27,7 @@ const providersEventsConfig = require('../onboarding/config/events.json')
  * @returns {object} - returns success or not and provider data
  */
 async function createProvider (environment, accessToken, provider) {
+  const instanceId = provider.key === 'commerce' ? environment.TENANT_ID : uuid.v4()
   const createCustomEventProviderReq = await fetch(
         `${environment.IO_MANAGEMENT_BASE_URL}${environment.IO_CONSUMER_ID}/${environment.IO_PROJECT_ID}/${environment.IO_WORKSPACE_ID}/providers`,
         {
@@ -40,7 +41,7 @@ async function createProvider (environment, accessToken, provider) {
           body: JSON.stringify(
             {
               // read here about the use of the spread operator to merge objects: https://dev.to/sagar/three-dots---in-javascript-26ci
-              ...(provider?.key === 'commerce' ? { provider_metadata: 'dx_commerce_events', instance_id: `${uuid.v4()}` } : null),
+              ...(provider?.key === 'commerce' ? { provider_metadata: 'dx_commerce_events', instance_id: `${instanceId}` } : null),
               ...(provider?.label ? { label: `${provider?.label}` } : null),
               ...(provider?.description ? { description: `${provider?.description}` } : null),
               ...(provider?.docs_url ? { docs_url: `${provider?.docs_url}` } : null)

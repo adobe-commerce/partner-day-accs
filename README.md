@@ -378,8 +378,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
         ![Alt text](docs/oauth-credential.png "OAuth Server-to-Server Credential")
 
-    - Replace `<TENANT_ID>` in the value for the `COMMERCE_BASE_URL` with the tenant ID for your assigned seat.
-        - The tenant ID can be found from the Commerce Admin URL contained in the final output after creating the Commerce storefront. The Admin URL is formatted as `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
+    - Set the value of the `TENANT_ID` variable in the `.env` file to the tenant ID for your assigned seat.
 
     - Fill in the `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
 

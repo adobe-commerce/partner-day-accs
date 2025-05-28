@@ -20,7 +20,7 @@ const { webhookSubscribe } = require('./commerce-eventing-api-client')
 async function main (webhookSpec, environment) {
   try {
     await webhookSubscribe(
-      environment.COMMERCE_BASE_URL,
+      environment.COMMERCE_BASE_URL + environment.TENANT_ID + '/',
       environment,
       webhookSpec
     )
