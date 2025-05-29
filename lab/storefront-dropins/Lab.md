@@ -66,7 +66,7 @@ In this exercise, we'll enhance the shopping cart experience by adding visual ca
    yarn start
    ```
 4. Open your browser and go to the cart page
-5. Open browser developer tools (F12 or right-click > Inspect)
+5. Open browser developer tools (right-click > Inspect)
 6. In the console tab, run:
    ```javascript
    DROPINS.showSlots(true)
@@ -375,7 +375,7 @@ In this section, you'll connect your new payment method to backend logic using A
 },
 ```
 
-4. Run `npm start` to start the storefront in your local environment
+4. Run `yarn start` to start the storefront
 5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
 
 ### Step 3.2: UI Styling
