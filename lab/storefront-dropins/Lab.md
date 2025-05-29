@@ -35,7 +35,7 @@ Before starting this lab, you must have completed the Commerce Partner Days - AC
 - How to extend storefront drop-ins with slots
 - How to create and configure a custom payment method in Adobe Commerce
 - How to set up webhook subscriptions for payment validation
-- How to integrate payment method logic into the storefront
+- How to integrate payment method logic into the storefront checkout drop-in
 
 ---
 
