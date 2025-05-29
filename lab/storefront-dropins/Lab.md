@@ -64,13 +64,17 @@ In this exercise, we'll enhance the shopping cart experience by adding visual ca
    ```bash
    yarn start
    ```
-4. Open your browser and go to the cart page
+4. Open your browser, add a product to the cart and go to the cart page
 5. Open browser developer tools (right-click > Inspect)
 6. In the console tab, run:
    ```javascript
    DROPINS.showSlots(true)
    ```
 7. You should now see highlighted areas on the cart page where you can inject custom content
+6. In the console tab, run this to disable it:
+   ```javascript
+   DROPINS.showSlots(false)
+   ```
 
 ### Step 2: Add Product Categories to Cart
 
@@ -78,8 +82,7 @@ In this exercise, we'll enhance the shopping cart experience by adding visual ca
    ```bash
    blocks/commerce-cart/commerce-cart.js
    ```
-2. Locate the `slots` configuration (around line 83)
-3. Add the following to display promotional information in the footer of a cart item:
+2. Locate the `enableRemoveItem` prop (around line 82), below this line add the following code snippet:
 
 ```javascript
 slots: {
