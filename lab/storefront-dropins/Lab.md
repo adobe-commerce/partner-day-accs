@@ -160,7 +160,7 @@ In this exercise, we'll implement a custom payment method called "PARTNER-PAY" u
 
 Here's the simplified integration flow:
 
-![Alt text](docs/partner-pay-diagram.png "PARTNER-PAY Integration")
+![Alt text](../../docs/partner-pay-diagram.png "PARTNER-PAY Integration")
 
 ### Lab Structure
 The exercise is divided into three main parts:
@@ -186,7 +186,7 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
 2. Click **Projects** in the Developer Console top menu.
 
-    ![Alt text](docs/developer-console-home.png "Developer console home")
+    ![Alt text](../../docs/developer-console-home.png "Developer console home")
 
 3. Select the project assigned to your seat:
    **PD SY <SEAT_NUMBER>**
