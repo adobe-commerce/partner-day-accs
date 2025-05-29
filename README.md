@@ -339,7 +339,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
 1. Click **Projects** in the Developer Console top menu.
 
-    ![Alt text](docs/developer-console-home.png "Developer console home")
+    ![Alt text](docs/starter-kit/developer-console-home.png "Developer console home")
 
     Then select the project assigned to your seat: 
 
@@ -351,7 +351,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     Select **Add service** > **API**. Then select I/O Management API > Next > OAuth Server-to-Server > Save configured API
 
-    ![Alt text](docs/workspace-add-api.png "Add API to workspace")
+    ![Alt text](docs/starter-kit/workspace-add-api.png "Add API to workspace")
 
     Then add the following API services:
     - Repeat **Add service** > **API** > I/O Events > Next > Save configured API
@@ -359,11 +359,11 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     You should now see the three new API’s at the workspace level.
 
-    ![Alt text](docs/workspace-with-services.png "Workspace with required services")
+    ![Alt text](docs/starter-kit/workspace-with-services.png "Workspace with required services")
 
 1. Download the workspace JSON configuration file by clicking on the **Download all** button on the upper right corner of the page.
     
-    ![Alt text](docs/download-workspace.png "Download all button")
+    ![Alt text](docs/starter-kit/download-workspace.png "Download all button")
     
     Save it as `workspace.json` in the `extensibility-lab/scripts/onboarding/config` directory.
 
@@ -376,7 +376,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     - To find the values for the OAuth config variables, click **OAuth Server-to-Server** in the Developer Console Workspace overview page for the Stage workspace.
 
-        ![Alt text](docs/oauth-credential.png "OAuth Server-to-Server Credential")
+        ![Alt text](docs/starter-kit/oauth-credential.png "OAuth Server-to-Server Credential")
 
     - Set the value of the `TENANT_ID` variable in the `.env` file to the tenant ID for your assigned seat.
 
@@ -406,11 +406,11 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     Take note of the link to the deployed `check-order` web action and the link to the deployed application in the Experience Cloud shell. These will be used later in the lab.
 
-    ![Alt text](docs/deployed-app-urls.png "Deployed application URLs")
+    ![Alt text](docs/starter-kit/deployed-app-urls.png "Deployed application URLs")
 
     After running the command and clicking the **Runtime** tab in the Developer Console for your Stage workspace, runtime actions are visible.
 
-    ![Alt text](docs/dev-console-actions.png "Runtime actions in the Developer Console")
+    ![Alt text](docs/starter-kit/dev-console-actions.png "Runtime actions in the Developer Console")
 
 ### 2. Onboarding
 
@@ -418,7 +418,7 @@ The starter kit provides boilerplate code for synchronizing entities across syst
 
 To ensure flexibility for the onboarding scripts, the starter kit code provides a few different JSON configuration files to match your business requirements. 
 
-![Alt text](docs/starter-kit-config-files.png "Starter Kit configuration files")
+![Alt text](docs/starter-kit/starter-kit-config-files.png "Starter Kit configuration files")
 
 All the files were pre-configured for this lab. The most important files are described below:
 
@@ -459,9 +459,9 @@ npm run onboard
 
 After successfully running this command, an event registration within your Stage workspace will be visible in the Developer Console.
 
-![Alt text](docs/workspace-overview-registrations.png "Workspace overview with event registrations")
+![Alt text](docs/starter-kit/workspace-overview-registrations.png "Workspace overview with event registrations")
 
-![Alt text](docs/registration-details.png "Event registration details")
+![Alt text](docs/starter-kit/registration-details.png "Event registration details")
 
 Then, to automatically subscribe to the order save Commerce event, go to your terminal and run
 ```bash
@@ -474,7 +474,7 @@ In this part of the lab, we will demonstrate the sending of events from Commerce
 
 1. Navigate to the link for the deployed application in the Experience Cloud shell that was included in the console output after running the `aio app deploy` command. When you open the link, you should see an Adobe Experience Cloud header, like in the image below.
 
-    ![Alt text](docs/experience-cloud-header.png "Adobe Experience Cloud header")
+    ![Alt text](docs/starter-kit/experience-cloud-header.png "Adobe Experience Cloud header")
 
     The application contains a panel labeled **Latest Orders Received**. The panel is initially empty, but a grid with information about saved orders will appear after Commerce order save events are received and saved by the App Builder app's runtime action configured in the **Commerce Order Sync** event registration. The grid refreshes at regular intervals, allowing for the display of new order information.
 
@@ -482,11 +482,11 @@ In this part of the lab, we will demonstrate the sending of events from Commerce
 
 1. After placing an order, you can confirm that the event was received in the Developer Console by selecting the **Commerce Order Sync** event in the workspace's left navigation and going to the **Debug Tracing** tab.
 
-    ![Alt text](docs/dev-console-commerce-events.png "Received Commerce events in the Developer Console")
+    ![Alt text](docs/starter-kit/dev-console-commerce-events.png "Received Commerce events in the Developer Console")
 
 1. Once the panel in the deployed application's UI refreshes, an order information grid like the following will appear in the **Latest Orders Received** panel:
 
-    ![Alt text](docs/order-grid-ui.png "Application UI Order Grid")
+    ![Alt text](docs/starter-kit/order-grid-ui.png "Application UI Order Grid")
 
 The runtime action that receives Commerce order save events in this part of the lab simply stores received order information for display in the UI, but the action code could also be modified to send information received from Commerce to a third-party back office system.
 
@@ -496,21 +496,21 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
 1. In the **Latest Orders Received** grid in the deployed application's UI, click the **Ship** button in the row for a pending order.
 
-    ![Alt text](docs/order-grid-ship-button.png "Order 'Ship' button")
+    ![Alt text](docs/starter-kit/order-grid-ship-button.png "Order 'Ship' button")
 
 1. A panel labeled **Ship Order** will appear with the relevant order number and a tracking number input field.
 
-    ![Alt text](docs/ship-order-ui.png "Ship Order panel")
+    ![Alt text](docs/starter-kit/ship-order-ui.png "Ship Order panel")
 
     Enter a tracking number of your choice into the tracking number input field and click the blue **Ship** button at the bottom of the panel. A green **Shipment created** badge will appear at the bottom of the panel when successful.
 
-    ![Alt text](docs/ship-order-success.png "Ship Order success")
+    ![Alt text](docs/starter-kit/ship-order-success.png "Ship Order success")
 
     This indicates that a shipment creation event has successfully been sent to the Backoffice provider.
 
 1. You can confirm that the shipment created event was received in the Developer Console by selecting the **Backoffice Order Sync** event in the workspace's left navigation and going to the **Debug Tracing** tab.
 
-    ![Alt text](docs/dev-console-backoffice-events.png "Received Backoffice events in the Developer Console")
+    ![Alt text](docs/starter-kit/dev-console-backoffice-events.png "Received Backoffice events in the Developer Console")
 
 1. The **Backoffice Order Sync** event registration sends shipment created events to a runtime action, which uses the event payload to build a request for creating the shipment in Commerce via REST API. We can navigate to the Commerce Admin to see the created shipment for the order selected in the App Builder app's UI. The URL for the Commerce Admin assigned to your seat is formatted as
 
@@ -524,11 +524,11 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
     You should see a grid with a recently-created shipment.
 
-    ![Alt text](docs/order-shipment-grid.png "Order shipment grid")
+    ![Alt text](docs/starter-kit/order-shipment-grid.png "Order shipment grid")
 
     Click **View** in the **Action** column for this new shipment. On the **View Shipment** page, scroll down to the **Payment & Shipping Method** section. Under **Shipping and Tracking Information**, you should see information for your shipment, including the tracking number that you entered in the App Builder app's UI.
 
-    ![Alt text](docs/shipping-tracking-number.png "Shipping tracking number in Admin")
+    ![Alt text](docs/starter-kit/shipping-tracking-number.png "Shipping tracking number in Admin")
 
 ## Adobe Commerce Webhooks
 
@@ -551,13 +551,13 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
     You should see an error like the following in the storefront indicating that placing an order failed.
 
-    ![Alt text](docs/failed-order-placement.png "Failed order placement")
+    ![Alt text](docs/webhooks/failed-order-placement.png "Failed order placement")
 
     In this case, when the `observer.sales_order_place_before` event was triggered, Commerce made a synchronous call to the `check-order` App Builder action. The action checked order item quantities, found an item with a quantity greater than the configured limit of 1, and sent a response back to Commerce to cause an exception to be raised. This exception prevented the order from being successfully placed.
 
     Navigate back to your cart and change the quantity of the added item to 1. After retrying with a reduced item quantity, you should see that the order placement was successful.
 
-    ![Alt text](docs/successful-order-placement.png "Successful order placement")
+    ![Alt text](docs/webhooks/successful-order-placement.png "Successful order placement")
 
 In this part of the lab, we explored one way to extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
 This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
