@@ -58,7 +58,7 @@
     "clean": "rimraf ./packages/*/dist-* ./packages/*/*.tsbuildinfo",
     "setupTelemetry": "echo {aio-cli-telemetry: {optOut: false}} > ~/.config/aio",
     "install:mesh": "aio plugins:install @adobe/aio-cli-plugin-api-mesh",
-    "install:commerce": "aio plugins:install https://github.com/adobe-commerce/aio-cli-plugin-commerce#semver:0.1.3",
+    "install:commerce": "aio plugins:install https://github.com/adobe-commerce/aio-cli-plugin-commerce#semver:0.2.0",
     "gh:logout": "unset GITHUB_TOKEN",
     "setup": "yarn setupTelemetry && yarn install:mesh && yarn install:commerce && yarn gh:logout",
     "postinstall": "yarn setup"
