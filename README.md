@@ -525,7 +525,11 @@ This demo App Builder app simply stores and displays received order information,
 
 1. In case of failure while validating Code Sync
 
-    Run `aio commerce init --skipGit` and use the org/site name previously entered.
+    Rerun and pause on the CLI when it says
+    ```
+    ✔︎ Did you install the AEM Code Sync bot? https://github.com/apps/aem-code-sync/installations/select_target
+    ```
+    and then only proceed after 2 minutes.
 
 1. In case the storefront repository is not available to be selected during the AEM Sync Bot installation
 
