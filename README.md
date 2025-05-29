@@ -525,7 +525,7 @@ This demo App Builder app simply stores and displays received order information,
 
 1. In case of failure while validating Code Sync
 
-    Rerun and pause on the CLI when it says
+    Run `aio commerce init` and pause on the CLI when it says
     ```
     ✔︎ Did you install the AEM Code Sync bot? https://github.com/apps/aem-code-sync/installations/select_target
     ```
