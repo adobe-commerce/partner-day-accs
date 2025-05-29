@@ -78,11 +78,14 @@ In this exercise, we'll enhance the shopping cart experience by adding visual ca
 
 ### Step 2: Add Product Categories to Cart
 
-1. Open the cart block file:
+1. Open the cart block file in your storefront codespace:
    ```bash
    blocks/commerce-cart/commerce-cart.js
    ```
-2. Locate the `enableRemoveItem` prop (around line 82), below this line add the following code snippet:
+
+2. Locate the `enableRemoveItem` prop (around line 82). Below this line, you'll add a new `slots` configuration that will display product categories as badges with icons.
+
+3. Add the following code snippet exactly as shown below:
 
 ```javascript
 slots: {
