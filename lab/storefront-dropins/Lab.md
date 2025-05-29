@@ -414,26 +414,31 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 
 1. Open your storefront codespace.
 2. Open the block `blocks/commerce-checkout/commerce-checkout.js`.
-3. In Line 339, add the following code to render a warning message when the payment method is selected:
+3. In Line 340, add the following code to render a warning message when the payment method is selected:
 
 ```javascript
 "PARTNER-PAY": {
     render: (ctx) => {
         const $content = document.createElement('div');
-        $content.innerHTML = `
-        <div class="payment-method-card">
-            <div class="payment-method-card__message">
-            <p>This is a test payment method for demonstration purposes only.</p>
-            </div>
-        </div>
-        `;
+    const $content = document.createElement('div');
+
+    UI.render(Card, {
+        className: 'checkout__payment-method-partners-payment',
+        variant: 'secondary',
+        children: 'This is a test payment method for demonstration purposes only.',
+    })($content);
+
+    ctx.replaceHTML($content);
         ctx.replaceHTML($content);
     },
 },
 ```
-
-4. Go to the browser's storefront tab, and go to the checkout page.
-5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
+4. In line, after ProgressSpinner, add the following line to import the `Card`
+```javascript
+Card,
+```
+5. Go to the browser's storefront tab, and go to the checkout page.
+6. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
 
 ### Step 3.2: UI Styling
 ---
