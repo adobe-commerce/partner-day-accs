@@ -7,16 +7,19 @@
 - [Prerequisites](#prerequisites)
 - [What You'll Learn](#what-youll-learn)
 - [Links](#links)
-- [Payment Method Integration](#payment-method-integration)
+- [Exercise 1: Enhanced Cart Experience](#exercise-1-enhanced-cart-experience)
+- [Exercise 2: Payment Method Integration](#exercise-2-payment-method-integration)
   - [Part I: Create Payment Method](#part-i-create-payment-method)
   - [Part II: Add Payment Method Logic](#part-ii-add-payment-method-logic)
   - [Part III: Storefront Integration](#part-iii-storefront-integration)
-- [Bonus Track: Enhanced Cart Experience](#bonus-track-enhanced-cart-experience)
 
 ---
 
 ## Overview
-This lab will guide you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method into your Adobe Commerce storefront. You'll learn how to create a new payment method called "PARTNER-PAY" and implement the necessary backend and frontend components. This hands-on experience will help you understand the complete payment integration lifecycle in Adobe Commerce.
+This lab consists of two main exercises that will help you understand and implement key features in Adobe Commerce storefront:
+
+1. **Enhanced Cart Experience**: A smaller exercise that demonstrates how to add visual category indicators to cart items
+2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method
 
 ---
 
@@ -29,6 +32,7 @@ Before starting this lab, you must have completed the Commerce Partner Days - AC
 ---
 
 ## What You'll Learn
+- How to enhance the shopping cart with visual category indicators
 - How to create and configure a custom payment method in Adobe Commerce
 - How to set up webhook subscriptions for payment validation
 - How to integrate payment method logic into the storefront
@@ -49,9 +53,9 @@ After scaffolding your storefront, you'll have access to these URLs:
 
 ---
 
-## Enhanced Cart Experience
+## Exercise 1: Enhanced Cart Experience
 
-In this section, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons, making it easier for customers to identify product types at a glance.
+In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons, making it easier for customers to identify product types at a glance.
 
 ### Step 1: Enable Slot Visualization
 
@@ -141,20 +145,20 @@ slots: {
 
 ---
 
-## Payment Method Integration
+## Exercise 2: Payment Method Integration
 
-For this lab, we'll implement a simplified version using Adobe App Builder:
+In this exercise, we'll implement a custom payment method called "PARTNER-PAY" using Adobe App Builder. The implementation includes:
 
-1. A runtime action (`payment-method/create-session`) simulates the payment gateway
-2. The payment session ID is shared between components using Adobe App Builder State storage
-3. A webhook (`payment-method/validate-payment`) validates the payment before order placement
+1. A runtime action (`payment-method/create-session`) that simulates the payment gateway
+2. The payment session ID shared between components using Adobe App Builder State storage
+3. A webhook (`payment-method/validate-payment`) that validates the payment before order placement
 
 Here's the simplified integration flow:
 
 ![Alt text](docs/partner-pay-diagram.png "PARTNER-PAY Integration")
 
 ### Lab Structure
-The lab is divided into three main parts:
+The exercise is divided into three main parts:
 
 1. **Part I**: Create payment method (ACCS)
 2. **Part II**: Add payment method logic (App Builder)
