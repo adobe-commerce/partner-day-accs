@@ -152,15 +152,17 @@ slots: {
 
 ## Exercise 2: Payment Method Integration
 
-In this exercise, we'll implement a custom payment method called "PARTNER-PAY" using Adobe App Builder. The implementation includes:
-
-1. A runtime action (`payment-method/create-session`) that simulates the payment gateway
-2. The payment session ID shared between components using Adobe App Builder State storage
-3. A webhook (`payment-method/validate-payment`) that validates the payment before order placement
+In this exercise, we'll implement a custom payment method called "PARTNER-PAY" using Adobe App Builder.
 
 Here's the simplified integration flow:
 
 ![Alt text](../../docs/partner-pay-diagram.png "PARTNER-PAY Integration")
+
+When a user clicks the place order button:
+1. The storefront checkout will create a session on the payment gateway (simulated with the App Builder runtime action `payment-method/create-session`). This will generate a random UUID simulating the payment session identifier and return it to the storefront.
+2. The storefront will set the payment method to PARTNER-PAY with the payment session ID returned by `payment-method/create-session`.
+3. ACCS will trigger the webhook `payment-method/validate-payment` on the event `observer.sales_order_place_before`.
+
 
 ### Lab Structure
 The exercise is divided into three main parts:
