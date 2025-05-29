@@ -647,3 +647,11 @@ This demo App Builder app simply stores and displays received order information,
     Run `gh auth login`
 
     Run `aio commerce init`
+
+1. In case the storefront URL output by the command were not recorded
+
+    The store URL is formatted as `https://main--<STOREFRONT_NAME>--<GITHUB_USER>.aem.page/`
+
+    OR
+
+    The content URL is formatted as `https://da.live/#/<GITHUB_USER>/<STOREFRONT_NAME>`. Open a content file and click preview. This will open up the storefront URL.
