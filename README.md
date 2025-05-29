@@ -560,3 +560,90 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
     ![Alt text](docs/successful-order-placement.png "Successful order placement")
 
 In this part of the lab, we explored one way to extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
+This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
+
+## Troubleshooting Guide
+
+### aio CLI
+
+1. In case you need guidance on commands or flags 
+
+    Run `aio --help` to see all available commands and flags. 
+
+    For specific commands, use the `--help` flag. For example: 
+
+        aio auth login --help 
+
+        aio commerce init -–help 
+
+1. In case of getting the error below
+    
+    ```
+    ›   Error: [CoreConsoleAPISDK:ERROR_GET_PROJECTS_BY_ORG_ID] 451 - Unknown ("Use POST /console/services/ims/organizations/:orgId/terms API to accept developer terms for your org first. You 
+    ›   can use GET /console/services/ims/terms to retrieve the current developer terms.")
+    ```
+
+    Open https://developer.adobe.com/console/ in your browser and accept the Terms & Conditions while logging in.
+
+
+### aio auth login
+
+1. In case of invalid login
+
+    Run `aio config clear` 
+
+    Run `aio auth login –-force`
+
+    Switch over to the browser and use the lab username and password to login 
+
+    Select **Adobe Commerce Labs** profile 
+
+    Switch back to the terminal to continue 
+
+### aio commerce init
+
+1. In case of a failed init: 
+
+    Run `aio api-mesh delete`
+
+    Re-run `aio commerce init`
+
+1. In case of wrong Org selection during init  
+
+    Run `aio console org select` 
+
+1. In case of wrong Project selection during init 
+
+    Run `aio console project select`
+
+1. In case of wrong Workspace selection during init 
+
+    Run `aio console workspace select`
+
+1. In case of invalid Tenant selection 
+
+    Cancel the current CLI execution by running control+c 
+
+    Run `aio commerce init`
+
+1. In case of invalid Mesh installation 
+
+    Run `aio api-mesh update mesh-config.json`
+
+1. In case of failure while validating Code Sync
+
+    Run `aio commerce init` and pause on the CLI when it says
+    ```
+    ✔︎ Did you install the AEM Code Sync bot? https://github.com/apps/aem-code-sync/installations/select_target
+    ```
+    and then only proceed after 2 minutes.
+
+1. In case the storefront repository is not available to be selected during the AEM Sync Bot installation
+
+    Cancel the current CLI execution by running control+c
+
+    Run `unset GITHUB_TOKEN`
+
+    Run `gh auth login`
+
+    Run `aio commerce init`
