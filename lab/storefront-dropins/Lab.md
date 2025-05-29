@@ -32,11 +32,10 @@ Before starting this lab, you must have completed the Commerce Partner Days - AC
 ---
 
 ## What You'll Learn
-- How to enhance the shopping cart with visual category indicators
+- How to extend storefront drop-ins with slots
 - How to create and configure a custom payment method in Adobe Commerce
 - How to set up webhook subscriptions for payment validation
 - How to integrate payment method logic into the storefront
-- How to handle payment sessions and validation
 
 ---
 
@@ -55,7 +54,7 @@ After scaffolding your storefront, you'll have access to these URLs:
 
 ## Exercise 1: Enhanced Cart Experience
 
-In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons, making it easier for customers to identify product types at a glance.
+In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons.
 
 ### Step 1: Enable Slot Visualization
 
@@ -95,7 +94,7 @@ slots: {
             'Office': '📁',
             'Apparel': '👕',
             'Bags': '🎒',
-            'Collections': '🎁',
+            'Collections': '🖼️',
             'Lifestyle': '🌟',
             'Tech': '💻',
             'Gifts': '🎁',
