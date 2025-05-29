@@ -25,8 +25,8 @@ This lab consists of two main exercises that will help you understand and implem
 
 ## Prerequisites
 Before starting this lab, you must have completed the Commerce Partner Days - ACCS Session. This ensures you have:
-- A ready-to-use lab codespace
-- A configured storefront codespace
+- A ready-to-use ACCS lab codespace (lab codespace)
+- A configured storefront codespace (storefront codespace)
 - An App Builder project set up with the necessary permissions
 
 ---
@@ -46,7 +46,6 @@ After scaffolding your storefront, you'll have access to these URLs:
 |----------|-----|
 | Storefront Preview | `https://main--<REPO>--<OWNER>.aem.page/` |
 | Content Editor | `https://da.live/#/<OWNER>/<REPO>` |
-| Configuration Manager | `https://da.live/#/<OWNER>/<REPO>/configs-stage` |
 | Admin URL | `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` |
 | REST Endpoint | `https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>` |
 
@@ -176,7 +175,7 @@ The exercise is divided into three main parts:
 ## Part I: Create Payment Method
 
 ### Step 1.1: Set Up Environment Variables
-1. Open your partner-day-accs codespace
+1. Open your lab codespace
 2. Open the terminal
 3. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat)
 
@@ -244,7 +243,7 @@ curl -s \
 2. Confirm that "PARTNER-PAY" appears in the list of payment methods
 
 ### Step 1.6: Test in Storefront
-1. Navigate to your storefront preview URL: `https://main--<REPO>--<OWNER>.aem.page/`
+1. Go to your storefront
 2. Add items to your cart
 3. Proceed to checkout
 4. Verify that "PARTNER-PAY" appears in the list of available payment methods
@@ -259,7 +258,7 @@ In this section, you'll connect your new payment method to backend logic using A
 
 ### Step 2.1: Enable Payment Method Logic in App Builder
 
-1. **Open your App Builder project** (in your codespace or local environment).
+1. Open your lab codespace.
 2. Locate the `app.config.yaml` file in the root of your App Builder project.
 3. Find the section for the payment method logic (it may be commented out).
 4. **Uncomment** the relevant block for `payment-method` so it is enabled.
@@ -366,7 +365,7 @@ In this section, you'll connect your new payment method to backend logic using A
 ## Part III: Storefront Integration
 
 ### Step 3.1: UI Render
-1. Go to the storefront repository
+1. Open your storefront codespace
 2. Open the block `blocks/commerce-checkout/commerce-checkout.js`
 3. In Line 339, add the following code to render a warning message when the payment method is selected:
 
@@ -386,8 +385,8 @@ In this section, you'll connect your new payment method to backend logic using A
 },
 ```
 
-4. Run `yarn start` to start the storefront
-5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
+4. Go to the browser's storefront tab, and go to the checkout page
+5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods
 
 ### Step 3.2: UI Styling
 1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`
@@ -455,7 +454,8 @@ if (code === "PARTNER-PAY") {
 }
 ```
 
-2. Place an order with PARTNER-PAY payment method. Now it should work.
+2. Go back to the browser's storefront tab
+3. Place an order with PARTNER-PAY payment method. Now it should work.
 
 ---
 
