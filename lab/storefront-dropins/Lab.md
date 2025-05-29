@@ -3,6 +3,7 @@
 ---
 
 ## Table of Contents
+---
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [What You'll Learn](#what-youll-learn)
@@ -16,6 +17,7 @@
 ---
 
 ## Overview
+---
 This lab consists of two main exercises that will help you understand and implement key features in Adobe Commerce storefront:
 
 1. **Enhanced Cart Experience**: A smaller exercise that demonstrates how to add visual category indicators to cart items
@@ -24,14 +26,17 @@ This lab consists of two main exercises that will help you understand and implem
 ---
 
 ## Prerequisites
+---
 Before starting this lab, you must have completed the Commerce Partner Days - ACCS Session. This ensures you have:
-- A ready-to-use ACCS lab codespace (lab codespace)
-- A configured storefront codespace (storefront codespace)
-- An App Builder project set up with the necessary permissions
+
+1. A ready-to-use ACCS lab codespace (lab codespace)
+2. A configured storefront codespace (storefront codespace)
+3. An App Builder project set up with the necessary permissions
 
 ---
 
 ## What You'll Learn
+---
 - How to extend storefront drop-ins with slots
 - How to create and configure a custom payment method in Adobe Commerce
 - How to set up webhook subscriptions for payment validation
@@ -40,6 +45,7 @@ Before starting this lab, you must have completed the Commerce Partner Days - AC
 ---
 
 ## Links
+---
 After scaffolding your storefront, you'll have access to these URLs:
 
 | Resource | URL |
@@ -52,35 +58,44 @@ After scaffolding your storefront, you'll have access to these URLs:
 ---
 
 ## Exercise 1: Enhanced Cart Experience
+---
 
 In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons.
 
 ### Step 1: Enable Slot Visualization
+---
 
-1. Open your storefront codespace
-2. Navigate to the terminal
+1. Open your storefront codespace.
+2. Navigate to the terminal.
 3. Start the development server:
-   ```bash
-   yarn start
-   ```
-4. Open your browser, add a product to the cart and go to the cart page
-5. Open browser developer tools (right-click > Inspect)
+
+```bash
+yarn start
+```
+
+4. Open your browser, add a product to the cart and go to the cart page.
+5. Open browser developer tools (right-click > Inspect).
 6. In the console tab, run:
-   ```javascript
-   DROPINS.showSlots(true)
-   ```
-7. You should now see highlighted areas on the cart page where you can inject custom content
-6. In the console tab, run this to disable it:
-   ```javascript
-   DROPINS.showSlots(false)
-   ```
+
+```javascript
+DROPINS.showSlots(true)
+```
+
+7. You should now see highlighted areas on the cart page where you can inject custom content.
+8. In the console tab, run this to disable it:
+
+```javascript
+DROPINS.showSlots(false)
+```
 
 ### Step 2: Add Product Categories to Cart
+---
 
 1. Open the cart block file in your storefront codespace:
-   ```bash
-   blocks/commerce-cart/commerce-cart.js
-   ```
+
+```bash
+blocks/commerce-cart/commerce-cart.js
+```
 
 2. Locate the `enableRemoveItem` prop (around line 82). Below this line, you'll add a new `slots` configuration that will display product categories as badges with icons.
 
@@ -139,17 +154,19 @@ slots: {
 ```
 
 ### Step 3: Test the Enhanced Cart
+---
 
-1. Refresh your cart page
-2. Add different products to your cart
+1. Refresh your cart page.
+2. Add different products to your cart.
 3. Verify that:
-   - Category badges appear with icons
-   - Badges are properly styled
-   - Content is properly aligned and spaced
+   - Category badges appear with icons.
+   - Badges are properly styled.
+   - Content is properly aligned and spaced.
 
 ---
 
 ## Exercise 2: Payment Method Integration
+---
 
 In this exercise, we'll implement a custom payment method called "PARTNER-PAY" using Adobe App Builder.
 
@@ -158,32 +175,37 @@ Here's the simplified integration flow:
 ![Alt text](../../docs/partner-pay-diagram.png "PARTNER-PAY Integration")
 
 When a user clicks the place order button:
+
 1. The storefront checkout will create a session on the payment gateway (simulated with the App Builder runtime action `payment-method/create-session`). This will generate a random UUID simulating the payment session identifier and return it to the storefront.
 2. The storefront will set the payment method to PARTNER-PAY with the payment session ID returned by `payment-method/create-session`.
 3. ACCS will trigger the webhook `payment-method/validate-payment` on the event `observer.sales_order_place_before`.
 
-
 ### Lab Structure
-The exercise is divided into three main parts:
-
-1. **Part I**: Create payment method (ACCS)
-2. **Part II**: Add payment method logic (App Builder)
-3. **Part III**: Storefront integration (EDS Storefront)
-
 ---
 
+The exercise is divided into three main parts:
+
+1. **Part I**: Create payment method (ACCS).
+2. **Part II**: Add payment method logic (App Builder).
+3. **Part III**: Storefront integration (EDS Storefront).
+
 ## Part I: Create Payment Method
+---
 
 ### Step 1.1: Set Up Environment Variables
-1. Open your lab codespace
-2. Open the terminal
-3. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat)
+---
+
+1. Open your lab codespace.
+2. Open the terminal.
+3. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat):
 
 ```bash
 export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 ```
 
 ### Step 1.2: Generate and Set Access Token
+---
+
 1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
 2. Click **Projects** in the Developer Console top menu.
 
@@ -191,10 +213,10 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 
 3. Select the project assigned to your seat:
    **PD SY <SEAT_NUMBER>**
-4. Select the **Stage** workspace
-5. Navigate to Credentials > OAuth Server-to-Server section
-6. Click on "Generate access token" button
-7. Copy the generated token
+4. Select the **Stage** workspace.
+5. Navigate to Credentials > OAuth Server-to-Server section.
+6. Click on "Generate access token" button.
+7. Copy the generated token.
 8. Set the token in your terminal:
 
 ```bash
@@ -202,6 +224,8 @@ export ACCESS_TOKEN="paste here"
 ```
 
 ### Step 1.3: Verify Existing Payment Methods
+---
+
 1. Run the following command to check current payment methods:
 
 ```bash
@@ -210,9 +234,11 @@ curl -s \
   $REST_API/V1/oope_payment_method | jq .
 ```
 
-2. Review the output to ensure "PARTNER-PAY" is not already in the list
+2. Review the output to ensure "PARTNER-PAY" is not already in the list.
 
 ### Step 1.4: Create New Payment Method
+---
+
 1. Create a new payment method by running:
 
 ```bash
@@ -226,12 +252,14 @@ PAYMENT_METHOD_JSON='{
 
 curl -XPOST \
   -s -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -H 'Content-type: application/json' \
+  -H "Content-type: application/json" \
   -d "$PAYMENT_METHOD_JSON" \
   $REST_API/V1/oope_payment_method | jq .
 ```
 
 ### Step 1.5: Verify Payment Method Creation
+---
+
 1. Run the verification command again:
 
 ```bash
@@ -240,81 +268,84 @@ curl -s \
   $REST_API/V1/oope_payment_method | jq .
 ```
 
-2. Confirm that "PARTNER-PAY" appears in the list of payment methods
+2. Confirm that "PARTNER-PAY" appears in the list of payment methods.
 
 ### Step 1.6: Test in Storefront
-1. Go to your storefront
-2. Add items to your cart
-3. Proceed to checkout
-4. Verify that "PARTNER-PAY" appears in the list of available payment methods
+---
+
+1. Go to your storefront.
+2. Add items to your cart.
+3. Proceed to checkout.
+4. Verify that "PARTNER-PAY" appears in the list of available payment methods.
 
 ---
 
 ## Part II: Add Payment Method Logic
+---
 
 In this section, you'll connect your new payment method to backend logic using Adobe App Builder. This ensures that the payment method is validated before an order is placed.
 
----
-
 ### Step 2.1: Enable Payment Method Logic in App Builder
+---
 
 1. Open your lab codespace.
 2. Locate the `app.config.yaml` file in the root of your App Builder project.
 3. Find the section for the payment method logic (it may be commented out).
 4. **Uncomment** the relevant block for `payment-method` so it is enabled.
 5. **Deploy your changes** to App Builder by running:
-   ```bash
-   aio app deploy --force-build --force-deploy
-   ```
-6. After deployment, run:
-   ```bash
-   aio app get-url
-   ```
-   - Confirm that both the following endpoints are listed:
-     - `payment-method/create-session`
-     - `payment-method/validate-payment`
-   - **Note:** You will need the URL for `validate-payment` in the next step.
 
----
+```bash
+aio app deploy --force-build --force-deploy
+```
+
+6. After deployment, run:
+
+```bash
+aio app get-url
+```
+
+7. Confirm that both the following endpoints are listed:
+   - `payment-method/create-session`
+   - `payment-method/validate-payment`
+8. **Note:** You will need the URL for `validate-payment` in the next step.
 
 ### Step 2.2: Subscribe to the Webhook
+---
 
 1. In your terminal, set up the webhook subscription by running:
    - Replace `https://<your-validate-payment-endpoint-url>` with the actual URL from your deployed App Builder action (from Step 2.1).
-   ```bash
 
-   VALIDATE_PAYMENT_URL="https://<your-validate-payment-endpoint-url>"
+```bash
+VALIDATE_PAYMENT_URL="https://<your-validate-payment-endpoint-url>"
 
-   WEBHOOK_JSON='
-   {
-     "webhook": {
-       "webhook_method": "observer.sales_order_place_before",
-       "webhook_type": "before",
-       "batch_name": "validate_payment",
-       "hook_name": "oope_payment_methods_sales_order_place_before",
-       "url": "'$VALIDATE_PAYMENT_URL'",
-       "required": true,
-       "method": "POST",
-       "fields": [
-         {"name": "payment_method", "source": "data.order.payment.method"},
-         {"name": "payment_additional_information", "source": "data.order.payment.additional_information"}
-       ],
-       "rules": [
-         {"field": "data.order.payment.method", "operator": "equal", "value": "PARTNER-PAY"}
-       ]
-     }
-   }'
+WEBHOOK_JSON='
+{
+  "webhook": {
+    "webhook_method": "observer.sales_order_place_before",
+    "webhook_type": "before",
+    "batch_name": "validate_payment",
+    "hook_name": "oope_payment_methods_sales_order_place_before",
+    "url": "'$VALIDATE_PAYMENT_URL'",
+    "required": true,
+    "method": "POST",
+    "fields": [
+      {"name": "payment_method", "source": "data.order.payment.method"},
+      {"name": "payment_additional_information", "source": "data.order.payment.additional_information"}
+    ],
+    "rules": [
+      {"field": "data.order.payment.method", "operator": "equal", "value": "PARTNER-PAY"}
+    ]
+  }
+}'
 
-   curl -s -X POST $REST_API/V1/webhooks/subscribe \
-     -H "Authorization: Bearer $ACCESS_TOKEN" \
-     -H "Content-Type: application/json" \
-     -d "$WEBHOOK_JSON" | jq .
-   ```
-
-
----
+curl -s -X POST $REST_API/V1/webhooks/subscribe \
+  -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "$WEBHOOK_JSON" | jq .
+```
 
 ### Step 2.3: Verify Webhook Subscription in Admin
+---
 
 1. Log in to the Admin Panel:
    `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
@@ -323,30 +354,29 @@ In this section, you'll connect your new payment method to backend logic using A
 4. Confirm the following settings:
 
    **Hook Settings**
-   | Setting         | Value                                               |
-   |-----------------|-----------------------------------------------------|
-   | Webhook Method  | `observer.sales_order_place_before`                 |
-   | Webhook Type    | `before`                                            |
-   | Batch Name      | `validate_payment`                                  |
-   | Hook Name       | `oope_payment_methods_sales_order_place_before`     |
-   | URL             | `https://<your-validate-payment-endpoint-url>`      |
-   | Active          | `Yes`                                               |
-   | Method          | `POST`                                              |
+   | Setting | Value |
+   |---------|-------|
+   | Webhook Method | `observer.sales_order_place_before` |
+   | Webhook Type | `before` |
+   | Batch Name | `validate_payment` |
+   | Hook Name | `oope_payment_methods_sales_order_place_before` |
+   | URL | `https://<your-validate-payment-endpoint-url>` |
+   | Active | `Yes` |
+   | Method | `POST` |
 
    **Hook Fields**
-   | Field Name                  | Source                                   |
-   |-----------------------------|------------------------------------------|
-   | payment_method              | data.order.payment.method                |
+   | Field Name | Source |
+   |------------|--------|
+   | payment_method | data.order.payment.method |
    | payment_additional_information | data.order.payment.additional_information |
 
    **Hook Rules**
-   | Field                        | Operator | Value         |
-   |------------------------------|----------|--------------|
-   | data.order.payment.method    | equal    | PARTNER-PAY  |
-
----
+   | Field | Operator | Value |
+   |-------|----------|-------|
+   | data.order.payment.method | equal | PARTNER-PAY |
 
 ### Step 2.4: Test Payment Validation
+---
 
 1. Go to your storefront checkout page.
 2. Try to place an order using the "PARTNER-PAY" payment method.
@@ -354,19 +384,20 @@ In this section, you'll connect your new payment method to backend logic using A
    **"Invalid payment session"**
 4. This confirms that your webhook is active and the validation logic is working.
 
----
-
-**Tips:**
-- If you do not see the webhook in the Admin Panel, double-check your `WEBHOOK_JSON` and ensure the correct endpoint URL is used.
-- If the error message does not appear, check the logs for your App Builder action and ensure it is deployed and accessible.
+> **Tips:**
+> - If you do not see the webhook in the Admin Panel, double-check your `WEBHOOK_JSON` and ensure the correct endpoint URL is used.
+> - If the error message does not appear, check the logs for your App Builder action and ensure it is deployed and accessible.
 
 ---
 
 ## Part III: Storefront Integration
+---
 
 ### Step 3.1: UI Render
-1. Open your storefront codespace
-2. Open the block `blocks/commerce-checkout/commerce-checkout.js`
+---
+
+1. Open your storefront codespace.
+2. Open the block `blocks/commerce-checkout/commerce-checkout.js`.
 3. In Line 339, add the following code to render a warning message when the payment method is selected:
 
 ```javascript
@@ -385,11 +416,13 @@ In this section, you'll connect your new payment method to backend logic using A
 },
 ```
 
-4. Go to the browser's storefront tab, and go to the checkout page
-5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods
+4. Go to the browser's storefront tab, and go to the checkout page.
+5. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
 
 ### Step 3.2: UI Styling
-1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`
+---
+
+1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`.
 2. Append the following CSS rules to the end of the file:
 
 ```css
@@ -422,6 +455,8 @@ In this section, you'll connect your new payment method to backend logic using A
 3. Go back to the browser and re-load the checkout page. It should display the message in a styled box.
 
 ### Step 3.3: Payment Logic
+---
+
 1. In Line 470, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
@@ -454,7 +489,7 @@ if (code === "PARTNER-PAY") {
 }
 ```
 
-2. Go back to the browser's storefront tab
+2. Go back to the browser's storefront tab.
 3. Place an order with PARTNER-PAY payment method. Now it should work.
 
 ---
