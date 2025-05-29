@@ -472,7 +472,9 @@ npm run commerce-event-subscribe
 
 In this part of the lab, we will demonstrate the sending of events from Commerce to App Builder.
 
-1. Navigate to the link for the deployed application in the Experience Cloud shell that was included in the console output after running the `aio app deploy` command.
+1. Navigate to the link for the deployed application in the Experience Cloud shell that was included in the console output after running the `aio app deploy` command. When you open the link, you should see an Adobe Experience Cloud header, like in the image below.
+
+    ![Alt text](docs/experience-cloud-header.png "Adobe Experience Cloud header")
 
     The application contains a panel labeled **Latest Orders Received**. The panel is initially empty, but a grid with information about saved orders will appear after Commerce order save events are received and saved by the App Builder app's runtime action configured in the **Commerce Order Sync** event registration. The grid refreshes at regular intervals, allowing for the display of new order information.
 
