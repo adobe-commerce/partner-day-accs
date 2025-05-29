@@ -658,6 +658,10 @@ This demo App Builder app simply stores and displays received order information,
 
 ### webhooks
 
-1. **Order could not be validated** appears in the storefront when trying to place an order after configuring the webhook
+1. **Order could not be validated.** appears in the storefront when trying to place an order after configuring the webhook.
 
     This indicates that an exception occurred in the `check-order` runtime action the webhook sends requests to. Double check that the `get-config` action that is invoked by `check-order` is successfully deployed when `aio app deploy --force-deploy` is run.
+
+1. **Cannot perform the operation due to an error.** appears in the storefront when trying to place an order after configuring the webhook.
+
+    Double check that the `url` value added in `scripts/config/commerce-webhook-subscribe.json` is correct. It should be formatted as `https://1899289-<AIO_RUNTIME_NAMESPACE>.adobeio-static.net/api/v1/web/webhook/check-order`
