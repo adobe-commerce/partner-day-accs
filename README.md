@@ -655,3 +655,9 @@ This demo App Builder app simply stores and displays received order information,
     OR
 
     The content URL is formatted as `https://da.live/#/<GITHUB_USER>/<STOREFRONT_NAME>`. Open a content file and click preview. This will open up the storefront URL.
+
+### webhooks
+
+1. **Order could not be validated** appears in the storefront when trying to place an order after configuring the webhook
+
+    This indicates that an exception occurred in the `check-order` runtime action the webhook sends requests to. Double check that the `get-config` action that is invoked by `check-order` is successfully deployed when `aio app deploy --force-deploy` is run.

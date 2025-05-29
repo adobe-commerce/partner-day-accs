@@ -52,7 +52,7 @@ async function main (params) {
     return webhookSuccessResponse()
   } catch (error) {
     logger.error(`Server error: ${error.message}`, error)
-    return webhookErrorResponse(error.message)
+    return webhookErrorResponse('Order could not be validated')
   }
 }
 
