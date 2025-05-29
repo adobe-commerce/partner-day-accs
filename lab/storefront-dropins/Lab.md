@@ -220,7 +220,8 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 8. Set the token in your terminal:
 
 ```bash
-export ACCESS_TOKEN="paste here"
+# TODO Paste your access token between the quotes
+export ACCESS_TOKEN=""
 ```
 
 ### Step 1.3: Verify Existing Payment Methods
@@ -312,12 +313,16 @@ aio app get-url
 ### Step 2.2: Subscribe to the Webhook
 ---
 
-1. In your terminal, set up the webhook subscription by running:
-   - Replace `https://<your-validate-payment-endpoint-url>` with the actual URL from your deployed App Builder action (from Step 2.1).
+1. Copy your validate-payment endpoint URL from Step 2.1 (the URL that ends with `/validate-payment`).
+
+2. Run these commands in your terminal (copy and paste each block):
 
 ```bash
-VALIDATE_PAYMENT_URL="https://<your-validate-payment-endpoint-url>"
+# TODO Paste your validate-payment URL between the quotes
+VALIDATE_PAYMENT_URL=""
+```
 
+```bash
 WEBHOOK_JSON='
 {
   "webhook": {
@@ -462,7 +467,8 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 ```javascript
 // Add payment session creation for PARTNER-PAY
 if (code === "PARTNER-PAY") {
-    const PAYMENT_SESSION_API = '<payment-method/validate-session>'; // (use the URL from Step 7)
+    // TODO Paste your create-session URL between the quotes
+    const PAYMENT_SESSION_API = '';
 
     try {
         const response = await fetch(PAYMENT_SESSION_API);
