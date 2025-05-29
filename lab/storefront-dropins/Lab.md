@@ -265,7 +265,7 @@ In this section, you'll connect your new payment method to backend logic using A
 4. **Uncomment** the relevant block for `payment-method` so it is enabled.
 5. **Deploy your changes** to App Builder by running:
    ```bash
-   aio app deploy
+   aio app deploy --force-build --force-deploy
    ```
 6. After deployment, run:
    ```bash
