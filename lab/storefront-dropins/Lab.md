@@ -281,7 +281,11 @@ In this section, you'll connect your new payment method to backend logic using A
 ### Step 2.2: Subscribe to the Webhook
 
 1. In your terminal, set up the webhook subscription by running:
+   - Replace `https://<your-validate-payment-endpoint-url>` with the actual URL from your deployed App Builder action (from Step 2.1).
    ```bash
+
+   VALIDATE_PAYMENT_URL="https://<your-validate-payment-endpoint-url>"
+
    WEBHOOK_JSON='
    {
      "webhook": {
@@ -289,7 +293,7 @@ In this section, you'll connect your new payment method to backend logic using A
        "webhook_type": "before",
        "batch_name": "validate_payment",
        "hook_name": "oope_payment_methods_sales_order_place_before",
-       "url": "https://<your-validate-payment-endpoint-url>",
+       "url": "'$VALIDATE_PAYMENT_URL'",
        "required": true,
        "method": "POST",
        "fields": [
@@ -307,7 +311,7 @@ In this section, you'll connect your new payment method to backend logic using A
      -H "Content-Type: application/json" \
      -d "$WEBHOOK_JSON" | jq .
    ```
-   - Replace `https://<your-validate-payment-endpoint-url>` with the actual URL from your deployed App Builder action (from Step 2.1).
+
 
 ---
 
