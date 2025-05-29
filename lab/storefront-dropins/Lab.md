@@ -41,11 +41,103 @@ After scaffolding your storefront, you'll have access to these URLs:
 
 | Resource | URL |
 |----------|-----|
-| Storefront Preview | `https://main--{repo}--{owner}.aem.page/` |
-| Content Editor | `https://da.live/#/{owner}/{repo}` |
-| Configuration Manager | `https://da.live/#/{owner}/{repo}/configs-stage` |
-| Admin URL | `https://na1-sandbox.admin.commerce.adobe.com/{tenant_id}` |
-| REST Endpoint | `https://na1-sandbox.api.commerce.adobe.com/{tenant_id}` |
+| Storefront Preview | `https://main--<REPO>--<OWNER>.aem.page/` |
+| Content Editor | `https://da.live/#/<OWNER>/<REPO>` |
+| Configuration Manager | `https://da.live/#/<OWNER>/<REPO>/configs-stage` |
+| Admin URL | `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` |
+| REST Endpoint | `https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>` |
+
+---
+
+## Enhanced Cart Experience
+
+In this section, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons, making it easier for customers to identify product types at a glance.
+
+### Step 1: Enable Slot Visualization
+
+1. Open your storefront codespace
+2. Navigate to the terminal
+3. Start the development server:
+   ```bash
+   yarn start
+   ```
+4. Open your browser and go to the cart page
+5. Open browser developer tools (F12 or right-click > Inspect)
+6. In the console tab, run:
+   ```javascript
+   DROPINS.showSlots(true)
+   ```
+7. You should now see highlighted areas on the cart page where you can inject custom content
+
+### Step 2: Add Product Categories to Cart
+
+1. Open the cart block file:
+   ```bash
+   blocks/commerce-cart/commerce-cart.js
+   ```
+2. Locate the `slots` configuration (around line 83)
+3. Add the following to display promotional information in the footer of a cart item:
+
+```javascript
+slots: {
+    ProductAttributes: (ctx) => {
+        const productAttributes = document.createElement('div');
+        productAttributes.className = 'product-attributes';
+
+        // Create categories section
+        if (ctx.item && ctx.item.categories && ctx.item.categories.length > 0) {
+        const categoryIcons = {
+            'All': '🌍',
+            'Office': '📁',
+            'Apparel': '👕',
+            'Bags': '🎒',
+            'Collections': '🎁',
+            'Lifestyle': '🌟',
+            'Tech': '💻',
+            'Gifts': '🎁',
+            'Travel': '✈️'
+        };
+
+        const categoryElements = ctx.item.categories.map(category => {
+            const categoryName = category;
+            const categoryIcon = categoryIcons[categoryName] || '🌍';
+            return `<div class="product-attribute-category">${categoryIcon} ${categoryName}</div>`;
+        });
+
+        productAttributes.innerHTML = categoryElements.join('');
+
+        // Add some basic styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .product-attributes {
+            padding: 10px;
+            margin: 10px 0;
+            }
+            .product-attribute-category {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background: #f5f5f5;
+            border-radius: 15px;
+            font-size: 0.9em;
+            }
+        `;
+        productAttributes.appendChild(style);
+        }
+
+        ctx.appendChild(productAttributes);
+    },
+}
+```
+
+### Step 3: Test the Enhanced Cart
+
+1. Refresh your cart page
+2. Add different products to your cart
+3. Verify that:
+   - Category badges appear with icons
+   - Badges are properly styled
+   - Content is properly aligned and spaced
 
 ---
 
@@ -141,7 +233,7 @@ curl -s \
 2. Confirm that "PARTNER-PAY" appears in the list of payment methods
 
 ### Step 1.6: Test in Storefront
-1. Navigate to your storefront preview URL: `https://main--{repo}--{owner}.aem.page/`
+1. Navigate to your storefront preview URL: `https://main--<REPO>--<OWNER>.aem.page/`
 2. Add items to your cart
 3. Proceed to checkout
 4. Verify that "PARTNER-PAY" appears in the list of available payment methods
@@ -351,39 +443,4 @@ if (code === "PARTNER-PAY") {
 2. Place an order with PARTNER-PAY payment method. Now it should work.
 
 ---
-
-## Bonus Track: Enhanced Cart Experience
-
-In this optional section, we'll enhance the shopping cart experience by displaying promotional information in the footer of cart items.
-
-### Prerequisites
-A custom cart price rule. For instance, a cart price rule 25% Off $75+ with Code PARTNER01.  [Cart price rules overview](https://experienceleague.adobe.com/en/docs/commerce-admin/marketing/promotions/cart-rules/price-rules-cart) describes how to create a cart price rule.
-
-### Step 4.1: Add Product Categories to Cart
-1. Navigate to your storefront codespace
-2. Open the block `blocks/commerce-cart/commerce-cart.js`
-3. Locate the `slots` configuration (around line 83)
-4. Add the following to display promotional information in the footer of a cart item:
-
-```javascript
-slots: {
-    Footer: (ctx) => {
-        // Runs on mount
-        const wrapper = document.createElement('div');
-        ctx.appendChild(wrapper);
-
-        // Append Product Promotions on every update
-        ctx.onChange((next) => {
-            wrapper.innerHTML = '';
-
-            next.item?.discount?.label?.forEach((label) => {
-                const discount = document.createElement('div');
-                discount.style.color = '#3d3d3d';
-                discount.innerText = label;
-                wrapper.appendChild(discount);
-            });
-        });
-    }
-}
-```
 
