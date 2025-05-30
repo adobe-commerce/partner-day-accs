@@ -420,25 +420,31 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 "PARTNER-PAY": {
     render: (ctx) => {
         const $content = document.createElement('div');
-    const $content = document.createElement('div');
-
-    UI.render(Card, {
-        className: 'checkout__payment-method-partners-payment',
-        variant: 'secondary',
-        children: 'This is a test payment method for demonstration purposes only.',
-    })($content);
-
-    ctx.replaceHTML($content);
+        UI.render(IllustratedMessage,
+          {
+            className: "checkout__payment-method-partners-payment",
+            heading: "PARTNER PAY",
+            headingLevel: 3,
+            variant: "secondary",
+            message: h("p", {className: "checkout__payment-method-partners-payment--message", children: "This is a test payment method for demonstration purposes only"})
+          }
+        )($content);
         ctx.replaceHTML($content);
     },
 },
 ```
-4. In line, after ProgressSpinner, add the following line to import the `Card`
+
+4. In line 10, after `import { initializers } ...`, add the following line to import Preact `h` function
 ```javascript
-Card,
+import { h } from '@dropins/tools/preact.js';
 ```
-5. Go to the browser's storefront tab, and go to the checkout page.
-6. Select PARTNER-PAY payment method. It should display a warning message below the payment methods.
+
+5. In line, after `ProgressSpinner`, add the following line to import the `IllustratedMessage`
+```javascript
+IllustratedMessage,
+```
+6. Go to the browser's storefront tab, and go to the checkout page.
+7. Select `PARTNER-PAY` payment method. It should display a warning message below the payment methods.
 
 ### Step 3.2: UI Styling
 ---
@@ -447,29 +453,18 @@ Card,
 2. Append the following CSS rules to the end of the file:
 
 ```css
-/* Payment Method Card */
-.checkout__payment-methods .payment-method-card {
-    border: 1px solid var(--color-neutral-300);
-    border-radius: var(--shape-border-radius-medium);
-    padding: var(--spacing-medium);
-    margin-top: var(--spacing-small);
+/* PARTNER-PAY payment method */
+.checkout__payment-method-partners-payment .dropin-card--secondary {
+  border: var(--shape-border-width-1) solid var(--color-warning-500);
 }
 
-.payment-method-card {
-    background-color: var(--color-neutral-50);
-    border-radius: var(--shape-border-radius-medium);
-    padding: var(--spacing-medium);
+.checkout__payment-method-partners-payment h3 {
+  font: var(--type-headline-2-strong-font);
+  letter-spacing: var(--type-headline-2-strong-letter-spacing);
 }
 
-.payment-method-card__message {
-    font: var(--type-body-2-default-font);
-    color: var(--color-neutral-700);
-}
-
-.payment-method-card__warning {
-    color: var(--color-error-600);
-    font-weight: 500;
-    margin-top: var(--spacing-small);
+.checkout__payment-method-partners-payment--message {
+  color: var(--color-warning-500);
 }
 ```
 
