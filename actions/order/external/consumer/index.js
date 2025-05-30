@@ -47,11 +47,7 @@ async function main (params) {
     switch (params.type) {
       case SHIPMENT_CREATED_EVENT: {
         logger.info('Invoking shipment create')
-        const updateRes = await openwhiskClient.invokeAction('order-backoffice/shipment-created',
-          {
-            __ow_headers: { 'X-OW-EXTRA-LOGGING': 'on' },
-            ...params.data
-          })
+        const updateRes = await openwhiskClient.invokeAction('order-backoffice/shipment-created', params.data)
         response = updateRes?.response?.result?.body
         statusCode = updateRes?.response?.result?.statusCode
         break
