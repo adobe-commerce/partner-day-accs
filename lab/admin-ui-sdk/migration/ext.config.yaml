@@ -27,10 +27,10 @@ runtimeManifest:
       license: Apache-2.0
       actions:
         $include: ./actions/order/commerce/actions.config.yaml
-    # order-backoffice:
-    #   license: Apache-2.0
-    #   actions:
-    #     $include: ./actions/order/external/actions.config.yaml
+    order-backoffice:
+      license: Apache-2.0
+      actions:
+        $include: ./actions/order/external/actions.config.yaml
     spa:
       license: Apache-2.0
       actions:
