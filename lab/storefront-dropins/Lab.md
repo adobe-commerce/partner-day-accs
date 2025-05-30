@@ -18,7 +18,7 @@
 This lab consists of two main exercises that will help you understand and implement key features in Adobe Commerce storefront:
 
 1. **Enhanced Cart Experience**: A smaller exercise that demonstrates how to add visual category indicators to cart items.
-2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method.
+2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out Of Process Extensibility) payment method.
 
 ## Prerequisites
 Before starting this lab, you must have completed the Commerce Partner Days - ACCS Session. This ensures you have:
