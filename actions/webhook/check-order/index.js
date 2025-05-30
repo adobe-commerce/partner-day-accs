@@ -37,7 +37,7 @@ async function main (params) {
     }
 
     const openwhiskClient = new Openwhisk(params.API_HOST, params.API_AUTH)
-    const res = await openwhiskClient.invokeAction('emea_partner_days_2025/get-config', {
+    const res = await openwhiskClient.invokeAction('stock-config/get-config', {
       __ow_headers: params.__ow_headers
     })
 

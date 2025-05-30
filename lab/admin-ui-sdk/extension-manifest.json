@@ -1,8 +1,8 @@
 {
-  "name": "emea_partner_days_2025",
-  "displayName": "Adobe Commerce EMEA Partner Days 2025",
-  "description": "Adobe Commerce EMEA Partner Days 2025 Menu",
+  "name": "stock_config",
+  "displayName": "Stcok configuration",
+  "description": "Stock configuration menu for Adobe Commerce",
   "platform": "web",
-  "id": "emea_partner_days_2025",
+  "id": "stock_config",
   "version": "1.0.0"
 }

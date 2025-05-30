@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 async function main() {
-    const extensionId = 'emea_partner_days_2025'
+    const extensionId = 'stock_config'
     const seatNumber = '';
 
     return {
@@ -22,18 +22,18 @@ async function main() {
                     {
                         id: `${extensionId}::${seatNumber}::config`,
                         title: `Configuration ${seatNumber}`,
-                        parent: `${extensionId}::${seatNumber}::emea_partner_days`,
+                        parent: `${extensionId}::${seatNumber}::stock`,
                         sortOrder: 1,
                     },
                     {
-                        id: `${extensionId}::${seatNumber}::emea_partner_days`,
-                        title: 'EMEA Partner Days',
+                        id: `${extensionId}::${seatNumber}::stock`,
+                        title: 'Stock',
                         isSection: true,
                         sortOrder: 100
                     }
                 ],
                 page: {
-                    title: 'EMEA Partner Days 2025',
+                    title: 'Stock Configuration',
                 }
             }
         }

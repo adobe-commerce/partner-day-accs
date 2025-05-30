@@ -226,9 +226,9 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 ### Step 6: Test the integration
 
-1. In the menu, a new section `EMEA Partner Days` is created.
+1. In the menu, a new section `Stock` is created.
 
-2. Click on the menu and find your application `Configuration`.
+2. Click on the menu and find your application `Configuration <SeatNumber>`.
 
     ![Configuration menu](../../docs/admin-ui-sdk/configuration-menu.png)
 
