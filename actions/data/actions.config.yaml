@@ -1,0 +1,9 @@
+get-config:
+  function: stock/getConfig.js
+  web: 'yes'
+  runtime: 'nodejs:20'
+  inputs:
+    LOG_LEVEL: debug
+    annotations:
+      require-adobe-auth: false
+      final: true

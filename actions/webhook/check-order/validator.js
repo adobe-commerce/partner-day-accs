@@ -29,8 +29,6 @@ function validateData (params) {
     }
   }
 
-  // @TODO Add any other validation you consider necessary here
-
   return {
     success: true
   }

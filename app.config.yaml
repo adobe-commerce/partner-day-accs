@@ -23,14 +23,18 @@ application:
         license: Apache-2.0
         actions:
           $include: ./actions/order/commerce/actions.config.yaml
-      # order-backoffice:
-      #   license: Apache-2.0
-      #   actions:
-      #     $include: ./actions/order/external/actions.config.yaml
+      order-backoffice:
+        license: Apache-2.0
+        actions:
+          $include: ./actions/order/external/actions.config.yaml
       spa:
         license: Apache-2.0
         actions:
           $include: ./actions/spa/actions.config.yaml
+      emea_partner_days_2025:
+        license: Apache-2.0
+        actions:
+          $include: ./actions/data/actions.config.yaml
 productDependencies:
   - code: COMMC
     minVersion: 2.4.4

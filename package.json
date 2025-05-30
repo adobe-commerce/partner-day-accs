@@ -12,6 +12,7 @@
   "dependencies": {
     "@adobe/aio-lib-ims": "^7.0.2",
     "@adobe/aio-lib-state": "^5.1.0",
+    "@adobe/aio-lib-files": "^4.1.0",
     "@adobe/aio-sdk": "^6.0.0",
     "@adobe/commerce-sdk-auth": "^0.1.0",
     "@adobe/exc-app": "^1.4.1",
@@ -20,6 +21,7 @@
     "@adobe/generator-app-events-generic": "^2.0.1",
     "@adobe/react-spectrum": "^3.35.1",
     "ajv": "^8.16.0",
+    "cloudevents": "^8.0.0",
     "core-js": "^3.37.1",
     "dotenv": "^16.4.5",
     "got": "^11.8.5",
@@ -53,6 +55,7 @@
     "e2e": "jest --collectCoverage=false --testRegex ./e2e",
     "onboard": "node --no-warnings -e 'require(\"./scripts/onboarding/index.js\").main()'",
     "commerce-event-subscribe": "node --no-warnings -e 'require(\"./scripts/commerce-event-subscribe/index.js\").main()'",
+    "commerce-webhook-subscribe": "node --no-warnings -e 'require(\"./scripts/commerce-event-subscribe/webhook.js\").main()'",
     "code-check": "npx eslint 'actions/**/*.js' 'scripts/**/*.js' 'test/**/*.js' 'utils/**/*.js'",
     "build": "npm run build --workspaces",
     "clean": "rimraf ./packages/*/dist-* ./packages/*/*.tsbuildinfo",

@@ -1,0 +1,27 @@
+[
+  {
+    "webhook": {
+      "webhook_method": "observer.sales_order_place_before",
+      "webhook_type": "before",
+      "batch_name": "validate_stock",
+      "batch_order": 0,
+      "hook_name": "validate_stock",
+      "url": "",
+      "priority": 0,
+      "required": true,
+      "soft_timeout": 10,
+      "timeout": 0,
+      "method": "POST",
+      "fallback_error_message": "Cannot perform the operation due to an error.",
+      "ttl": 0,
+      "fields": [
+        {
+          "source": "data.order",
+          "name": "order"
+        }
+      ],
+      "rules": [],
+      "headers": []
+    }
+  }
+]

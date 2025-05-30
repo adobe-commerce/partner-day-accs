@@ -55,6 +55,25 @@ async function eventSubscribe (baseUrl, params, data) {
 }
 
 /**
+ * This function calls Adobe commerce rest API to subscribe to the webhook
+ *
+ * @returns {object} - API response object
+ * @param {string} baseUrl - Adobe commerce rest api base url
+ * @param {object} params - Environment params from the IO Runtime request
+ * @param {object} data - Adobe commerce api payload
+ */
+async function webhookSubscribe (baseUrl, params, data) {
+  const client = createClient(baseUrl, params)
+
+  return await client.post(
+    'webhooks/subscribe',
+    JSON.stringify(data),
+    '',
+    { 'Content-Type': 'application/json' }
+  )
+}
+
+/**
  * Helper function to create a client for Adobe commerce rest API
  *
  * @param {string} baseUrl - Adobe commerce rest api base url
@@ -76,5 +95,6 @@ function createClient (baseUrl, params) {
 
 module.exports = {
   updateConfiguration,
-  eventSubscribe
+  eventSubscribe,
+  webhookSubscribe
 }
