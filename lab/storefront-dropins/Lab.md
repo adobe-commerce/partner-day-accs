@@ -451,6 +451,8 @@ IllustratedMessage,
 6. Go to the browser's storefront tab, and go to the checkout page.
 7. Select `PARTNER-PAY` payment method. It should display a warning message below the payment methods.
 
+For more information check [drop-in SDK](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/), [components](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/components/overview/) and [base design](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/design/).
+
 ### Step 3.2: UI Styling
 ---
 
