@@ -1,9 +1,6 @@
 # Commerce Partner Days - Storefront Drop-ins Lab
 
----
-
 ## Table of Contents
----
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [What You'll Learn](#what-youll-learn)
@@ -14,38 +11,26 @@
   - [Part II: Add Payment Method Logic](#part-ii-add-payment-method-logic)
   - [Part III: Storefront Integration](#part-iii-storefront-integration)
 
----
-
 ## Overview
----
 This lab consists of two main exercises that will help you understand and implement key features in Adobe Commerce storefront:
 
-1. **Enhanced Cart Experience**: A smaller exercise that demonstrates how to add visual category indicators to cart items
-2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method
-
----
+1. **Enhanced Cart Experience**: A smaller exercise that demonstrates how to add visual category indicators to cart items.
+2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out-of-Process Extension) payment method.
 
 ## Prerequisites
----
 Before starting this lab, you must have completed the Commerce Partner Days - ACCS Session. This ensures you have:
 
-1. A ready-to-use ACCS lab codespace (lab codespace)
-2. A configured storefront codespace (storefront codespace)
-3. An App Builder project set up with the necessary permissions
-
----
+1. A ready-to-use ACCS lab codespace (lab codespace).
+2. A configured storefront codespace (storefront codespace).
+3. An App Builder project set up with the necessary permissions.
 
 ## What You'll Learn
----
-- How to extend storefront drop-ins with slots
-- How to create and configure a custom payment method in Adobe Commerce
-- How to set up webhook subscriptions for payment validation
-- How to integrate payment method logic into the storefront checkout drop-in
-
----
+- How to extend storefront drop-ins with slots.
+- How to create and configure a custom payment method in Adobe Commerce.
+- How to set up webhook subscriptions for payment validation.
+- How to integrate payment method logic into the storefront checkout drop-in.
 
 ## Links
----
 After scaffolding your storefront, you'll have access to these URLs:
 
 | Resource | URL |
@@ -55,16 +40,10 @@ After scaffolding your storefront, you'll have access to these URLs:
 | Admin URL | `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` |
 | REST Endpoint | `https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>` |
 
----
-
 ## Exercise 1: Enhanced Cart Experience
----
-
 In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons.
 
 ### Step 1: Enable Slot Visualization
----
-
 1. Open your storefront codespace.
 2. Navigate to the terminal.
 3. Start the development server:
@@ -73,7 +52,7 @@ In this exercise, we'll enhance the shopping cart experience by adding visual ca
 yarn start
 ```
 
-4. Open your browser, add a product to the cart and go to the cart page.
+4. Open your browser, add a product to the cart, and go to the cart page.
 5. Open browser developer tools (right-click > Inspect).
 6. In the console tab, run:
 
@@ -89,8 +68,6 @@ DROPINS.showSlots(false)
 ```
 
 ### Step 2: Add Product Categories to Cart
----
-
 1. Open the cart block file in your storefront codespace:
 
 ```bash
@@ -154,8 +131,6 @@ slots: {
 ```
 
 ### Step 3: Test the Enhanced Cart
----
-
 1. Refresh your cart page.
 2. Add different products to your cart.
 3. Verify that:
@@ -163,11 +138,7 @@ slots: {
    - Badges are properly styled.
    - Content is properly aligned and spaced.
 
----
-
 ## Exercise 2: Payment Method Integration
----
-
 In this exercise, we'll implement a custom payment method called "PARTNER-PAY" using Adobe App Builder.
 
 Here's the simplified integration flow:
@@ -181,8 +152,6 @@ When a user clicks the place order button:
 3. ACCS will trigger the webhook `payment-method/validate-payment` on the event `observer.sales_order_place_before`.
 
 ### Lab Structure
----
-
 The exercise is divided into three main parts:
 
 1. **Part I**: Create payment method (ACCS).
@@ -190,22 +159,17 @@ The exercise is divided into three main parts:
 3. **Part III**: Storefront integration (EDS Storefront).
 
 ## Part I: Create Payment Method
----
-
-> **Note:** The steps in this lab to create a payment method, runtime actions, and webhooks are shown in detail for learning purposes. In a real implementation, you would use the [Checkout Starter Kit](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/) as foundation which helps to accelerate the development of out of process applications related to payments, shipping and taxes.
+> **Note:** The steps in this lab to create a payment method, runtime actions, and webhooks are shown in detail for learning purposes. In a real implementation, you would use the [Checkout Starter Kit](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/) as foundation which helps to accelerate the development of out of process applications related to payments, shipping, and taxes.
 
 The Checkout Starter Kit provides:
-- Payment method configuration
-- Runtime action scaffolding
-- Webhook subscription setup
-- Storefront integration code
+- Payment method configuration.
+- Runtime action scaffolding.
+- Webhook subscription setup.
+- Storefront integration code.
 
 This lab walks through the manual steps to help you understand what happens behind the scenes when using the starter kit.
 
-
 ### Step 1.1: Set Up Environment Variables
----
-
 1. Open your lab codespace.
 2. Open the terminal.
 3. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat):
@@ -215,9 +179,7 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
 ```
 
 ### Step 1.2: Generate and Set Access Token
----
-
-1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
+1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, log in and select the **Adobe Commerce Labs** organization.
 2. Click **Projects** in the Developer Console top menu.
 
     ![Alt text](../../docs/developer-console-home.png "Developer console home")
@@ -236,8 +198,6 @@ export ACCESS_TOKEN=""
 ```
 
 ### Step 1.3: Verify Existing Payment Methods
----
-
 1. Run the following command to check current payment methods:
 
 ```bash
@@ -249,8 +209,6 @@ curl -s \
 2. Review the output to ensure "PARTNER-PAY" is not already in the list.
 
 ### Step 1.4: Create New Payment Method
----
-
 1. Create a new payment method by running:
 
 ```bash
@@ -270,8 +228,6 @@ curl -XPOST \
 ```
 
 ### Step 1.5: Verify Payment Method Creation
----
-
 1. Run the verification command again:
 
 ```bash
@@ -283,32 +239,26 @@ curl -s \
 2. Confirm that "PARTNER-PAY" appears in the list of payment methods.
 
 ### Step 1.6: Test in Storefront
----
-
 1. Go to your storefront.
 2. Add items to your cart.
 3. Proceed to checkout.
 4. Verify that "PARTNER-PAY" appears in the list of available payment methods.
 
----
-
 ## Part II: Add Payment Method Logic
----
-
 In this section, you'll connect your new payment method to backend logic using Adobe App Builder. This ensures that the payment method is validated before an order is placed.
 
 ### Step 2.1: Enable Payment Method Logic in App Builder
----
-
 1. Open your lab codespace.
 2. Locate the `ext.config.yaml` file under `src/commerce-backend-ui-1` in your App Builder project.
-3. Add the following payment method package and adjust indentation if needed.
+3. Add the following payment method package and adjust indentation if needed:
+
 ```yaml
       payment-method:
         license: Apache-2.0
         actions:
           $include: ./actions/payment-method/actions.config.yaml
 ```
+
 4. **Deploy your changes** to App Builder by running:
 
 ```bash
@@ -321,14 +271,12 @@ aio app deploy --force-build --force-deploy
 aio app get-url
 ```
 
-7. Confirm that both the following endpoints are listed:
+6. Confirm that both the following endpoints are listed:
    - `payment-method/create-session`
    - `payment-method/validate-payment`
-8. **Note:** You will need the URL for `validate-payment` in the next step.
+7. **Note:** You will need the URL for `validate-payment` in the next step.
 
 ### Step 2.2: Subscribe to the Webhook
----
-
 1. Copy your validate-payment endpoint URL from Step 2.1 (the URL that ends with `/validate-payment`).
 
 2. Run these commands in your terminal (copy and paste each block):
@@ -366,8 +314,6 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 ```
 
 ### Step 2.3: Verify Webhook Subscription in Admin
----
-
 1. Log in to the Admin Panel:
    `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
 2. Go to **System > Webhooks > Webhooks Subscriptions**.
@@ -397,8 +343,6 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
    | data.order.payment.method | equal | PARTNER-PAY |
 
 ### Step 2.4: Test Payment Validation
----
-
 1. Go to your storefront checkout page.
 2. Try to place an order using the "PARTNER-PAY" payment method.
 3. You should see an error message:
@@ -409,14 +353,9 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 > - If you do not see the webhook in the Admin Panel, double-check your `WEBHOOK_JSON` and ensure the correct endpoint URL is used.
 > - If the error message does not appear, check the logs for your App Builder action and ensure it is deployed and accessible.
 
----
-
 ## Part III: Storefront Integration
----
 
 ### Step 3.1: UI Render
----
-
 1. Open your storefront codespace.
 2. Open the block `blocks/commerce-checkout/commerce-checkout.js`.
 3. In Line 340, add the following code to render a warning message when the payment method is selected:
@@ -439,23 +378,24 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 },
 ```
 
-4. In line 10, after `import { initializers } ...`, add the following line to import Preact `h` function
+4. In line 10, after `import { initializers } ...`, add the following line to import Preact `h` function:
+
 ```javascript
 import { h } from '@dropins/tools/preact.js';
 ```
 
-5. In line, after `ProgressSpinner`, add the following line to import the `IllustratedMessage`
+5. In line, after `ProgressSpinner`, add the following line to import the `IllustratedMessage`:
+
 ```javascript
 IllustratedMessage,
 ```
+
 6. Go to the browser's storefront tab, and go to the checkout page.
 7. Select `PARTNER-PAY` payment method. It should display a warning message below the payment methods.
 
-For more information check [drop-in SDK](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/), [components](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/components/overview/) and [base design](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/design/).
+For more information, check [drop-in SDK](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/), [components](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/components/overview/), and [base design](https://experienceleague.adobe.com/developer/commerce/storefront/sdk/design/).
 
 ### Step 3.2: UI Styling
----
-
 1. Open the CSS file of the commerce-checkout block `blocks/commerce-checkout/commerce-checkout.css`.
 2. Append the following CSS rules to the end of the file:
 
@@ -475,11 +415,9 @@ For more information check [drop-in SDK](https://experienceleague.adobe.com/deve
 }
 ```
 
-3. Go back to the browser and re-load the checkout page. It should display the message in a styled box.
+3. Go back to the browser and reload the checkout page. It should display the message in a styled box.
 
 ### Step 3.3: Payment Logic
----
-
 1. In Line 470, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
@@ -515,6 +453,4 @@ if (code === "PARTNER-PAY") {
 
 2. Go back to the browser's storefront tab.
 3. Place an order with PARTNER-PAY payment method. Now it should work.
-
----
 
