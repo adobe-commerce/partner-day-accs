@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 const { Core } = require('@adobe/aio-sdk')
 const { checkMissingRequestInputs } = require('../../utils')
 const { actionErrorResponse } = require('../../responses')
+const filesLib = require('@adobe/aio-lib-files')
 
 async function main(params) {
   const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
@@ -25,10 +26,18 @@ async function main(params) {
       return actionErrorResponse(400, errorMessage)
     }
 
-    const stockValidationConfig = {
-      enableStockValidation: true,
-      maxAmount: 1
+    let stockValidationConfig = {
+      enableStockValidation: false,
+      maxAmount: 0
     }
+
+    const files = await filesLib.init()
+    const stockValidationFile = await files.list('config/stock-validation.json')
+    if (stockValidationFile.length) {
+        let buffer = await files.read('config/stock-validation.json')
+        stockValidationConfig = JSON.parse(buffer.toString())
+    }
+
     return {
       statusCode: 200,
       body: stockValidationConfig
