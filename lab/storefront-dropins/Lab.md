@@ -301,8 +301,14 @@ In this section, you'll connect your new payment method to backend logic using A
 ---
 
 1. Open your lab codespace.
-2. Locate the `app.config.yaml` file in the root of your App Builder project.
-3. Find the section for the payment method logic (it may be commented out).
+2. Locate the `ext.config.yaml` file under `src/commerce-backend-ui-1` in your App Builder project.
+3. Add the following package
+```yaml
+      payment-method:
+        license: Apache-2.0
+        actions:
+          $include: ./actions/payment-method/actions.config.yaml
+```
 4. **Uncomment** the relevant block for `payment-method` so it is enabled.
 5. **Deploy your changes** to App Builder by running:
 
