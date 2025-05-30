@@ -53,14 +53,14 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 4. Move the `utils` folder under `src/commerce-backend-ui-1`.
 
-5. Update the `src/commerce-backend-ui-1/actions/starter-kit-info/index.js` file to reference the correct path for the `version` and `registrations`:
+5. Update the `src/commerce-backend-ui-1/actions/starter-kit-info/index.js` file to reference the correct path for the `version` and `registrations` on lines 27 and 28:
 
     ```javascript
     const version = require('../../../../package.json').version
     const registrations = require('../../../../scripts/onboarding/config/starter-kit-registrations.json')
     ```
 
-6. Update the `src/commerce-backend-ui-1/utils/naming.js` file to reference the correct path for the `providersList`:
+6. Update the `src/commerce-backend-ui-1/utils/naming.js` file to reference the correct path for the `providersList` on line 71:
 
     ```javascript
     const providersList = require('../../../scripts/onboarding/config/providers.json')
@@ -97,12 +97,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     > A sample file `app.config.yaml` is provided in the `lab/admin-ui-sdk/migration` folder.
 
-12. Run `aio app build --force-build` to make sure complitation is successful.
-
-    ```bash
-    ✔ Built 5 action(s) for 'commerce/backend-ui/1'
-    ✔ Building web assets for 'commerce/backend-ui/1'
-    ```
+12. Run `aio app build --force-build` to make sure compilation is successful.
 
 ### Step 3: Register the menu extension point
 
@@ -145,7 +140,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     return <Home ims={props.ims} runtime={props.runtime} />
     ```
 
-4. Update the extension routing in the `app.jsx` file.
+4. Update the extension routing in the `web-src/src/app.jsx` file to reference `ExtensionRegistration` component on line 26:
 
     ```javascript
     const routes = [
@@ -157,11 +152,6 @@ The single-page application (SPA) includes a configuration toggle that enables o
     ```
 
 5. Run `aio app build --force-build` to make sure complitation is successful for 6 runtime actions.
-
-    ```bash
-    ✔ Built 6 action(s) for 'commerce/backend-ui/1'
-    ✔ Building web assets for 'commerce/backend-ui/1'
-    ```
 
 ### Step 4: Deploy the extension to the Stage workspace
 
@@ -178,7 +168,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     3. Workspace: Stage
     ```
 
-2. If one of the values is inccorect refer to [following troubleshooting point](#3-selected-org-project-or-workspace-are-incorrect).
+2. If one of the values is incorrect refer to [following troubleshooting point](#3-selected-org-project-or-workspace-are-incorrect).
 
 3. Open the developer console, go to your project, select the Stage workspace and make sure the `I/O Management API` is added. If not, click on `Add Service`, select `API` and select the `I/O Management API`.
 

@@ -12,7 +12,6 @@ governing permissions and limitations under the License.
 const { Core } = require('@adobe/aio-sdk')
 const { checkMissingRequestInputs } = require('../../utils')
 const { actionErrorResponse } = require('../../responses')
-const filesLib = require('@adobe/aio-lib-files')
 
 async function main(params) {
   const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
