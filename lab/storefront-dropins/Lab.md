@@ -192,7 +192,7 @@ The exercise is divided into three main parts:
 ## Part I: Create Payment Method
 ---
 
-> **Note:** The steps in this lab to create a payment method, runtime actions, and webhooks are shown in detail for learning purposes. In a real implementation, you would use the [Checkout Starter Kit](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/) which automatically handles these setup steps for you.
+> **Note:** The steps in this lab to create a payment method, runtime actions, and webhooks are shown in detail for learning purposes. In a real implementation, you would use the [Checkout Starter Kit](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/) as foundation which helps to accelerate the development of out of process applications related to payments, shipping and taxes.
 
 The Checkout Starter Kit provides:
 - Payment method configuration
