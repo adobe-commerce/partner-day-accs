@@ -14,6 +14,7 @@
     "@adobe/aio-lib-state": "^5.1.0",
     "@adobe/aio-lib-files": "^4.1.0",
     "@adobe/aio-sdk": "^6.0.0",
+    "@adobe/uix-guest": "^0.8.3",
     "@adobe/commerce-sdk-auth": "^0.1.0",
     "@adobe/exc-app": "^1.4.1",
     "@adobe/generator-add-action-generic": "^1.0.1",
