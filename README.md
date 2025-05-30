@@ -24,7 +24,7 @@ These steps should be completed before you arrive to the event.
 
 2. Login with the following credentials. You will find your assigned seat number on your desk.
 ```
-Email: pd-sy+<SEAT_NUMBER>@adobecreate.com
+Email: pd-bcn1+<SEAT_NUMBER>@adobecreate.com
 Password: Check with the lab instructor
 ```
 ![image](https://github.com/user-attachments/assets/6f0bd9d3-2b78-46c3-ab7f-a15c1661a4fd)
@@ -107,7 +107,7 @@ aio commerce init
 5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`.
 6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter.
 7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`.
-8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD SY <SEAT_NUMBER>`.
+8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD BCN1 <SEAT_NUMBER>`.
 9. Select the Production workspace.
 10. This will connect the selected instance through an API Mesh on the selected Project and Workspace.
 11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
@@ -343,7 +343,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
     Then select the project assigned to your seat: 
 
-    **PD SY <SEAT_NUMBER>**
+    **PD BCN1 <SEAT_NUMBER>**
 
     Select the **Stage** workspace.
 
