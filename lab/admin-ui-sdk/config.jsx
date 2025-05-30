@@ -21,7 +21,7 @@ export const Config = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await callGetAction(props, 'emea_partner_days_2025/get-config')
+            const response = await callGetAction(props, 'stock-config/get-config')
             if (response !== '') {
                 setMaxAmount(response?.maxAmount ?? 0)
                 setEnableStockValidation(response?.enableStockValidation ?? false)
@@ -37,7 +37,7 @@ export const Config = (props) => {
             maxAmount,
             enableStockValidation
         }
-        await callPostAction(props, 'emea_partner_days_2025/save-config', 'saveConfig', body)
+        await callPostAction(props, 'stock-config/save-config', 'saveConfig', body)
         setIsLoading(false)
     }
 
