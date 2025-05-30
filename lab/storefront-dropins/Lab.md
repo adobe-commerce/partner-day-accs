@@ -10,6 +10,9 @@
   - [Part I: Create Payment Method](#part-i-create-payment-method)
   - [Part II: Add Payment Method Logic](#part-ii-add-payment-method-logic)
   - [Part III: Storefront Integration](#part-iii-storefront-integration)
+- [Optional Exercises: Enhanced Payment Security](#optional-exercises-enhanced-payment-security)
+  - [Exercise 1: Two-Factor Authentication (2FA)](#exercise-1-two-factor-authentication-2fa)
+  - [Exercise 2: Input Validation](#exercise-2-input-validation)
 
 ## Overview
 This lab consists of two main exercises that will help you understand and implement key features in Adobe Commerce storefront:
@@ -454,3 +457,22 @@ if (code === "PARTNER-PAY") {
 2. Go back to the browser's storefront tab.
 3. Place an order with PARTNER-PAY payment method. Now it should work.
 
+## Optional Exercises: Enhanced Payment Security
+These exercises will help you understand how to extend the PARTNER-PAY payment method with additional security features.
+
+### Exercise 1: Two-Factor Authentication (2FA)
+Extend the PARTNER-PAY payment method to include a 2FA field with the following requirements:
+
+1. Add a 2FA input field to the payment method UI.
+2. Implement validation logic:
+   - Accept the payment if the 2FA code is "1234"
+   - Reject the payment with the error message "You shall not pass" for any other code
+
+### Exercise 2: Input Validation
+Implement client-side validation for the 2FA field with these requirements:
+
+1. Validate that the input is exactly 4 digits
+2. Show an error message next to the 2FA field when:
+   - The input is not 4 digits
+   - The input contains non-numeric characters
+3. Only proceed with the order placement if the validation passes
