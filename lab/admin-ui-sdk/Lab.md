@@ -172,21 +172,15 @@ The single-page application (SPA) includes a configuration toggle that enables o
     3. Workspace: Stage
     ```
 
-2. If the selected project is not the correct one, select the project using:
+2. If one of the values is inccorect refer to [following troubleshooting point](#3-selected-org-project-or-workspace-are-incorrect).
 
-    `aio console project select`
-
-3. If the selected workspace is not the correct one, select the workspace using:
-
-    `aio console workspace select`
-
-4. Open the developer console, go to your project, select the Stage workspace and make sure the `I/O Management API` is added. If not, click on `Add Service`, select `API` and select the `I/O Management API`.
+3. Open the developer console, go to your project, select the Stage workspace and make sure the `I/O Management API` is added. If not, click on `Add Service`, select `API` and select the `I/O Management API`.
 
     ![I/O Management API](../../docs/admin-ui-sdk/io-management-api.png)
 
-5. In your project terminal, run the following command:
+4. In your project terminal, run the following command:
 
-    `aio app use`
+    `aio app use --merge`
 
     > Make sure the selected org, project and workspace are correct. This step will create the `.env` and `.aio` files.
 
@@ -200,7 +194,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     B. Switch to another Workspace in the current Project
     ```
 
-6. Build and deploy the extension using:
+5. Build and deploy the extension using:
 
     `aio app deploy --force-build --force-deploy`
 
@@ -250,28 +244,25 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 2. Copy the `utils.js` file from `lab/admin-ui-sdk` folder and add it under `web-src/src`. This files contains helpers to call runtime actions in the `config.jsx` file.
 
-3. Create the `save-config` runtime action under the `emea_partner_days_2025` package in the `ext.config.yaml` file.
+3. Create the `save-config` runtime action in the `actions/data/actions.config.yaml` file.
 
     ```yaml
-    emea_partner_days_2025:
-       license: Apache-2.0
-       actions:
-          save-config:
-             function: actions/data/saveConfig.js
-             web: 'yes'
-             runtime: 'nodejs:20'
-             inputs:
-                LOG_LEVEL: debug
-             annotations:
-                require-adobe-auth: false
-                final: true
+    save-config:
+      function: stock/saveConfig.js
+      web: 'yes'
+      runtime: 'nodejs:20'
+      inputs:
+        LOG_LEVEL: debug
+      annotations:
+        require-adobe-auth: false
+        final: true
     ```
 
-4. Create `saveConfig.js` file for the runtime action under `actions/data`.
+4. Create `saveConfig.js` file for the runtime action under `actions/data/stock`.
 
     > A sample file `saveConfig.js` is provided in the `lab/admin-ui-sdk/data` folder.
 
-5. Update the `data/getConfig.js` file to load configuration from the `filesLib`.
+5. Update the `data/stock/getConfig.js` file to load configuration from the `filesLib`.
 
     ```javascript
     const files = await filesLib.init()
@@ -288,7 +279,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     const filesLib = require('@adobe/aio-lib-files')
     ```
 
-    And update the default value to remove hardcoded config:
+    And update the default value to remove hardcoded config and transform the constant into a variable:
 
     ```javascript
     let stockValidationConfig = {
@@ -302,16 +293,28 @@ The single-page application (SPA) includes a configuration toggle that enables o
 6. Update the `home.jsx` file to include the `Config` component. Here's a suggested layout:
 
     ```javascript
-    <View height="100%" overflow="auto">
-      <Flex direction="row" gap="size-200">
-        <View width='50%'>
-          <LatestOrdersCard ims={props.ims}/>
+    return (
+        <View height="100%" overflow="auto">
+        <Flex direction="row" gap="size-200">
+            <View width={'50%'}>
+                <Flex direction="column" gap="size-200">
+                    <LatestOrdersCard
+                    setOrderIds={setOrderIds}
+                    ims={props.ims}
+                    />
+                    <ShipOrderCard
+                    orderIds={orderIds}
+                    setOrderIds={setOrderIds}
+                    ims={props.ims}
+                    />
+                </Flex>
+            </View>
+            <View width={'50%'}>
+                <Config ims={props.ims} />
+            </View>
+        </Flex>
         </View>
-        <View width='50%'>
-          <Config ims={props.ims} />
-        </View>
-      </Flex>
-    </View>
+    );
     ```
 
 7. Build and deploy the extension using:
@@ -324,17 +327,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 ## Troubleshooting
 
-### 1. Org is not selected
-
-- When running `aio console where` if the org is not selected, you can run `aio console org select` and find your org.
-
-- If the org is not found in the list, logout using `aio auth logout` and login using `aio auth login`. Then run `aio console org select`.
-
-- If you're still not finding the correct org, logout with `aio auth logout` and force login using `aio auth login -f`. Then run `aio console org select`.
-
-- If none of the above steps are woking, please reach out to an available technical assistant for help.
-
-### 2. Application is not found in the `Configure extensions` screen
+### 1. Application is not found in the `Configure extensions` screen
 
 - Check that the selected workspace is the correct one, and click on `Apply` button to reload all applications.
 
@@ -344,10 +337,30 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 - If none of the above steps are woking, please reach out to an available technical assistant for help.
 
-### 3. Menu is not appearing in the Adobe Commerce Admin Panel
+### 2. Menu is not appearing in the Adobe Commerce Admin Panel
 
 - Check that the application is selected in the `Configure extensions` screen.
 
 - Go to Stores > Settings > Configuration > Adobe Services > Admin UI SDK, and in the general configuration section click on `Refresh registrations` button. Once you get a banner notification confirming registrations are refreshed successfully, check your menu.
+
+- If none of the above steps are woking, please reach out to an available technical assistant for help.
+
+### 3. Selected org, project or workspace are incorrect
+
+- If the selected org is not the correct one, select the org using:
+
+    `aio console org select`
+
+  - If the org is not found in the list, logout using `aio auth logout` and login using `aio auth login`. Then run `aio console org select`.
+
+  - If you're still not finding the correct org, logout with `aio auth logout` and force login using `aio auth login -f`. Then run `aio console org select`.
+
+- If the selected project is not the correct one, select the project using:
+
+    `aio console project select`
+
+- If the selected workspace is not the correct one, select the workspace using:
+
+    `aio console workspace select`
 
 - If none of the above steps are woking, please reach out to an available technical assistant for help.
