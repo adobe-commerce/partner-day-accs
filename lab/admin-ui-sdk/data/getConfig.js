@@ -10,43 +10,45 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 const { Core } = require('@adobe/aio-sdk')
-const { checkMissingRequestInputs, errorResponse } = require('../utils');
+const { checkMissingRequestInputs } = require('../../utils')
+const { actionErrorResponse } = require('../../responses')
 const filesLib = require('@adobe/aio-lib-files')
 
 async function main(params) {
-    const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
+  const logger = Core.Logger('main', { level: params.LOG_LEVEL || 'info' })
 
-    try {
-        const requiredHeaders = ['Authorization', 'x-gw-ims-org-id', 'Content-Type']
-        const requiredParams = []
-        const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders)
-        if (errorMessage) {
-            return errorResponse(400, errorMessage, logger)
-        }
-
-        let stockValidationConfig = {
-            maxAmount: 0,
-            enableStockValidation: false
-        }
-        const files = await filesLib.init()
-        const stockValidationFile = await files.list('config/stock-validation.json')
-        if (stockValidationFile.length) {
-            let buffer = await files.read('config/stock-validation.json')
-            stockValidationConfig = JSON.parse(buffer.toString())
-        }
-        
-        return {
-            statusCode: 200,
-            body: stockValidationConfig
-        }
-
-    } catch (error) {
-        logger.error(error)
-        return {
-            statusCode: 500,
-            body: { error: error.message },
-        }
+  try {
+    logger.info(`Params: ${JSON.stringify(params)}`)
+    const requiredHeaders = ['Content-Type']
+    const requiredParams = []
+    const errorMessage = checkMissingRequestInputs(params, requiredParams, requiredHeaders)
+    if (errorMessage) {
+      return actionErrorResponse(400, errorMessage)
     }
+
+    let stockValidationConfig = {
+      enableStockValidation: false,
+      maxAmount: 0
+    }
+
+    const files = await filesLib.init()
+    const stockValidationFile = await files.list('config/stock-validation.json')
+    if (stockValidationFile.length) {
+        let buffer = await files.read('config/stock-validation.json')
+        stockValidationConfig = JSON.parse(buffer.toString())
+    }
+
+    return {
+      statusCode: 200,
+      body: stockValidationConfig
+    }
+  } catch (error) {
+    logger.error(error)
+    return {
+      statusCode: 500,
+      body: { error: error.message }
+    }
+  }
 }
 
 exports.main = main
