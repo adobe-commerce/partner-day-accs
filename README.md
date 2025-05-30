@@ -520,7 +520,7 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
     Login to the admin by using your assigned seat's email and selecting the `Adobe Commerce Labs` organization.
     
-    Once you are logged in, navigate to **Sales** > **Orders** and click **View** in the orders grid fo the order that you entered a shipping tracking number for in the App Builder app's UI. Then select **Shipments** from the left navigation.
+    Once you are logged in, navigate to **Sales** > **Orders** and click **View** in the orders grid for the order that you created a shipping tracking number for in the App Builder app's UI. Then select **Shipments** from the left navigation.
 
     You should see a grid with a recently-created shipment.
 
@@ -530,15 +530,17 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
     ![Alt text](docs/starter-kit/shipping-tracking-number.png "Shipping tracking number in Admin")
 
+This demonstrates how we can we use information sent from an external system to a back office provider to make updates in Commerce.
+
 ## Adobe Commerce Webhooks
 
 Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
 
-1. We will use a script to configure the webhook via a webhook subscription REST API available in ACCS. This script reads from a configuration file that defines the webhook subscriptions to be created. This configuration file is `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
+1. We will use a script to configure the webhook. This script reads from a configuration file that defines the required webhook and calls a REST API for creating webhook subscriptions that is available in ACCS. The configuration file used by the script is `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
 
     The file contains configuration details for a `observer.sales_order_place_before` webhook.
 
-    On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when an `observer.sales_order_place_before` event occurs once the webhook is configured.
+    On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured.
 
 1. Then, to automatically configure the order save webhook, run the following command:
     ```bash
@@ -559,8 +561,7 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
     ![Alt text](docs/webhooks/successful-order-placement.png "Successful order placement")
 
-In this part of the lab, we explored one way to extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
-This demo App Builder app simply stores and displays received order information, but the action code for the app could also be modified to send information received from Commerce to a third-party back office system. Although not shown in this demonstration, the starter kit can additionally be used in setting up the synchronization of data from third-party back office systems to Commerce.
+In this part of the lab, we explored one way we can extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
 
 ## Troubleshooting Guide
 
