@@ -565,6 +565,194 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
 In this part of the lab, we explored one way we can extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
 
+## Local Development
+
+0. Make sure the application is built buy running
+    ```bash
+    npm install
+    ```
+### Front-end development
+
+1. Start the application by running
+    ```bash
+    aio app run
+    ```
+    When you use this command the following happens:
+    - Front-end code is built and served on localhost
+    - Web action calls from your front-end are directed to Runtime
+    - Action logs are output in the terminal
+
+1. Wait for this output to be shown on the terminal
+    ```
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    ```
+
+1. Change the 9080 port protocol to HTTPS in VSCode `PORTS` tab by clicking on the 9080 port number, selecting `Change port protocol` and `HTTPS`
+
+1. Click on the https://localhost:9080 link on the terminal to open the app front-end
+
+1. Let's change the message shown in the app front-end by replacing `Latest Orders Received` with `Latest Orders Processed` in line 81 of `web-src/src/components/latest-orders-card.jsx`
+
+1. The front-end will reload and show the new text
+
+1. Press `CTRL+C` to terminate the local server
+
+### Backend development
+
+1. Start the application by running
+    ```bash
+    aio app dev
+    ```
+    When you use this command the following happens:
+    - Front-end code is built and served on localhost
+    - Action calls from your front end are run in a debuggable local node process
+    - Action logs are output immediately to the terminal
+
+1. Wait for this output to be shown on the terminal
+    ```
+    Building the app...
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    Your actions:
+    web actions:
+      -> https://localhost:9080/api/v1/web/starter-kit/info
+      -> https://localhost:9080/api/v1/web/webhook/check-order
+      -> https://localhost:9080/api/v1/web/spa/get-orders
+    non-web actions:
+      -> order-commerce/consumer
+      -> order-commerce/created
+    press CTRL+C to terminate the dev environment
+    2025-05-27T14:34:01.742Z [watcher] info: watching action files at /workspaces/accs-lab-debug/actions...
+    2025-05-27T14:34:01.747Z [serve] info: server running on port : 9080
+    2025-05-27T14:34:06.891Z [serve] info: 2869 static asset(s) changed
+    2025-05-27T14:34:06.891Z [serve] info: ✨ Built 3 bundles in 5140ms!
+    ```
+
+1. Let's call the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+    - the response will be shown in a new editor window at the right
+      ```
+      {
+        "success": true,
+        "message": {
+          "starter_kit_version": "1.0.2",
+          "registrations": {
+            "product": [],
+            "customer": [],
+            "order": [
+              "commerce"
+            ],
+            "stock": []
+          }
+        }
+    }
+    ``` 
+
+1. Let's change the response
+  - open the `actions/starter-kit-info/index.js` file in the editor
+  - insert `edited: true,` on line 40
+
+1. Let's call again the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+    - the response will now include the new field
+      ```
+      {
+        "success": true,
+        "message": {
+          "edited": true,
+          "starter_kit_version": "1.0.2",
+          "registrations": {
+            "product": [],
+            "customer": [],
+            "order": [
+              "commerce"
+            ],
+            "stock": []
+          }
+        }
+      }
+      ``` 
+1. Rerun `aio app dev` if you see this error in the terminal
+    ```
+    [watcher] error: Error encountered while building actions. Stopping auto refresh.
+    ```
+
+1. Press `CTRL+C` to terminate the local server
+
+### Debugging
+
+1. Open the `Run and Debug` View by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+D`.
+
+1. Start the debugger by pressing `Start Debugging` icon next to `App Builder: debug actions`.
+
+1. Wait for this output to be shown on the terminal
+    ```
+    ❯ aio app dev
+    Debugger attached.
+    Building the app...
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    Your actions:
+    web actions:
+      -> https://localhost:9080/api/v1/web/starter-kit/info
+      -> https://localhost:9080/api/v1/web/webhook/check-order
+      -> https://localhost:9080/api/v1/web/spa/get-orders
+    non-web actions:
+      -> order-commerce/consumer
+      -> order-commerce/created
+    press CTRL+C to terminate the dev environment
+    2025-05-29T23:09:05.239Z [watcher] info: watching action files at /Users/rojo/repos/partnerdays/partner-day-accs/actions...
+    2025-05-29T23:09:05.245Z [serve] info: server running on port : 9080
+    2025-05-29T23:09:09.262Z [serve] info: 2869 static asset(s) changed
+    2025-05-29T23:09:09.262Z [serve] info: ✨ Built 3 bundles in 3527ms!
+    ```
+
+1. Open the `Explorer` View by by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+E`.
+
+1. Open the `actions/starter-kit-info/index.js` file.
+
+1. Click on line num 28 to add a breakpoint.
+
+1. Let's call the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+
+1. The execution will stop at the the breakpint and you'll be able to
+    - step over
+    - view variables
+    - update variables
+    - etc.
+
+ 1. Let's set the value of the `version` variable to `2.0.0` and click `Continue`
+
+1. The response payload will include the new version number
+    ```
+    {
+      "success": true,
+      "message": {
+        "edited": true,
+        "starter_kit_version": "2.0.0",
+        "registrations": {
+          "product": [],
+          "customer": [],
+          "order": [
+            "commerce"
+          ],
+          "stock": []
+        }
+      }
+    }
+    ```
+
 ## Troubleshooting Guide
 
 ### aio CLI
@@ -668,3 +856,4 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
 1. **Cannot perform the operation due to an error.** appears in the storefront when trying to place an order after configuring the webhook.
 
     Double check that the `url` value added in `scripts/config/commerce-webhook-subscribe.json` is correct. It should be formatted as `https://1899289-<AIO_RUNTIME_NAMESPACE>.adobeio-static.net/api/v1/web/webhook/check-order`
+  
