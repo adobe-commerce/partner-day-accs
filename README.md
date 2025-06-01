@@ -365,7 +365,9 @@ For this part of the lab, you should make changes in the repo containing this RE
     
     ![Alt text](docs/starter-kit/download-workspace.png "Download all button")
     
-    Save it as `workspace.json` in the `extensibility-lab/scripts/onboarding/config` directory.
+    Upload it as `workspace.json` in the `scripts/onboarding/config` directory, by right-clicking on the folder and selecting `Upload`
+
+    ![Alt text](docs/starter-kit/upload-workspace.png "Upload workspace json")
 
 1.  Navigate back to the lab files. Copy the `env.dist` file in the `extensibility-lab` directory as `.env` 
     ```bash
