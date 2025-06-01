@@ -688,7 +688,7 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
 
 ### Debugging
 
-1. Open the `Run and Debug` View by by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+D`.
+1. Open the `Run and Debug` View by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+D`.
 
 1. Start the debugger by pressing `Start Debugging` icon next to `App Builder: debug actions`.
 
