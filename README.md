@@ -575,3 +575,72 @@ This demo App Builder app simply stores and displays received order information,
     ```
 
 1. Press `CTRL+C` to terminate the local server
+
+### Debugging
+
+1. Open the `Run and Debug` View by by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+D`.
+
+1. Start the debugger by pressing `Start Debugging` icon next to `App Builder: debug actions`.
+
+1. Wait for this output to be shown on the terminal
+    ```
+    ❯ aio app dev
+    Debugger attached.
+    Building the app...
+    To view your local application:
+      -> https://localhost:9080
+    To view your deployed application in the Experience Cloud shell:
+      -> https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl=https://localhost:9080
+    Your actions:
+    web actions:
+      -> https://localhost:9080/api/v1/web/starter-kit/info
+      -> https://localhost:9080/api/v1/web/webhook/check-order
+      -> https://localhost:9080/api/v1/web/spa/get-orders
+    non-web actions:
+      -> order-commerce/consumer
+      -> order-commerce/created
+    press CTRL+C to terminate the dev environment
+    2025-05-29T23:09:05.239Z [watcher] info: watching action files at /Users/rojo/repos/partnerdays/partner-day-accs/actions...
+    2025-05-29T23:09:05.245Z [serve] info: server running on port : 9080
+    2025-05-29T23:09:09.262Z [serve] info: 2869 static asset(s) changed
+    2025-05-29T23:09:09.262Z [serve] info: ✨ Built 3 bundles in 3527ms!
+    ```
+
+1. Open the `Explorer` View by by clicking its icon on the Activity bar or by pressing `CMD+SHIFT+E`.
+
+1. Open the `actions/starter-kit-info/index.js` file.
+
+1. Click on line num 28 to add a breakpoint.
+
+1. Let's call the `starter-kit/info` runtime action
+    - open the `lab/http/dev.http` file in the editor
+    - click the `Send Request` link under the `### Call starter-kit/info` request
+
+1. The execution will stop at the the breakpint and you'll be able to
+    - step over
+    - view variables
+    - update variables
+    - etc.
+
+ 1. Let's set the value of the `version` variable to `2.0.0` and click `Continue`
+
+1. The response payload will include the new version number
+    ```
+    {
+      "success": true,
+      "message": {
+        "edited": true,
+        "starter_kit_version": "2.0.0",
+        "registrations": {
+          "product": [],
+          "customer": [],
+          "order": [
+            "commerce"
+          ],
+          "stock": []
+        }
+      }
+    }
+    ```
+
+  
