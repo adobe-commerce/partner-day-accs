@@ -19,7 +19,7 @@
         "name": "CommerceSaaSGraphQl",
         "handler": {
           "graphql": {
-            "endpoint": "<ACCS_BACKEND_URL>/graphql",
+            "endpoint": "<ACCS_GRAPHQL_URL>",
             "useGETForQueries": true,
             "operationHeaders": {
               "Content-Type": "application/json",
