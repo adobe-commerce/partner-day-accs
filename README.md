@@ -140,7 +140,7 @@ Using the terminal, move to the `lab/mesh` folder.
 cd lab/mesh/
 ```
 
-Copy and paste the commerce backend URL from the CLI into the `mesh_config.json` file on line 22.
+Replace `<ACCS_GRAPHQL_URL>` with the `Graphql URL` from the excel spreadsheet into the `mesh_config.json` file on line 22.
 
 That's it, move over to the [deploy section](#deploy-mesh-changes) to continue with the next steps.
 
