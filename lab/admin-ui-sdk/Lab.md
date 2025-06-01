@@ -293,24 +293,24 @@ The single-page application (SPA) includes a configuration toggle that enables o
     ```javascript
     return (
         <View height="100%" overflow="auto">
-        <Flex direction="row" gap="size-200">
-            <View width={'50%'}>
-                <Flex direction="column" gap="size-200">
-                    <LatestOrdersCard
-                    setOrderIds={setOrderIds}
-                    ims={props.ims}
-                    />
-                    <ShipOrderCard
-                    orderIds={orderIds}
-                    setOrderIds={setOrderIds}
-                    ims={props.ims}
-                    />
-                </Flex>
-            </View>
-            <View width={'50%'}>
-                <Config ims={props.ims} />
-            </View>
-        </Flex>
+            <Flex direction="row" gap="size-200">
+                <View width={'50%'}>
+                    <Flex direction="column" gap="size-200">
+                        <LatestOrdersCard
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                        <ShipOrderCard
+                        orderIds={orderIds}
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                    </Flex>
+                </View>
+                <View width={'50%'}>
+                    <Config ims={props.ims} />
+                </View>
+            </Flex>
         </View>
     );
     ```
