@@ -140,7 +140,7 @@ Using the terminal, move to the `lab/mesh` folder.
 cd lab/mesh/
 ```
 
-Copy and paste the commerce backend URL from the CLI into the `mesh_config.json` file on line 22.
+Replace `<ACCS_GRAPHQL_URL>` with the `Graphql URL` from the excel spreadsheet into the `mesh_config.json` file on line 22.
 
 That's it, move over to the [deploy section](#deploy-mesh-changes) to continue with the next steps.
 
@@ -248,7 +248,7 @@ Lets update the storefront to display ratings in PDP pages.
 
 ### Storefront Codespace Setup
 
-Go to the new storefront repo created by the terminal. Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
+Go to the new storefront code repo created when `aio commerce init` was run in the terminal (the repo will follow the pattern https://github.com/<user>/<storefrontname>). Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
 
 Once the codespace it ready, let's make code some changes to consume and display product ratings on the product pages.
 
@@ -365,7 +365,9 @@ For this part of the lab, you should make changes in the repo containing this RE
     
     ![Alt text](docs/starter-kit/download-workspace.png "Download all button")
     
-    Save it as `workspace.json` in the `extensibility-lab/scripts/onboarding/config` directory.
+    Upload it as `workspace.json` in the `scripts/onboarding/config` directory, by right-clicking on the folder and selecting `Upload`
+
+    ![Alt text](docs/starter-kit/upload-workspace.png "Upload workspace json")
 
 1.  Navigate back to the lab files. Copy the `env.dist` file in the `extensibility-lab` directory as `.env` 
     ```bash
