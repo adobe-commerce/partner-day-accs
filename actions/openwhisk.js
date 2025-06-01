@@ -20,11 +20,13 @@ class Openwhisk {
   }
 
   async invokeAction (action, data) {
+    const { __ow_headers = {}, ...rest } = data
     return await this.#openwhiskClient.actions.invoke({
       name: action,
       blocking: true,
       params: {
-        data
+        data: rest,
+        __ow_headers
       }
     })
   }
