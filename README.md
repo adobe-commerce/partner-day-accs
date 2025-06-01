@@ -248,7 +248,7 @@ Lets update the storefront to display ratings in PDP pages.
 
 ### Storefront Codespace Setup
 
-Go to the new storefront repo created by the terminal. Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
+Go to the new storefront code repo created when `aio commerce init` was run in the terminal (the repo will follow the pattern https://github.com/<user>/<storefrontname>). Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
 
 Once the codespace it ready, let's make code some changes to consume and display product ratings on the product pages.
 
