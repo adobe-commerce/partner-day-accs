@@ -140,6 +140,8 @@ The single-page application (SPA) includes a configuration toggle that enables o
     return <Home ims={props.ims} runtime={props.runtime} />
     ```
 
+    *Make sure to import the `Home` component in the file.*
+
 4. Update the extension routing in the `web-src/src/app.jsx` file to reference `ExtensionRegistration` component on line 26:
 
     ```javascript
@@ -150,6 +152,8 @@ The single-page application (SPA) includes a configuration toggle that enables o
         },
     ];
     ```
+
+    *Make sure to import the `ExtensionRegistration` component in the file.*
 
 5. Run `aio app build --force-build` to make sure complitation is successful for 6 runtime actions.
 
@@ -226,9 +230,9 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 ### Step 6: Test the integration
 
-1. In the menu, a new section `EMEA Partner Days` is created.
+1. In the menu, a new section `Stock` is created.
 
-2. Click on the menu and find your application `Configuration`.
+2. Click on the menu and find your application `Configuration <SeatNumber>`.
 
     ![Configuration menu](../../docs/admin-ui-sdk/configuration-menu.png)
 
@@ -293,27 +297,29 @@ The single-page application (SPA) includes a configuration toggle that enables o
     ```javascript
     return (
         <View height="100%" overflow="auto">
-        <Flex direction="row" gap="size-200">
-            <View width={'50%'}>
-                <Flex direction="column" gap="size-200">
-                    <LatestOrdersCard
-                    setOrderIds={setOrderIds}
-                    ims={props.ims}
-                    />
-                    <ShipOrderCard
-                    orderIds={orderIds}
-                    setOrderIds={setOrderIds}
-                    ims={props.ims}
-                    />
-                </Flex>
-            </View>
-            <View width={'50%'}>
-                <Config ims={props.ims} />
-            </View>
-        </Flex>
+            <Flex direction="row" gap="size-200">
+                <View width={'50%'}>
+                    <Flex direction="column" gap="size-200">
+                        <LatestOrdersCard
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                        <ShipOrderCard
+                        orderIds={orderIds}
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                    </Flex>
+                </View>
+                <View width={'50%'}>
+                    <Config ims={props.ims} />
+                </View>
+            </Flex>
         </View>
     );
     ```
+
+    *Make sure to import the `Config` component in the file.*
 
 7. Build and deploy the extension using:
 

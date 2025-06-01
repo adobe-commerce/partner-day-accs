@@ -35,7 +35,7 @@ runtimeManifest:
       license: Apache-2.0
       actions:
         $include: ./actions/spa/actions.config.yaml
-    emea_partner_days_2025:
+    stock-config:
         license: Apache-2.0
         actions:
           $include: ./actions/data/actions.config.yaml

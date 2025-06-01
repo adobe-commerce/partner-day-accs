@@ -16,7 +16,7 @@ export default function ExtensionRegistration(props) {
 
   useEffect(() => {
     (async () => {
-      const extensionId = 'emea_partner_days_2025'
+      const extensionId = 'stock_config'
 
       await register({
         id: extensionId,
