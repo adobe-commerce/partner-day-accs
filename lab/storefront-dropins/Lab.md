@@ -259,7 +259,8 @@ In this section, you'll connect your new payment method to backend logic using A
 git remote add accs https://github.com/adobe-commerce/partner-day-accs.git
 git fetch --all
 git checkout accs/main -- app.config.yaml
-git checkout accs/main -- actions/payment-method
+git checkout accs/main -- actions
+git checkout accs/main -- utils
 ```
 3. Add the following payment method package in `app.config.yaml` and adjust indentation if needed:
 
