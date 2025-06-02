@@ -103,7 +103,7 @@ npm run commerce-event-subscribe
 # Using the application
 
 The application contains a single page UI:
-![Alt text](docs/application-ui.png "Application UI")
+![Alt text](docs/starter-kit/application-ui.png "Application UI")
 
 Orders successfully placed in the Commerce instance will appear in a table within the "Latest Orders Received" card when an "order placed" Commerce event is received by the application. Clicking the "Ship" button within an order's table row will open a "Ship Order" card. Entering a tracking number in the card's input field and clicking "Ship" will trigger creation of a shipment for the order with the specified tracking number in the Commerce instance.
 

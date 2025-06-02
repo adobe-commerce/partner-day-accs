@@ -1,0 +1,8 @@
+{
+  "name": "stock_config",
+  "displayName": "Stcok configuration",
+  "description": "Stock configuration menu for Adobe Commerce",
+  "platform": "web",
+  "id": "stock_config",
+  "version": "1.0.0"
+}
