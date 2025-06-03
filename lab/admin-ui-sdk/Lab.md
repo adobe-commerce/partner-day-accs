@@ -10,6 +10,7 @@
   - [Step 4: Configure the Adobe Commerce Admin Panel](#step-4-configure-the-adobe-commerce-admin-panel)
   - [Step 5: Test the integration](#step-5-test-the-integration)
   - [Step 6: Add the configuration component](#step-6-add-the-configuration-component)
+  - [Bonus step: Secure runtime actions](#bonus-step-secure-runtime-actions)
 - [Troubleshooting](#troubleshooting)
 
 ## Objective
