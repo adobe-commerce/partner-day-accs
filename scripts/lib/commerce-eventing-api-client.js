@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { getClient } = require('../../actions/oauth1a')
+const { getClient } = require('../../src/commerce-backend-ui-1/actions/oauth1a')
 const { Core } = require('@adobe/aio-sdk')
 const logger = Core.Logger('commerce-eventing-api-client', { level: 'info' })
 

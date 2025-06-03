@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { getAdobeAccessToken } = require('../../utils/adobe-auth')
+const { getAdobeAccessToken } = require('../../src/commerce-backend-ui-1/utils/adobe-auth')
 require('dotenv').config()
 
 /**

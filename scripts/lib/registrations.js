@@ -11,8 +11,8 @@ governing permissions and limitations under the License.
 */
 
 const fetch = require('node-fetch')
-const { getExistingRegistrations } = require('../../utils/adobe-events-api')
-const { getRegistrationName } = require('../../utils/naming')
+const { getExistingRegistrations } = require('../../src/commerce-backend-ui-1/utils/adobe-events-api')
+const { getRegistrationName } = require('../../src/commerce-backend-ui-1/utils/naming')
 const providersEventsConfig = require('../onboarding/config/events.json')
 
 /**
