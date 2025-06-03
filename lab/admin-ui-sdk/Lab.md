@@ -277,11 +277,25 @@ When the application is added to Commerce, runtime actions registered with `requ
 
 1. Replace the contents of `src/commerce-backend-ui-1/web-src/src/pages/home.jsx` with the sample file located at `lab/admin-ui-sdk/bonus/home.jsx`.
 
-2. Set `require-adobe-auth: true` for both actions `get-config` and `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.  
+2. Set `require-adobe-auth: true` for both actions `get-config` and `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.
 
-3. Build and deploy the extension using:
+3. Set `require-adobe-auth: true` for `check-order` action in `src/commerce-backend-ui-1/actions/webhook/actions.config.yaml`.  
+
+4. Build and deploy the extension using:
 
     `aio app deploy --force-build --force-deploy`
+
+5. Navigate to System > Webhooks > Webhooks Subsriptions menu. Locate the `validate_stock` hook name. Under `actions` columns, click on `select` and choose `Edit` from the dropdown menu.
+
+6. Expand the `Developer Console OAuth` section.
+
+7. Switch the `Enable` toggle to `Yes`.
+
+8. Open the `OAuth Server-to-Server` in the Stage workspace of your project in the [Adobe Developer Console](https://developer.adobe.com/console).
+
+9. Fill the `Client ID`, `Client Secret` and `Organization ID` with the values found in the `OAuth Server-to-Server`.
+
+10. Save the changes.
 
 ## Troubleshooting
 
