@@ -5,12 +5,11 @@
 - [Helpful resources](#helpful-resources)
 - [Step-by-Step instructions](#step-by-step-instructions)
   - [Step 1: Configuration files](#step-1-configuration-files)
-  - [Step 2: Migrate from application to extension](#step-2-migrate-from-application-to-extension)
-  - [Step 3: Register the menu extension point](#step-3-register-the-menu-extension-point)
-  - [Step 4: Deploy the extension to the Stage workspace](#step-4-deploy-the-extension-to-the-stage-workspace)
-  - [Step 5: Configure the Adobe Commerce Admin Panel](#step-5-configure-the-adobe-commerce-admin-panel)
-  - [Step 6: Test the integration](#step-6-test-the-integration)
-  - [Step 7: Add the configuration component](#step-7-add-the-configuration-component)
+  - [Step 2: Register the menu extension point](#step-2-register-the-menu-extension-point)
+  - [Step 3: Deploy the extension to the Stage workspace](#step-3-deploy-the-extension-to-the-stage-workspace)
+  - [Step 4: Configure the Adobe Commerce Admin Panel](#step-4-configure-the-adobe-commerce-admin-panel)
+  - [Step 5: Test the integration](#step-5-test-the-integration)
+  - [Step 6: Add the configuration component](#step-6-add-the-configuration-component)
 - [Troubleshooting](#troubleshooting)
 
 ## Objective
@@ -43,63 +42,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     > A sample file is provided in the `lab/admin-ui-sdk` folder.
 
-### Step 2: Migrate from application to extension
-
-1. Create a new `src/commerce-backend-ui-1` folder.
-
-2. Move the `actions` folder under `src/commerce-backend-ui-1`.
-
-3. Move the `web-src` folder under `src/commerce-backend-ui-1`.
-
-4. Move the `utils` folder under `src/commerce-backend-ui-1`.
-
-5. Update the `src/commerce-backend-ui-1/actions/starter-kit-info/index.js` file to reference the correct path for the `version` and `registrations` on lines 27 and 28:
-
-    ```javascript
-    const version = require('../../../../package.json').version
-    const registrations = require('../../../../scripts/onboarding/config/starter-kit-registrations.json')
-    ```
-
-6. Update the `src/commerce-backend-ui-1/utils/naming.js` file to reference the correct path for the `providersList` on line 71:
-
-    ```javascript
-    const providersList = require('../../../scripts/onboarding/config/providers.json')
-    ```
-
-7. Create an `ext.config.yaml` file under `src/commerce-backend-ui-1` folder.
-
-8. Copy the content under `application` from `app.config.yaml` file and paste it into `src/commerce-backend-ui-1/ext.config.yaml`. Adjust indentation to remove empty space before `actions`.
-
-9. Append the `src/commerce-backend-ui-1/ext.config.yaml` to start with:
-
-    ```yaml
-    operations:
-       view:
-          - type: web
-            impl: index.html
-    ```
-
-10. Append the `src/commerce-backend-ui-1/ext.config.yaml` with `web-src` below `actions` line:
-
-    ```yaml
-    web: web-src
-    ```
-
-    > A sample file `ext.config.yaml` is provided in the `lab/admin-ui-sdk/migration` folder.
-
-11. Replace the `application` line in `app.config.yaml` with the following:
-
-    ```yaml
-    extensions:
-       commerce/backend-ui/1:
-          $include: src/commerce-backend-ui-1/ext.config.yaml
-    ```
-
-    > A sample file `app.config.yaml` is provided in the `lab/admin-ui-sdk/migration` folder.
-
-12. Run `aio app build --force-build` to make sure compilation is successful.
-
-### Step 3: Register the menu extension point
+### Step 2: Register the menu extension point
 
 1. Create the registration runtime action
 
@@ -157,7 +100,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 5. Run `aio app build --force-build` to make sure complitation is successful for 6 runtime actions.
 
-### Step 4: Deploy the extension to the Stage workspace
+### Step 3: Deploy the extension to the Stage workspace
 
 1. Verify the selected project & workspace by running the following command:
 
@@ -204,7 +147,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
     New Extension Point(s) in Workspace 'Stage': 'commerce/backend-ui/1'
     ```
 
-### Step 5: Configure the Adobe Commerce Admin Panel
+### Step 4: Configure the Adobe Commerce Admin Panel
 
 1. Go the Adobe Commerce Admin Panel.
 
@@ -228,7 +171,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     ![Extensions saved successfully](../../docs/admin-ui-sdk/extensions-saved-success.png)
 
-### Step 6: Test the integration
+### Step 5: Test the integration
 
 1. In the menu, a new section `Stock` is created.
 
@@ -238,7 +181,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 3. Open the menu, it'll load your application from App Builder.
 
-### Step 7: Add the configuration component
+### Step 6: Add the configuration component
 
 1. Create the `Config` component under `web-src/src/components`.
 

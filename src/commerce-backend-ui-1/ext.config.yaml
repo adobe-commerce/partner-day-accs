@@ -1,7 +1,7 @@
 operations:
-   view:
-      - type: web
-        impl: index.html
+  view:
+    - type: web
+      impl: index.html
 actions: actions
 web: web-src
 runtimeManifest:
@@ -36,6 +36,6 @@ runtimeManifest:
       actions:
         $include: ./actions/spa/actions.config.yaml
     stock-config:
-        license: Apache-2.0
-        actions:
-          $include: ./actions/data/actions.config.yaml
+      license: Apache-2.0
+      actions:
+        $include: ./actions/data/actions.config.yaml

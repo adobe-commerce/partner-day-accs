@@ -24,8 +24,8 @@ const { HTTP_OK, HTTP_INTERNAL_ERROR } = require('../constants')
  * @param {object} params - includes the env params
  */
 async function main (params) {
-  const version = require('../../package.json').version
-  const registrations = require('../../scripts/onboarding/config/starter-kit-registrations.json')
+  const version = require('../../../../package.json').version
+  const registrations = require('../../../../scripts/onboarding/config/starter-kit-registrations.json')
 
   // create a Logger
   const logger = Core.Logger('starter-kit-info', { level: params.LOG_LEVEL || 'info' })
