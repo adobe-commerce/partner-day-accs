@@ -349,7 +349,7 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 1. Go to your storefront checkout page.
 2. Try to place an order using the "PARTNER-PAY" payment method.
 3. You should see an error message:
-   **"Invalid payment session"**
+   **"Payment validation error: Payment session ID is required"**
 4. This confirms that your webhook is active and the validation logic is working.
 
 > **Tips:**
