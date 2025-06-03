@@ -252,8 +252,17 @@ In this section, you'll connect your new payment method to backend logic using A
 
 ### Step 2.1: Enable Payment Method Logic in App Builder
 1. Open your lab codespace.
-2. Locate the `ext.config.yaml` file under `src/commerce-backend-ui-1` in your App Builder project.
-3. Add the following payment method package and adjust indentation if needed:
+2. Revert some files.
+> **Warning**: Only complete this step if you did not successfully complete the Admin UI SDK lab. If you completed that lab, you have to follow the [storefront drop-in lab documentation from main branch](https://github.com/adobe-commerce/partner-day-accs/blob/main/lab/storefront-dropins/Lab.md).
+
+```bash
+git remote add accs https://github.com/adobe-commerce/partner-day-accs.git
+git fetch --all
+git checkout accs/main -- app.config.yaml
+git checkout accs/main -- actions
+git checkout accs/main -- utils
+```
+3. Add the following payment method package in `app.config.yaml` and adjust indentation if needed:
 
 ```yaml
       payment-method:
