@@ -5,7 +5,7 @@
 These steps should be completed before you arrive to the event.
 
 ### Codespaces Setup
- 
+
 1. Visit https://github.com/adobe-commerce/partner-day-accs.
 2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
 3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
@@ -19,12 +19,12 @@ These steps should be completed before you arrive to the event.
 ### Login to Developer Console
 
 1. Go to the Adobe Developer console: http://developer.adobe.com/console.
-        
+
     The Developer Console is the gateway to access all the services and tooling available as part of the Adobe Developer Ecosystem.
 
 2. Login with the following credentials. You will find your assigned seat number on your desk.
 ```
-Email: pd-bcn1+<SEAT_NUMBER>@adobecreate.com
+Email: pd-bcn2+<SEAT_NUMBER>@adobecreate.com
 Password: Check with the lab instructor
 ```
 ![image](https://github.com/user-attachments/assets/6f0bd9d3-2b78-46c3-ab7f-a15c1661a4fd)
@@ -107,7 +107,7 @@ aio commerce init
 5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`.
 6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter.
 7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`.
-8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD BCN1 <SEAT_NUMBER>`.
+8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD BCN2 <SEAT_NUMBER>`.
 9. Select the Production workspace.
 10. This will connect the selected instance through an API Mesh on the selected Project and Workspace.
 11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
@@ -334,16 +334,16 @@ For this part of the lab, you should make changes in the repo containing this RE
 
 ### 1. Configure the Starter Kit
 
-1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization. 
-    
+1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
+
 
 1. Click **Projects** in the Developer Console top menu.
 
     ![Alt text](docs/starter-kit/developer-console-home.png "Developer console home")
 
-    Then select the project assigned to your seat: 
+    Then select the project assigned to your seat:
 
-    **PD BCN1 <SEAT_NUMBER>**
+    **PD BCN2 <SEAT_NUMBER>**
 
     Select the **Stage** workspace.
 
@@ -362,14 +362,14 @@ For this part of the lab, you should make changes in the repo containing this RE
     ![Alt text](docs/starter-kit/workspace-with-services.png "Workspace with required services")
 
 1. Download the workspace JSON configuration file by clicking on the **Download all** button on the upper right corner of the page.
-    
+
     ![Alt text](docs/starter-kit/download-workspace.png "Download all button")
-    
+
     Upload it as `workspace.json` in the `scripts/onboarding/config` directory, by right-clicking on the folder and selecting `Upload`
 
     ![Alt text](docs/starter-kit/upload-workspace.png "Upload workspace json")
 
-1.  Navigate back to the lab files. Copy the `env.dist` file in the `extensibility-lab` directory as `.env` 
+1.  Navigate back to the lab files. Copy the `env.dist` file in the `extensibility-lab` directory as `.env`
     ```bash
     cp env.dist .env
     ```
@@ -418,7 +418,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
 The starter kit provides boilerplate code for synchronizing entities across systems and onboarding scripts to simplify setup. During installation, there is minimal activity required.
 
-To ensure flexibility for the onboarding scripts, the starter kit code provides a few different JSON configuration files to match your business requirements. 
+To ensure flexibility for the onboarding scripts, the starter kit code provides a few different JSON configuration files to match your business requirements.
 
 ![Alt text](docs/starter-kit/starter-kit-config-files.png "Starter Kit configuration files")
 
@@ -433,19 +433,19 @@ All the files were pre-configured for this lab. The most important files are des
 - `scripts/onboarding/config/events.json`
 
   Defines all the meaningful events that the integration needs to care about.
-  
+
   For this lab, we'll send the `com.adobe.commerce.observer.sales_order_save_commit_after` event listed at the beginning of this file from Commerce to the Commerce provider. Additionally, we'll have our App Builder app send the `be-observer.sales_order_shipment_create` at the bottom of the file to the Backoffice provider in response to UI button clicks.
-  
+
   For simplicity, the App Buider app sends events to the Backoffice provider in this lab, but a third-party back office system could instead send events to the Backoffice provider in a real-world scenario.
-  
+
   If more events were required, we would specify them in this file. Although not used for this lab, the full starter kit also provides support for product, customer, and stock events.
 
 - `scripts/onboarding/config/starter-kit-registrations.json`
 
   Defines the required event registrations that will be created in App Builder.
-  
+
   For this lab, the file has been configured so that only registration for order events from the Commerce provider and a registration for shipment creation events from the Backoffice provider will be created.
-  
+
   When the registration for the Commerce provider event is created, order save Commerce events will trigger runtime action code that we've added in the `actions/order/commerce` directory to save order data within the App Builder app.
 
   When the registration for the Backoffice provider event is created, shipment creation events will trigger runtime action code that we've added in the `actions/order/external` directory to send a shipment creation request to Commerce via REST API.
@@ -517,11 +517,11 @@ In this part of the lab, we will demonstrate the sending of information from an 
 1. The **Backoffice Order Sync** event registration sends shipment created events to a runtime action, which uses the event payload to build a request for creating the shipment in Commerce via REST API. We can navigate to the Commerce Admin to see the created shipment for the order selected in the App Builder app's UI. The URL for the Commerce Admin assigned to your seat is formatted as
 
     `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
-    
+
     This URL is also present in the final output of the command run during the storefront creation part of the lab.
 
     Login to the admin by using your assigned seat's email and selecting the `Adobe Commerce Labs` organization.
-    
+
     Once you are logged in, navigate to **Sales** > **Orders** and click **View** in the orders grid for the order that you created a shipping tracking number for in the App Builder app's UI. Then select **Shipments** from the left navigation.
 
     You should see a grid with a recently-created shipment.
@@ -551,7 +551,7 @@ Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to
 
 1. The code for the `check-order` action, located in `actions/webhook/check-order/index.js`, retrieves item stock limit configuration data from a `get-config` action and uses it to perform validation of order item quantities. The `get-config` action is currently hardcoded to indicate that item quantities in an order should not be greater than 1.
 
-    To see the effect of this, navigate to the product details page of an item in your storefront, set the quanity to a value greater than 1, and then add the item to your cart. Then proceed to place an order. 
+    To see the effect of this, navigate to the product details page of an item in your storefront, set the quanity to a value greater than 1, and then add the item to your cart. Then proceed to place an order.
 
     You should see an error like the following in the storefront indicating that placing an order failed.
 
@@ -652,7 +652,7 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
           }
         }
     }
-    ``` 
+    ```
 
 1. Let's change the response
   - open the `actions/starter-kit-info/index.js` file in the editor
@@ -678,7 +678,7 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
           }
         }
       }
-      ``` 
+      ```
 1. Rerun `aio app dev` if you see this error in the terminal
     ```
     [watcher] error: Error encountered while building actions. Stopping auto refresh.
@@ -757,20 +757,20 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
 
 ### aio CLI
 
-1. In case you need guidance on commands or flags 
+1. In case you need guidance on commands or flags
 
-    Run `aio --help` to see all available commands and flags. 
+    Run `aio --help` to see all available commands and flags.
 
-    For specific commands, use the `--help` flag. For example: 
+    For specific commands, use the `--help` flag. For example:
 
-        aio auth login --help 
+        aio auth login --help
 
-        aio commerce init -–help 
+        aio commerce init -–help
 
 1. In case of getting the error below
-    
+
     ```
-    ›   Error: [CoreConsoleAPISDK:ERROR_GET_PROJECTS_BY_ORG_ID] 451 - Unknown ("Use POST /console/services/ims/organizations/:orgId/terms API to accept developer terms for your org first. You 
+    ›   Error: [CoreConsoleAPISDK:ERROR_GET_PROJECTS_BY_ORG_ID] 451 - Unknown ("Use POST /console/services/ims/organizations/:orgId/terms API to accept developer terms for your org first. You
     ›   can use GET /console/services/ims/terms to retrieve the current developer terms.")
     ```
 
@@ -781,43 +781,43 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
 
 1. In case of invalid login
 
-    Run `aio config clear` 
+    Run `aio config clear`
 
     Run `aio auth login –-force`
 
-    Switch over to the browser and use the lab username and password to login 
+    Switch over to the browser and use the lab username and password to login
 
-    Select **Adobe Commerce Labs** profile 
+    Select **Adobe Commerce Labs** profile
 
-    Switch back to the terminal to continue 
+    Switch back to the terminal to continue
 
 ### aio commerce init
 
-1. In case of a failed init: 
+1. In case of a failed init:
 
     Run `aio api-mesh delete`
 
     Re-run `aio commerce init`
 
-1. In case of wrong Org selection during init  
+1. In case of wrong Org selection during init
 
-    Run `aio console org select` 
+    Run `aio console org select`
 
-1. In case of wrong Project selection during init 
+1. In case of wrong Project selection during init
 
     Run `aio console project select`
 
-1. In case of wrong Workspace selection during init 
+1. In case of wrong Workspace selection during init
 
     Run `aio console workspace select`
 
-1. In case of invalid Tenant selection 
+1. In case of invalid Tenant selection
 
-    Cancel the current CLI execution by running control+c 
+    Cancel the current CLI execution by running control+c
 
     Run `aio commerce init`
 
-1. In case of invalid Mesh installation 
+1. In case of invalid Mesh installation
 
     Run `aio api-mesh update mesh-config.json`
 
@@ -856,4 +856,3 @@ In this part of the lab, we explored one way we can extend Commerce using webhoo
 1. **Cannot perform the operation due to an error.** appears in the storefront when trying to place an order after configuring the webhook.
 
     Double check that the `url` value added in `scripts/config/commerce-webhook-subscribe.json` is correct. It should be formatted as `https://1899289-<AIO_RUNTIME_NAMESPACE>.adobeio-static.net/api/v1/web/webhook/check-order`
-  
