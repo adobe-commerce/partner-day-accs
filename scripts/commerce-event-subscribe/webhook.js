@@ -27,6 +27,7 @@ async function main () {
   try {
     const commerceWebhookSubscriptions = require('./config/commerce-webhook-subscribe.json')
     for (const commerceWebhookSubscription of commerceWebhookSubscriptions) {
+      commerceWebhookSubscription.webhook.url = commerceWebhookSubscription.webhook.url.trim()
       const webhookSubscribeResult = await require('../lib/webhook-subscribe').main(commerceWebhookSubscription, process.env)
       const webhookName = commerceWebhookSubscription.webhook.webhook_method + ':' + commerceWebhookSubscription.webhook.webhook_type
       if (!webhookSubscribeResult.success) {
