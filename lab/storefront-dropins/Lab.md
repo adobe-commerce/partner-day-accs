@@ -188,7 +188,7 @@ export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
     ![Alt text](../../docs/developer-console-home.png "Developer console home")
 
 3. Select the project assigned to your seat:
-   **PD SY <SEAT_NUMBER>**
+   **PD BCN2 <SEAT_NUMBER>**
 4. Select the **Stage** workspace.
 5. Navigate to Credentials > OAuth Server-to-Server section.
 6. Click on "Generate access token" button.
@@ -424,7 +424,7 @@ For more information, check [drop-in SDK](https://experienceleague.adobe.com/dev
 3. Go back to the browser and reload the checkout page. It should display the message in a styled box.
 
 ### Step 3.3: Payment Logic
-1. In Line 470, before `// place order`, add the following code to create the session and set the payment session identifier:
+1. In Line 472, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
 // Add payment session creation for PARTNER-PAY
