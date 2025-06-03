@@ -387,7 +387,7 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 import { h } from '@dropins/tools/preact.js';
 ```
 
-5. In line, after `ProgressSpinner`, add the following line to import the `IllustratedMessage`:
+5. In line 16, after `ProgressSpinner`, add the following line to import the `IllustratedMessage`:
 
 ```javascript
 IllustratedMessage,
@@ -424,7 +424,9 @@ For more information, check [drop-in SDK](https://experienceleague.adobe.com/dev
 3. Go back to the browser and reload the checkout page. It should display the message in a styled box.
 
 ### Step 3.3: Payment Logic
-1. In Line 472, before `// place order`, add the following code to create the session and set the payment session identifier:
+
+1. Go back to the file `blocks/commerce-checkout/commerce-checkout.js`
+2. In Line 472, before `// place order`, add the following code to create the session and set the payment session identifier:
 
 ```javascript
 // Add payment session creation for PARTNER-PAY
@@ -457,8 +459,8 @@ if (code === "PARTNER-PAY") {
 }
 ```
 
-2. Go back to the browser's storefront tab.
-3. Place an order with PARTNER-PAY payment method. Now it should work.
+3. Go back to the browser's storefront tab.
+4. Place an order with PARTNER-PAY payment method. Now it should work.
 
 ## Optional Exercises: Enhanced Payment Security
 These exercises will help you understand how to extend the PARTNER-PAY payment method with additional security features.
