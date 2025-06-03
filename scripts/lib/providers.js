@@ -11,11 +11,11 @@ governing permissions and limitations under the License.
 */
 
 require('dotenv').config()
-const { checkMissingRequestInputs } = require('../../actions/utils')
+const { checkMissingRequestInputs } = require('../../src/commerce-backend-ui-1/actions/utils')
 const fetch = require('node-fetch')
 const uuid = require('uuid')
-const { getExistingProviders } = require('../../utils/adobe-events-api')
-const { addSuffix } = require('../../utils/naming')
+const { getExistingProviders } = require('../../src/commerce-backend-ui-1/utils/adobe-events-api')
+const { addSuffix } = require('../../src/commerce-backend-ui-1/utils/naming')
 const providersEventsConfig = require('../onboarding/config/events.json')
 
 /**
