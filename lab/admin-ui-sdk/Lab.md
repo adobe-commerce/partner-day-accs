@@ -187,7 +187,34 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     > A sample file `config.jsx` is provided in the `lab/admin-ui-sdk` folder.
 
-2. Copy the `utils.js` file from `lab/admin-ui-sdk` folder and add it under `web-src/src`. This files contains helpers to call runtime actions in the `config.jsx` file.
+2. Update the `home.jsx` file to include the `Config` component. Here's a suggested layout:
+
+    ```javascript
+    return (
+        <View height="100%" overflow="auto">
+            <Flex direction="row" gap="size-200">
+                <View width={'50%'}>
+                    <Flex direction="column" gap="size-200">
+                        <LatestOrdersCard
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                        <ShipOrderCard
+                        orderIds={orderIds}
+                        setOrderIds={setOrderIds}
+                        ims={props.ims}
+                        />
+                    </Flex>
+                </View>
+                <View width={'50%'}>
+                    <Config ims={props.ims} />
+                </View>
+            </Flex>
+        </View>
+    );
+    ```
+
+    *Make sure to import the `Config` component in the file.*
 
 3. Create the `save-config` runtime action in the `actions/data/actions.config.yaml` file.
 
@@ -235,42 +262,25 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     > A sample file `getConfig.js` is provided in the `lab/admin-ui-sdk/data` folder.
 
-6. Update the `home.jsx` file to include the `Config` component. Here's a suggested layout:
-
-    ```javascript
-    return (
-        <View height="100%" overflow="auto">
-            <Flex direction="row" gap="size-200">
-                <View width={'50%'}>
-                    <Flex direction="column" gap="size-200">
-                        <LatestOrdersCard
-                        setOrderIds={setOrderIds}
-                        ims={props.ims}
-                        />
-                        <ShipOrderCard
-                        orderIds={orderIds}
-                        setOrderIds={setOrderIds}
-                        ims={props.ims}
-                        />
-                    </Flex>
-                </View>
-                <View width={'50%'}>
-                    <Config ims={props.ims} />
-                </View>
-            </Flex>
-        </View>
-    );
-    ```
-
-    *Make sure to import the `Config` component in the file.*
-
-7. Build and deploy the extension using:
+6. Build and deploy the extension using:
 
     `aio app deploy --force-build --force-deploy`
 
-8. Refresh the Admin panel page and you'll see the changes with the config component.
+7. Refresh the Admin panel page and you'll see the changes with the config component.
 
-9. You can now change the configuration values, save it and test the webhook.
+8. You can now change the configuration values, save it and test the webhook.
+
+### Bonus step: Secure runtime actions
+
+When the application is added to Commerce, runtime actions registered with `require-adobe-auth: true` might fail with a `401` status unless the token and orgId are properly set. To enable this, the Admin UI SDK creates a secure shared context with the application where those credentials can be retrieved.
+
+1. Replace the contents of `src/commerce-backend-ui-1/web-src/src/pages/home.jsx` with the sample file located at `lab/admin-ui-sdk/bonus/home.jsx`.
+
+2. Set `require-adobe-auth: true` for both actions `get-config` and `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.  
+
+3. Build and deploy the extension using:
+
+    `aio app deploy --force-build --force-deploy`
 
 ## Troubleshooting
 
