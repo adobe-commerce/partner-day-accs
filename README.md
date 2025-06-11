@@ -6,7 +6,7 @@ These steps should be completed before you arrive to the event.
 
 ### Codespaces Setup
 
-1. Visit https://github.com/adobe-commerce/partner-day-accs.
+1. Visit https://github.com/adobe-commerce/partner-day-accs. @TODO change link to correct branch
 2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
 3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
@@ -22,22 +22,14 @@ These steps should be completed before you arrive to the event.
 
     The Developer Console is the gateway to access all the services and tooling available as part of the Adobe Developer Ecosystem.
 
-2. Login with the following credentials. You will find your assigned seat number on your desk.
-```
-Email: pd-bcn2+<SEAT_NUMBER>@adobecreate.com
-Password: Check with the lab instructor
-```
-![image](https://github.com/user-attachments/assets/6f0bd9d3-2b78-46c3-ab7f-a15c1661a4fd)
+2. Login with your Organization's credentials.
 
-![image](https://github.com/user-attachments/assets/f40f0c7d-2681-41d0-b6c6-7f9ea45131c3)
-3. Select `Adobe Commerce Labs` profile.
-![image](https://github.com/user-attachments/assets/1f229b81-e24f-414d-b9bb-49ca21632281)
-4. After logging in, accept Terms and Conditions.
+If it's your first time logging in, make sure to accept Terms and Conditions.
 ![image](https://github.com/user-attachments/assets/21cccf57-a0b7-4274-8d51-fd80cc2c767c)
 
 ### Continue to Configure Codespaces
 
-0. Start the codespace in the repository you cloned under your GitHub account from https://github.com/adobe-commerce/partner-day-accs
+0. Start the codespace in the repository you cloned under your GitHub account from https://github.com/adobe-commerce/partner-day-accs #TODO change link to correct branch
 
 <img width="1728" alt="image" src="https://github.com/user-attachments/assets/bbd3bf75-3d7e-45a0-ae58-9b67ff1f051c" />
 

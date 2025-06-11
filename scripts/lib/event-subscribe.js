@@ -21,7 +21,7 @@ const { eventSubscribe } = require('./commerce-eventing-api-client')
 async function main (eventSpec, environment) {
   try {
     await eventSubscribe(
-      environment.COMMERCE_BASE_URL + environment.TENANT_ID + '/',
+      environment.COMMERCE_BASE_URL,
       environment,
       eventSpec
     )

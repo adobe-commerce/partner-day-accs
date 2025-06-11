@@ -23,7 +23,7 @@ const { updateConfiguration } = require('./commerce-eventing-api-client')
 async function main (providerId, instanceId, workspaceConfiguration, environment) {
   try {
     await updateConfiguration(
-      environment.COMMERCE_BASE_URL + environment.TENANT_ID + '/',
+      environment.COMMERCE_BASE_URL,
       environment,
       {
         config: {
