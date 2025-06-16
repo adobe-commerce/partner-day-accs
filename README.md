@@ -25,12 +25,12 @@ Before starting this lab, and in order to be able to complete it fully, ensure t
 ### Codespaces Setup
 
 1. Visit https://github.com/adobe-commerce/partner-day-accs/tree/partner-day-paas.
-2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![img_1.png](img_1.png)
-3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. Make sure to clone all branches, so that you can use `partner-day-paas` afterward. ![img.png](img.png)
+2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![img_1.png](docs/storefront/img_1.png)
+3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. Make sure to clone all branches, so that you can use `partner-day-paas` afterward. ![img.png](docs/storefront/img.png)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
-5. Switch to `partner-day-paas` branch and click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![img_2.png](img_2.png)
+5. Switch to `partner-day-paas` branch and click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![img_2.png](docs/storefront/img_2.png)
 6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
-7. Once done, you will be able to interact with the online IDE. ![img_3.png](img_3.png)
+7. Once done, you will be able to interact with the online IDE. ![img_3.png](docs/storefront/img_3.png)
 
 
 ### Login to Developer Console
@@ -48,7 +48,7 @@ If it's your first time logging in, make sure to accept Terms and Conditions.
 
 0. Navigate back to your codespace
 
-![img_4.png](img_4.png)
+![img_4.png](docs/storefront/img_4.png)
 
 
 1. Navigate to the terminal and run the following command to clear the temporary github token:
@@ -61,7 +61,7 @@ gh auth login
 ```
 This should launch the login process. Select the appropriate options to log into your Github account.
 
-![img_5.png](img_5.png)
+![img_5.png](docs/storefront/img_5.png)
 
 Once done you should see the following on the login screen:
 
@@ -120,17 +120,17 @@ aio commerce init
 9. Go back to the terminal and click enter to move forward. At this point, the CLI will validate the code sync and continue with content cloning. This will take a minute or 2.
 10. Congratulations, you have created your own Storefront. Copy the final details and save it for future reference.
 
-![img_6.png](img_6.png)
+![img_6.png](docs/storefront/img_6.png)
 
 11. Click on `Manage your config` link. This will open your storefront configuration in stage. Currently, it's pointing to the demo backend. 
-![img_7.png](img_7.png)
+![img_7.png](docs/storefront/img_7.png)
 12. Let's change the values to point to your own commerce instance. 
     - Update `commerce.headers.cs.Magento-Environment-Id`: Enter your Commerce `Data Space ID`. This can be found in the Commerce Admin under `System > Commerce Services Connector > SaaS Identifier`.
     - Update `commerce.headers.cs.x-api-key`: Enter your Commerce `API Key`. This can be found in the Commerce Admin under `System > Commerce Services Connector > Sandbox Keys`. Copy and paste your `Sandbox public API key`.
     - Update `commerce-core-endpoint`: Enter the `GraphQL URL` for your Commerce instance. It should look something like this: `https://<COMMERCE-BASE-URL>/graphql`.
     - Update `commerce-endpoint`: Enter the Catalog Service Sandbox URL > https://catalog-service-sandbox.adobe.io/graphql
 13. Publish the changes.
-![img_10.png](img_10.png)
+![img_10.png](docs/storefront/img_10.png)
 
 13. Repeat the process for the `configs-dev` and `configs` config. This will allow you to preview the changes in the dev environment later on during the API Mesh extensibility exercise. Click on the `Edit your content link` and choose `configs-dev`, this is the https://da.live/#/{owner}/{repo}/configs-dev link. Update the values as mentioned in the previous step, with the same values and publish the changes. Do the same for `configs`file. 
 ## Storefront Walkthrough
@@ -141,7 +141,7 @@ aio commerce init
    >  ![create-product.png](docs/storefront/create-product.png)
    >  ![create-product-2.png](docs/storefront/create-product-2.png)
 3. After creating the product, go to a sample PDP page https://main--{repo}--{owner}.aem.page/products/adobe-for-all-tee/ADB256. 
-![img_8.png](img_8.png)
+![img_8.png](docs/storefront/img_8.png)
  > **Note**: Changes to the catalog may take a few minutes to reflect in the storefront due to the export to Catalog Service. If you don't see the product, wait for a few minutes and try again.
 
 ## Mesh Extensibility (Phase 2)
@@ -151,7 +151,7 @@ Let's stitch Commerce backend and Ratings API using API Mesh. In this section we
 First step is to create the project in the [Developer Console](https://developer.adobe.com/) that will host the Mesh configuration:
 1. Go to the [Adobe Developer Console](https://developer.adobe.com/console/). Navigate to `Projects` and click on `Create new project` > `Project from template`
 2. Select `App Builder`, give a title to your project, and click `save`. 
-![img_9.png](img_9.png)
+![img_9.png](docs/storefront/img_9.png)
 
 
 There are 2 options to achieve this:
@@ -320,7 +320,7 @@ aio api-mesh:create mesh_config.json
 ```
 You'll be prompted to select **Organization**, **Project**, and **Workspace**. Select your organization and project you created earlier in the Developer Console. Use the stage workspace.
 
-![img_11.png](img_11.png)
+![img_11.png](docs/storefront/img_11.png)
 
 This operation typically takes 30 seconds to a minute. To check the status of the update, run the following command:
 
@@ -330,12 +330,12 @@ aio api-mesh status
 Meanwhile, copy your **Mesh endpoint**. Navigate to your storefront configs (`https://da.live/sheet#/{owner}/{repo}/configs-stage`) and update the value of `commerce-endpoint` with the mesh endpoint. 
 > **Note**: Make sure to update this value in `configs-dev` and `config` as well. (`https://da.live/sheet#/{owner}/{repo}/configs-dev`, `https://da.live/sheet#/{owner}/{repo}/configs`)
 
-![img_12.png](img_12.png)
-![img_13.png](img_13.png)
+![img_12.png](docs/storefront/img_12.png)
+![img_13.png](docs/storefront/img_13.png)
 
 If your mesh was provisioned successfully, you should see the following message in the terminal:
 
-![img_14.png](img_14.png)
+![img_14.png](docs/storefront/img_14.png)
 
 ## Storefront Extensibility
 
@@ -607,14 +607,9 @@ In this part of the lab, we will demonstrate the sending of information from an 
 
     ![Alt text](docs/starter-kit/dev-console-backoffice-events.png "Received Backoffice events in the Developer Console")
 
-1. The **Backoffice Order Sync** event registration sends shipment created events to a runtime action, which uses the event payload to build a request for creating the shipment in Commerce via REST API. We can navigate to the Commerce Admin to see the created shipment for the order selected in the App Builder app's UI. The URL for the Commerce Admin assigned to your seat is formatted as
+1. The **Backoffice Order Sync** event registration sends shipment created events to a runtime action, which uses the event payload to build a request for creating the shipment in Commerce via REST API. We can navigate to the Commerce Admin to see the created shipment for the order selected in the App Builder app's UI.
 
-    `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
-
-    This URL is also present in the final output of the command run during the storefront creation part of the lab.
-
-    Login to the admin by using your assigned seat's email and selecting the `Adobe Commerce Labs` organization.
-
+    Login to the Commerce admin.
     Once you are logged in, navigate to **Sales** > **Orders** and click **View** in the orders grid for the order that you created a shipping tracking number for in the App Builder app's UI. Then select **Shipments** from the left navigation.
 
     You should see a grid with a recently-created shipment.
