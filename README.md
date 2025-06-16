@@ -1,20 +1,36 @@
-# Commerce Partner Days - ACCS Session
+# Commerce Partner Days - PaaS Lab
 
-## Pre-Event Setup
+## Prerequisites
 
-These steps should be completed before you arrive to the event.
+Before starting this lab, and in order to be able to complete it fully, ensure that your Adobe Commerce backend meets the following requirements:
+
+* **Product license**: Cloud or on-premises (Magento Open Source is not supported)
+* **Version**: v2.4.7 or later
+* **PHP**: 8.3/8.2 for Adobe Commerce 2.4.7
+* **Storefront Compatibility Package**: Must be installed and configured. This package contains changes to the Adobe Commerce codebase that enable drop-in component functionality. Follow these instructions for [Storefront Compatibility Package Installation](https://experienceleague.adobe.com/developer/commerce/storefront/setup/configuration/storefront-compatibility/install/).
+
+  > **Note**: On Adobe Commerce as a Cloud Service, the Storefront Compatibility Package is installed and updated automatically. However, since we are doing this lab in PaaS, you will need to install it manually.
+* **Storefront services**: Ensure that the latest version of following services are installed and configured. Follow [these](https://experienceleague.adobe.com/developer/commerce/storefront/setup/discovery/architecture/#adobe-commerce) instructions. 
+  * Data Connection service
+  * Services Connector
+  * Catalog Service
+  * Live Search
+  * Product Recommendations
+* Admin UI SDK: Follow these steps to [install](https://developer.adobe.com/commerce/extensibility/admin-ui-sdk/installation/) the Admin UI SDK on Adobe Commerce 2.4.7. It is installed automatically on version 2.4.8 and later. 
+* Install `magento/module-out-of-process-payment-methods` module. Find instruction [here](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/payment-install/#installation). 
+
+## Lab Setup
 
 ### Codespaces Setup
 
-1. Visit https://github.com/adobe-commerce/partner-day-accs. @TODO change link to correct branch
-2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![image](https://github.com/user-attachments/assets/b5d5df44-7120-4735-9c87-b82daea27346)
-3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. ![image](https://github.com/user-attachments/assets/c6522c10-42d3-4bb3-9067-8cc5c7416558)
+1. Visit https://github.com/adobe-commerce/partner-day-accs/tree/partner-day-paas.
+2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![img_1.png](img_1.png)
+3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. Make sure to clone all branches, so that you can use `partner-day-paas` afterward. ![img.png](img.png)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
-5. Click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![image](https://github.com/user-attachments/assets/55714254-19ae-4da0-8e6a-b49db080f8b9)
+5. Switch to `partner-day-paas` branch and click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![img_2.png](img_2.png)
 6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
-7. Once done, you will be able to interact with the online IDE. <img width="2007" alt="image" src="https://github.com/user-attachments/assets/96c71fab-b179-442f-8378-9203d4facd83" />
+7. Once done, you will be able to interact with the online IDE. ![img_3.png](img_3.png)
 
-## At The Event Setup
 
 ### Login to Developer Console
 
@@ -29,9 +45,9 @@ If it's your first time logging in, make sure to accept Terms and Conditions.
 
 ### Continue to Configure Codespaces
 
-0. Start the codespace in the repository you cloned under your GitHub account from https://github.com/adobe-commerce/partner-day-accs #TODO change link to correct branch
+0. Navigate back to your codespace
 
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/bbd3bf75-3d7e-45a0-ae58-9b67ff1f051c" />
+![img_4.png](img_4.png)
 
 
 1. Navigate to the terminal and run the following command to clear the temporary github token:
@@ -44,7 +60,7 @@ gh auth login
 ```
 This should launch the login process. Select the appropriate options to log into your Github account.
 
-<img width="686" alt="image" src="https://github.com/user-attachments/assets/d15dc8ba-febe-461d-9117-4ba16026e7ed" />
+![img_5.png](img_5.png)
 
 Once done you should see the following on the login screen:
 
@@ -57,7 +73,7 @@ aio auth login
 If you are asked to confirm your action to open an external website, click `Open`.
 <img width="1402" alt="image" src="https://github.com/user-attachments/assets/dcbc0ad7-b1e1-499a-ac95-3edf6fb97a35" />
 
-Since we have logged in earlier, the terminal should be able to pick up the session automatically. **If that did not work, follow the same steps as above to login.**
+Since we have logged in earlier, the terminal should be able to pick up the session automatically. **If that did nxot work, follow the same steps as above to login.**
 
 Once login is successful, you will see a redirect link, click on it.
 
@@ -96,33 +112,51 @@ aio commerce init
 2. Make sure the CLI has selected the right github account. If so, enter `y`.
 3. Enter a name that will be used as the name the storefront repo. Make sure it does not contain underscores and was not used in the past. We also recommend using a short repo name.
 4. Select the first template in the list `adobe-commerce/adobe-demo-store`.
-5. Select the second option, which will allow us to select an assigned instance `Pick an available Adobe Commerce tenant`.
-6. This will prompt us to select the Org. Select the `Adobe Commerce Labs` org and press enter.
-7. From the list of instances, select the instance assigned to you. You can search for your instance by typing `Cloud Service <SEAT_NUMBER>`.
-8. From the list of projects, select the project assigned to you. You can search for your project by typing `PD BCN2 <SEAT_NUMBER>`.
-9. Select the Production workspace.
-10. This will connect the selected instance through an API Mesh on the selected Project and Workspace.
-11. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
-12. Select the appropriate account to install the AEM Sync Bot and complete the login process, if any.
-13. Select the option to only install on selected repositories. Enter the name of the repo from the 3rd step in the dropdown and click save.
-14. Go back to the terminal and click enter to move forward. At this point, the CLI will validate the code sync and continue with content cloning. This will take a minute or 2.
-15. Congratulations, you have created your own Storefront. Copy the final details and save it for future reference.
+5. Select the first option, which will allow us to create a storefront with the default demo backend instance `Use the demo Adobe Commerce tenant`.
+6. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
+7. Select the appropriate account to install the AEM Sync Bot and complete the login process, if any.
+8. Select the option to only install on selected repositories. Enter the name of the repo from the 3rd step in the dropdown and click save.
+9. Go back to the terminal and click enter to move forward. At this point, the CLI will validate the code sync and continue with content cloning. This will take a minute or 2.
+10. Congratulations, you have created your own Storefront. Copy the final details and save it for future reference.
 
-![image](https://github.com/user-attachments/assets/83295575-7558-40f3-a278-aa2412096e29)
+![img_6.png](img_6.png)
 
+11. Click on `Manage your config` link. This will open your storefront configuration in stage. Currently, it's pointing to the demo backend. 
+![img_7.png](img_7.png)
+12. Let's change the values to point to your own commerce instance. 
+    - Update `commerce.headers.cs.Magento-Environment-Id`: Enter your Commerce `Data Space ID`. This can be found in the Commerce Admin under `System > Commerce Services Connector > SaaS Identifier`.
+    - Update `commerce.headers.cs.x-api-key`: Enter your Commerce `API Key`. This can be found in the Commerce Admin under `System > Commerce Services Connector > Sandbox Keys`. Copy and paste your `Sandbox public API key`.
+    - Update `commerce-core-endpoint`: Enter the `GraphQL URL` for your Commerce instance. It should look something like this: `https://<COMMERCE-BASE-URL>/graphql`.
+    - Update `commerce-endpoint`: Enter the Catalog Service Sandbox URL > https://catalog-service-sandbox.adobe.io/graphql
+13. Publish the changes.
+![img_10.png](img_10.png)
+
+13. Repeat the process for the `configs-dev` and `configs` config. This will allow you to preview the changes in the dev environment later on during the API Mesh extensibility exercise. Click on the `Edit your content link` and choose `configs-dev`, this is the https://da.live/#/{owner}/{repo}/configs-dev link. Update the values as mentioned in the previous step, with the same values and publish the changes. Do the same for `configs`file. 
 ## Storefront Walkthrough
 
 1. Go to the preview link from the terminal. It should be something like this `https://main--{repo}--{owner}.aem.page/`
-2. Go to a sample PDP page `https://main--{repo}--{owner}.aem.page/products/adobe-for-all-tee/ADB256`
+2. Your storefront should be all set up, however if you don't have any products that belong to the categories present in the adobe demo store template, you won't see any products.
+   > **Note**: You may want to create a specific product to work with during this lab. See example:
+   >  ![create-product.png](docs/storefront/create-product.png)
+   >  ![create-product-2.png](docs/storefront/create-product-2.png)
+3. After creating the product, go to a sample PDP page https://main--{repo}--{owner}.aem.page/products/adobe-for-all-tee/ADB256. 
+![img_8.png](img_8.png)
+ > **Note**: Changes to the catalog may take a few minutes to reflect in the storefront due to the export to Catalog Service. If you don't see the product, wait for a few minutes and try again.
 
 ## Mesh Extensibility (Phase 2)
 
 Let's stitch Commerce backend and Ratings API using API Mesh. In this section we will create a new `ratings` field on the Products query and implement it using the Ratings API.
 
+First step is to create the project in the [Developer Console](https://developer.adobe.com/) that will host the Mesh configuration:
+1. Go to the [Adobe Developer Console](https://developer.adobe.com/console/). Navigate to `Projects` and click on `Create new project` > `Project from template`
+2. Select `App Builder`, give a title to your project, and click `save`. 
+![img_9.png](img_9.png)
+
+
 There are 2 options to achieve this:
 
 1. Use a prebuilt mesh config
-2. Implement the mesh config changes manually
+2. Create and implement the mesh config changes manually
 
 ### 1. Use a Pre-Built Mesh Config
 
@@ -132,15 +166,71 @@ Using the terminal, move to the `lab/mesh` folder.
 cd lab/mesh/
 ```
 
-Replace `<ACCS_GRAPHQL_URL>` with the `Graphql URL` from the excel spreadsheet into the `mesh_config.json` file on line 22.
+Open the `mesh_config.json` file. Fill in the `Magento-Environment-Id` and `x-api-key` with the values `commerce.headers.cs.Magento-Environment-Id` and `commerce.headers.cs.x-api-key` from your storefront stage config sheet.
 
 That's it, move over to the [deploy section](#deploy-mesh-changes) to continue with the next steps.
 
 ### 2.1 Stitch Ratings API with Adobe Commerce Backend
 
+Create a `mesh_config.json` file in the root. Add the Catalog Service source. Fill in the `Magento-Environment-Id` and `x-api-key` with the values `commerce.headers.cs.Magento-Environment-Id` and `commerce.headers.cs.x-api-key` from your storefront stage config sheet.
+
+```json
+{
+   "meshConfig": {
+      "responseConfig": {
+         "CORS": {
+            "credentials": true,
+            "exposedHeaders": [
+               "Content-Range",
+               "X-Content-Range"
+            ],
+            "maxAge": 60480,
+            "methods": [
+               "GET",
+               "POST"
+            ],
+            "origin": "*"
+         },
+         "headers": {
+            "mode": "no-cors",
+            "x-include-metadata": "true"
+         },
+         "includeHTTPDetails": false
+      },
+      "sources": [
+         {
+            "name": "CatalogServiceGraphQL",
+            "handler": {
+               "graphql": {
+                  "endpoint": "https://catalog-service-sandbox.adobe.io/graphql",
+                  "useGETForQueries": true,
+                  "operationHeaders": {
+                     "Magento-Environment-Id": "<your_environment_id>",
+                     "Magento-Website-Code": "base",
+                     "Magento-Store-View-Code": "default",
+                     "Magento-Store-Code": "main_website_store",
+                     "Magento-Customer-Group": "b6589fc6ab0dc82cf12099d1c2d40ab994e8410c",
+                     "x-api-key": "<api_key>"
+                  },
+                  "schemaHeaders": {
+                     "x-api-key": "<api_key>"
+                  }
+               }
+            },
+            "responseConfig": {
+               "headers": [
+                  "X-Magento-Cache-Id"
+               ]
+            }
+         }
+      ]
+   }
+}
+```
+
 Here is the sample Ratings API to use with the mesh: `https://ratings-api.apimesh-adobe-test.workers.dev`
 
-Let's add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array. Make sure to add a comma after the Adobe Commerce Backend source that is already listed in the mesh config.
+Let's add the new Ratings API to the Mesh. Open the `mesh_config.json` and add the following config under the sources array. Make sure to add a comma after the Catalog Service source that is already listed in the mesh config.
 
 ```json
 {
@@ -225,18 +315,30 @@ For reference, here are the final [ratingsResolver.js](./lab/mesh/ratingsResolve
 Finally, lets deploy the mesh config to publish the new changes:
 
 ```bash
-aio api-mesh update mesh_config.json
+aio api-mesh:create mesh_config.json
 ```
+You'll be prompted to select **Organization**, **Project**, and **Workspace**. Select your organization and project you created earlier in the Developer Console. Use the stage workspace.
+
+![img_11.png](img_11.png)
 
 This operation typically takes 30 seconds to a minute. To check the status of the update, run the following command:
 
 ```bash
 aio api-mesh status
 ```
+Meanwhile, copy your **Mesh endpoint**. Navigate to your storefront configs (`https://da.live/sheet#/{owner}/{repo}/configs-stage`) and update the value of `commerce-endpoint` with the mesh endpoint. 
+> **Note**: Make sure to update this value in `configs-dev` and `config` as well. (`https://da.live/sheet#/{owner}/{repo}/configs-dev`, `https://da.live/sheet#/{owner}/{repo}/configs`)
+
+![img_12.png](img_12.png)
+![img_13.png](img_13.png)
+
+If your mesh was provisioned successfully, you should see the following message in the terminal:
+
+![img_14.png](img_14.png)
 
 ## Storefront Extensibility
 
-Lets update the storefront to display ratings in PDP pages.
+Let's update the storefront to display ratings in PDP pages.
 
 ### Storefront Codespace Setup
 
@@ -326,16 +428,14 @@ For this part of the lab, you should make changes in the repo containing this RE
 
 ### 1. Configure the Starter Kit
 
-1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select the **Adobe Commerce Labs** organization.
+1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, login and select your organization.
 
 
 1. Click **Projects** in the Developer Console top menu.
 
     ![Alt text](docs/starter-kit/developer-console-home.png "Developer console home")
 
-    Then select the project assigned to your seat:
-
-    **PD BCN2 <SEAT_NUMBER>**
+    Then select the project you've created in previous steps:
 
     Select the **Stage** workspace.
 
@@ -349,7 +449,7 @@ For this part of the lab, you should make changes in the repo containing this RE
     - Repeat **Add service** > **API** > I/O Events > Next > Save configured API
     - Repeat **Add service** > **API** > Adobe I/O Events for Adobe Commerce > Next > Save configured API
 
-    You should now see the three new API’s at the workspace level.
+    You should now see the three new API's at the workspace level.
 
     ![Alt text](docs/starter-kit/workspace-with-services.png "Workspace with required services")
 
@@ -372,7 +472,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
         ![Alt text](docs/starter-kit/oauth-credential.png "OAuth Server-to-Server Credential")
 
-    - Set the value of the `TENANT_ID` variable in the `.env` file to the tenant ID for your assigned seat.
+    - Navigate to your Commerce Admin and create a Commerce intengration. Follow [this documentation](https://developer.adobe.com/commerce/extensibility/starter-kit/integration/create-integration/#create-an-integration-in-adobe-commerce-paas-only) to do so. Once it's done, fill in the Commerce OAuth variables in the `.env` file.
 
     - Fill in the `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
 
@@ -530,16 +630,8 @@ This demonstrates how we can we use information sent from an external system to 
 
 Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
 
-1. We will use a script to configure the webhook. This script reads from a configuration file that defines the required webhook and calls a REST API for creating webhook subscriptions that is available in ACCS. The configuration file used by the script is `scripts/commerce-event-subscribe/config/commerce-webhook-subscribe.json`
-
-    The file contains configuration details for a `observer.sales_order_place_before` webhook.
-
-    On line 9 of this file, the `url` is set to an empty string. Replace the `url` value with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured.
-
-1. Then, to automatically configure the order save webhook, run the following command:
-    ```bash
-    npm run commerce-webhook-subscribe
-    ```
+1. Webhooks configuration in Platform as a Service (PaaS) varies slightly from configuration in Adobe Commerce as a Cloud Service. If you want to carry out this part of the lab you must follow the [official documentation](https://developer.adobe.com/commerce/extensibility/webhooks/create-webhooks/#define-webhook-properties) to set up the webhook in your Adobe Commerce. 
+When setting up the webhook properties, make sure to fill in the `hook.url` xml attribute with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured.
 
 1. The code for the `check-order` action, located in `actions/webhook/check-order/index.js`, retrieves item stock limit configuration data from a `get-config` action and uses it to perform validation of order item quantities. The `get-config` action is currently hardcoded to indicate that item quantities in an order should not be greater than 1.
 
