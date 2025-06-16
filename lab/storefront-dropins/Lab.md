@@ -151,12 +151,12 @@ When a user clicks the place order button:
 
 1. The storefront checkout will create a session on the payment gateway (simulated with the App Builder runtime action `payment-method/create-session`). This will generate a random UUID simulating the payment session identifier and return it to the storefront.
 2. The storefront will set the payment method to PARTNER-PAY with the payment session ID returned by `payment-method/create-session`.
-3. ACCS will trigger the webhook `payment-method/validate-payment` on the event `observer.sales_order_place_before`.
+3. Adobe Commerce will trigger the webhook `payment-method/validate-payment` on the event `observer.sales_order_place_before`.
 
 ### Lab Structure
 The exercise is divided into three main parts:
 
-1. **Part I**: Create payment method (ACCS).
+1. **Part I**: Create payment method (Adobe Commerce).
 2. **Part II**: Add payment method logic (App Builder).
 3. **Part III**: Storefront integration (EDS Storefront).
 
@@ -284,7 +284,7 @@ Your webhook.xml file should look similar to this:
       <hooks>
          <batch name="validate_payment">
             <hook name="oope_payment_methods_sales_order_place_before"
-                  url="https://<your_app_builder>.adobeioruntime.net/api/v1/web/commerce-checkout-starter-kit/validate-payment"
+                  url="https://<your_app_builder>.adobeio-static.net/api/v1/web/payment-method/validate-payment"
                   method="POST" timeout="20000" softTimeout="0" priority="100" required="true"
                   fallbackErrorMessage="Error on validation">
                <fields>

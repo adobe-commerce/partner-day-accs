@@ -7,6 +7,7 @@ Before starting this lab, and in order to be able to complete it fully, ensure t
 * **Product license**: Cloud or on-premises (Magento Open Source is not supported)
 * **Version**: v2.4.7 or later
 * **PHP**: 8.3/8.2 for Adobe Commerce 2.4.7
+* **Adobe I/O Events**: Ensure that the Adobe I/O Events service is installed and configured properly. Follow [these](https://developer.adobe.com/commerce/extensibility/events/installation/) instructions to set it up.
 * **Storefront Compatibility Package**: Must be installed and configured. This package contains changes to the Adobe Commerce codebase that enable drop-in component functionality. Follow these instructions for [Storefront Compatibility Package Installation](https://experienceleague.adobe.com/developer/commerce/storefront/setup/configuration/storefront-compatibility/install/).
 
   > **Note**: On Adobe Commerce as a Cloud Service, the Storefront Compatibility Package is installed and updated automatically. However, since we are doing this lab in PaaS, you will need to install it manually.
