@@ -21,9 +21,9 @@ This lab consists of two main exercises that will help you understand and implem
 2. **Payment Method Integration**: A comprehensive exercise that guides you through creating and integrating a custom OOPE (Out Of Process Extensibility) payment method.
 
 ## Prerequisites
-Before starting this lab, you must have completed the Commerce Partner Days - ACCS Session. This ensures you have:
+Before starting this lab, you must have completed the Commerce Partner Days Previous Exercises. This ensures you have:
 
-1. A ready-to-use ACCS lab codespace (lab codespace).
+1. A ready-to-use PaaS lab codespace (lab codespace).
 2. A configured storefront codespace (storefront codespace).
 3. An App Builder project set up with the necessary permissions.
 
@@ -40,8 +40,7 @@ After scaffolding your storefront, you'll have access to these URLs:
 |----------|-----|
 | Storefront Preview | `https://main--<REPO>--<OWNER>.aem.page/` |
 | Content Editor | `https://da.live/#/<OWNER>/<REPO>` |
-| Admin URL | `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>` |
-| REST Endpoint | `https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>` |
+
 
 ## Exercise 1: Enhanced Cart Experience
 In this exercise, we'll enhance the shopping cart experience by adding visual category indicators to cart items. Each product's categories will be displayed as badges with corresponding icons.
@@ -175,25 +174,14 @@ This lab walks through the manual steps to help you understand what happens behi
 ### Step 1.1: Set Up Environment Variables
 1. Open your lab codespace.
 2. Open the terminal.
-3. Set your REST API endpoint (replace `<TENANT_ID>` with the tenant ID for your assigned seat):
+3. Set your REST API endpoint:
 
 ```bash
-export REST_API=https://na1-sandbox.api.commerce.adobe.com/<TENANT_ID>
+export REST_API=<BASE-URL>/rest
 ```
 
 ### Step 1.2: Generate and Set Access Token
-1. Navigate back to the Adobe Developer Console at https://developer.adobe.com/console/. If prompted, log in and select the **Adobe Commerce Labs** organization.
-2. Click **Projects** in the Developer Console top menu.
-
-    ![Alt text](../../docs/developer-console-home.png "Developer console home")
-
-3. Select the project assigned to your seat:
-   **PD BCN2 <SEAT_NUMBER>**
-4. Select the **Stage** workspace.
-5. Navigate to Credentials > OAuth Server-to-Server section.
-6. Click on "Generate access token" button.
-7. Copy the generated token.
-8. Set the token in your terminal:
+1. In order to generate an access token, follow this [documentation](https://developer.adobe.com/commerce/webapi/rest/tutorials/prerequisite-tasks/). 
 
 ```bash
 # TODO Paste your access token between the quotes
@@ -280,70 +268,116 @@ aio app get-url
 7. **Note:** You will need the URL for `validate-payment` in the next step.
 
 ### Step 2.2: Subscribe to the Webhook
-1. Copy your validate-payment endpoint URL from Step 2.1 (the URL that ends with `/validate-payment`).
+1. Save your validate-payment endpoint URL from Step 2.1 (the URL that ends with `/validate-payment`). We will need it next.
 
-2. Run these commands in your terminal (copy and paste each block):
+2. Let's register the webhook in commerce. In order to do so [follow this reference](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/payment-use-cases/#validate-the-payment-with-a-webhook). 
 
-```bash
-# TODO Paste your validate-payment URL between the quotes
-VALIDATE_PAYMENT_URL=""
+>Make sure to change the `url` property inside the webhooks.xml file and the set the field `data.order.payment.method` in rule to `PARTNER-PAY`.
+
+Your webhook.xml file should look similar to this:
+
+```xml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_AdobeCommerceWebhooks:etc/webhooks.xsd">
+   <method name="observer.sales_order_place_before" type="before">
+      <hooks>
+         <batch name="validate_payment">
+            <hook name="oope_payment_methods_sales_order_place_before"
+                  url="https://<your_app_builder>.adobeioruntime.net/api/v1/web/commerce-checkout-starter-kit/validate-payment"
+                  method="POST" timeout="20000" softTimeout="0" priority="100" required="true"
+                  fallbackErrorMessage="Error on validation">
+               <fields>
+                  <field name="payment_method" source="data.order.payment.method" />
+                  <field name="payment_additional_information" source="data.order.payment.additional_information" />
+               </fields>
+               <rules>
+                  <rule field="data.order.payment.method" operator="equal" value="PARTNER-PAY" />
+               </rules>
+            </hook>
+         </batch>
+      </hooks>
+   </method>
+</config>
 ```
 
+
+>You might already have the definition of the webhook from the previous exercise. 
+
+You can run the following command to get the list of all subscribed webhooks: 
+
+### Step 2.3: Verify Webhook Subscription in Admin
+1. You can run the following command to get the list of all subscribed webhooks:
+
 ```bash
-WEBHOOK_JSON='
-{
-  "webhook": {
+curl --request GET \
+   --url $REST_API/all/V1/webhooks/list \
+   --header "Authorization: Bearer $ACCESS_TOKEN"
+```
+
+4. Confirm the following settings:
+
+**Hook Settings**
+
+| Setting       | Value                                   |
+|---------------|-----------------------------------------|
+| Webhook Method| `observer.sales_order_place_before`    |
+| Webhook Type  | `before`                               |
+| Batch Name    | `validate_payment`                     |
+| Hook Name     | `oope_payment_methods_sales_order_place_before` |
+| URL           | `https://<your-validate-payment-endpoint-url>` |
+| Active        | `Yes`                                  |
+| Method        | `POST`                                 |
+
+**Hook Fields**
+
+| Field Name                  | Source                        |
+|-----------------------------|-------------------------------|
+| payment_method              | data.order.payment.method     |
+| payment_additional_information | data.order.payment.additional_information |
+
+**Hook Rules**
+
+| Field                      | Operator | Value       |
+|----------------------------|----------|-------------|
+| data.order.payment.method  | equal    | PARTNER-PAY |
+
+Response should look similar to:
+```json
+[
+  {
     "webhook_method": "observer.sales_order_place_before",
     "webhook_type": "before",
     "batch_name": "validate_payment",
     "hook_name": "oope_payment_methods_sales_order_place_before",
-    "url": "'$VALIDATE_PAYMENT_URL'",
+    "url": "https:\/\/3117813-495goldbeaver-stage.adobeio-static.net\/api\/v1\/web\/payment-method\/validate-payment",
+    "priority": 100,
     "required": true,
+    "soft_timeout": 0,
+    "timeout": 20000,
     "method": "POST",
+    "fallback_error_message": "Error on validation",
     "fields": [
-      {"name": "payment_method", "source": "data.order.payment.method"},
-      {"name": "payment_additional_information", "source": "data.order.payment.additional_information"}
+      {
+        "name": "payment_method",
+        "source": "data.order.payment.method"
+      },
+      {
+        "name": "payment_additional_information",
+        "source": "data.order.payment.additional_information"
+      }
     ],
     "rules": [
-      {"field": "data.order.payment.method", "operator": "equal", "value": "PARTNER-PAY"}
-    ]
+      {
+        "field": "data.order.payment.method",
+        "value": "PARTNER-PAY",
+        "operator": "equal"
+      }
+    ],
+    "headers": []
   }
-}'
-
-curl -s -X POST $REST_API/V1/webhooks/subscribe \
-  -H "Authorization: Bearer $ACCESS_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "$WEBHOOK_JSON" | jq .
+]
 ```
-
-### Step 2.3: Verify Webhook Subscription in Admin
-1. Log in to the Admin Panel:
-   `https://na1-sandbox.admin.commerce.adobe.com/<TENANT_ID>`
-2. Go to **System > Webhooks > Webhooks Subscriptions**.
-3. You should see your new webhook listed. Click "Select" to view its details.
-4. Confirm the following settings:
-
-   **Hook Settings**
-   | Setting | Value |
-   |---------|-------|
-   | Webhook Method | `observer.sales_order_place_before` |
-   | Webhook Type | `before` |
-   | Batch Name | `validate_payment` |
-   | Hook Name | `oope_payment_methods_sales_order_place_before` |
-   | URL | `https://<your-validate-payment-endpoint-url>` |
-   | Active | `Yes` |
-   | Method | `POST` |
-
-   **Hook Fields**
-   | Field Name | Source |
-   |------------|--------|
-   | payment_method | data.order.payment.method |
-   | payment_additional_information | data.order.payment.additional_information |
-
-   **Hook Rules**
-   | Field | Operator | Value |
-   |-------|----------|-------|
-   | data.order.payment.method | equal | PARTNER-PAY |
 
 ### Step 2.4: Test Payment Validation
 1. Go to your storefront checkout page.
@@ -353,7 +387,7 @@ curl -s -X POST $REST_API/V1/webhooks/subscribe \
 4. This confirms that your webhook is active and the validation logic is working.
 
 > **Tips:**
-> - If you do not see the webhook in the Admin Panel, double-check your `WEBHOOK_JSON` and ensure the correct endpoint URL is used.
+> - If you do not see the webhook in the Admin Panel, double-check your webhook suscription and ensure the correct endpoint URL is used.
 > - If the error message does not appear, check the logs for your App Builder action and ensure it is deployed and accessible.
 
 ## Part III: Storefront Integration
