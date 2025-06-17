@@ -1,6 +1,6 @@
 {
   "name": "stock_config",
-  "displayName": "Stcok configuration",
+  "displayName": "Stock configuration",
   "description": "Stock configuration menu for Adobe Commerce",
   "platform": "web",
   "id": "stock_config",

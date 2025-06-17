@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 async function main() {
     const extensionId = 'stock_config'
-    const seatNumber = '';
+    const seatNumber = '01';
 
     return {
         statusCode: 200,

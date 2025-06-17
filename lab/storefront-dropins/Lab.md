@@ -145,7 +145,7 @@ In this exercise, we'll implement a custom payment method called "PARTNER-PAY" u
 
 Here's the simplified integration flow:
 
-![Alt text](../../docs/partner-pay-diagram.png "PARTNER-PAY Integration")
+![Alt text](../../docs/pd-diagram-ac.png "PARTNER-PAY Integration")
 
 When a user clicks the place order button:
 

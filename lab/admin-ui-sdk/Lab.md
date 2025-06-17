@@ -39,7 +39,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 2. Create the `extension-manifest.json` file
 
-    Also located at the root of your project, this file must define the `platform` as `"web"` and include a unique `id` for your extension. You can append the existing id with your seat number.
+    Also located at the root of your project, this file must define the `platform` as `"web"` and include a unique `id` for your extension.
 
     > A sample file is provided in the `lab/admin-ui-sdk` folder.
 
@@ -67,8 +67,6 @@ The single-page application (SPA) includes a configuration toggle that enables o
     - Create the `registration/index.js` file under `actions` folder.
 
         > A sample file is provided in the `lab/admin-ui-sdk/registration` folder.
-
-    - Open the `registration/index.js` and update the `seatNumber` constant with your assigned seat.
 
 2. Create the ExtensionRegistration component
 
@@ -99,7 +97,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
     *Make sure to import the `ExtensionRegistration` component in the file.*
 
-5. Run `aio app build --force-build` to make sure complitation is successful for 6 runtime actions.
+5. Run `aio app build --force-build` to make sure compilation is successful.
 
 ### Step 3: Deploy the extension to the Stage workspace
 
@@ -176,7 +174,7 @@ The single-page application (SPA) includes a configuration toggle that enables o
 
 1. In the menu, a new section `Stock` is created.
 
-2. Click on the menu and find your application `Configuration <SeatNumber>`.
+2. Click on the menu and find your application `Configuration 01`.
 
     ![Configuration menu](../../docs/admin-ui-sdk/configuration-menu.png)
 
@@ -279,23 +277,10 @@ When the application is added to Commerce, runtime actions registered with `requ
 
 2. Set `require-adobe-auth: true` for both actions `get-config` and `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.
 
-3. Set `require-adobe-auth: true` for `check-order` action in `src/commerce-backend-ui-1/actions/webhook/actions.config.yaml`.  
-
-4. Build and deploy the extension using:
+3. Build and deploy the extension using:
 
     `aio app deploy --force-build --force-deploy`
 
-5. Navigate to System > Webhooks > Webhooks Subsriptions menu. Locate the `validate_stock` hook name. Under `actions` columns, click on `select` and choose `Edit` from the dropdown menu.
-
-6. Expand the `Developer Console OAuth` section.
-
-7. Switch the `Enable` toggle to `Yes`.
-
-8. Open the `OAuth Server-to-Server` in the Stage workspace of your project in the [Adobe Developer Console](https://developer.adobe.com/console).
-
-9. Fill the `Client ID`, `Client Secret` and `Organization ID` with the values found in the `OAuth Server-to-Server`.
-
-10. Save the changes.
 
 ## Troubleshooting
 

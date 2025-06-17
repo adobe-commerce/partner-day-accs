@@ -17,7 +17,7 @@ Before starting this lab, and in order to be able to complete it fully, ensure t
   * Catalog Service
   * Live Search
   * Product Recommendations
-* Admin UI SDK: Follow these steps to [install](https://developer.adobe.com/commerce/extensibility/admin-ui-sdk/installation/) the Admin UI SDK on Adobe Commerce 2.4.7. It is installed automatically on version 2.4.8 and later. 
+* **Admin UI SDK**: Follow these steps to [install](https://developer.adobe.com/commerce/extensibility/admin-ui-sdk/installation/) the Admin UI SDK on Adobe Commerce 2.4.7. It is installed automatically on version 2.4.8 and later. Ensure that you have the latest version installed and enable the AdobeAdminIms module. 
 * Install `magento/module-out-of-process-payment-methods` module. Find instruction [here](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/payment-install/#installation). 
 
 ## Lab Setup
