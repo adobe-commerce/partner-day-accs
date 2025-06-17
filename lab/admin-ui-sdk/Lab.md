@@ -280,6 +280,7 @@ When the application is added to Commerce, runtime actions registered with `requ
 3. Build and deploy the extension using:
 
     `aio app deploy --force-build --force-deploy`
+4. Refresh the Admin panel page, and you'll see the list of orders now, as the runtime action `get-orders` was also secured
 
 
 ## Troubleshooting
