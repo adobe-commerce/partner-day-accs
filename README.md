@@ -9,16 +9,19 @@ Before starting this lab, and in order to be able to complete it fully, ensure t
 * **PHP**: 8.3/8.2 for Adobe Commerce 2.4.7
 * **Adobe I/O Events**: Ensure that the Adobe I/O Events service is installed and configured properly. Follow [these](https://developer.adobe.com/commerce/extensibility/events/installation/) instructions to set it up.
 * **Storefront Compatibility Package**: Must be installed and configured. This package contains changes to the Adobe Commerce codebase that enable drop-in component functionality. Follow these instructions for [Storefront Compatibility Package Installation](https://experienceleague.adobe.com/developer/commerce/storefront/setup/configuration/storefront-compatibility/install/).
+  * Adobe Commerce 2.4.7: Install [Storefront Compatibility Package v2.4.7](https://experienceleague.adobe.com/developer/commerce/storefront/setup/configuration/storefront-compatibility/v247/) 
+  * Adobe Commerce 2.4.8: Install [Storefront Compatibility Package v2.4.8](https://experienceleague.adobe.com/developer/commerce/storefront/setup/configuration/storefront-compatibility/v248/)
 
-  > **Note**: On Adobe Commerce as a Cloud Service, the Storefront Compatibility Package is installed and updated automatically. However, since we are doing this lab in PaaS, you will need to install it manually.
+  >   **Note**: On Adobe Commerce as a Cloud Service, the Storefront Compatibility Package is installed and updated automatically. However, since we are doing this lab in PaaS, you will need to install it manually.
 * **Storefront services**: Ensure that the latest version of following services are installed and configured. Follow [these](https://experienceleague.adobe.com/developer/commerce/storefront/setup/discovery/architecture/#adobe-commerce) instructions. 
   * Data Connection service
   * Services Connector
   * Catalog Service
   * Live Search
   * Product Recommendations
-* **Admin UI SDK**: Follow these steps to [install](https://developer.adobe.com/commerce/extensibility/admin-ui-sdk/installation/) the Admin UI SDK on Adobe Commerce 2.4.7. It is installed automatically on version 2.4.8 and later. Ensure that you have the latest version installed and enable the AdobeAdminIms module. 
-* Install `magento/module-out-of-process-payment-methods` module. Find instruction [here](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/payment-install/#installation). 
+* **Admin UI SDK**: Follow these steps to [install](https://developer.adobe.com/commerce/extensibility/admin-ui-sdk/installation/) the Admin UI SDK on Adobe Commerce 2.4.7. It is installed automatically on version 2.4.8 and later. Ensure that you have the latest version installed. 
+* **Adobe Commerce Webhooks**: Ensure that the Adobe Commerce Webhooks service is installed and configured properly. Follow [these](https://developer.adobe.com/commerce/extensibility/webhooks/installation/) instructions to set it up.
+* **Out Of Process Payment methods module**: Install `magento/module-out-of-process-payment-methods` module. Find instruction [here](https://developer.adobe.com/commerce/extensibility/starter-kit/checkout/payment-install/#installation). 
 
 ## Lab Setup
 
@@ -26,7 +29,7 @@ Before starting this lab, and in order to be able to complete it fully, ensure t
 
 1. Visit https://github.com/adobe-commerce/partner-day-accs/tree/partner-day-paas.
 2. Navigate to the top right of the page and click on the `Use this Template` button. Select the `Create a new repository` option to create a new repo with the template. ![img_1.png](docs/storefront/img_1.png)
-3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. Make sure to clone all branches, so that you can use `partner-day-paas` afterward. ![img.png](docs/storefront/img.png)
+3. This should launch the repo provisioning UI. Select your personal account as the owner and enter an appropriate name for the repo. Make the repo `Private` and click on `Create Repository` to create a repo from the template. Make sure to include all branches, so that you can use `partner-day-paas` afterward. ![img.png](docs/storefront/img.png)
 4. Congratulations, you now have the tools to create and extend your own commerce store.
 5. Switch to `partner-day-paas` branch and click on the `Code` icon and select the `Codespaces` tab. Click on the `+` icon to create a new personal codespace. ![img_2.png](docs/storefront/img_2.png)
 6. This will launch a new codespace on the repo. The initialization will take around 3-4 minutes. <img width="731" alt="image" src="https://github.com/user-attachments/assets/d4e18627-2fed-47b5-b8cc-ea3b0b2743f7" />
@@ -113,7 +116,7 @@ aio commerce init
 2. Make sure the CLI has selected the right github account. If so, enter `y`.
 3. Enter a name that will be used as the name the storefront repo. Make sure it does not contain underscores and was not used in the past. We also recommend using a short repo name.
 4. Select the first template in the list `adobe-commerce/adobe-demo-store`.
-5. Select the first option, which will allow us to create a storefront with the default demo backend instance `Use the demo Adobe Commerce tenant`.
+5. Select the first option, which will allow us to create a storefront with the default demo backend instance `Use the demo Adobe Commerce tenant`. This will create for you the necessary configs for a PaaS instance in the Edge Delivery Services content space. You will modify these configs later to point to your own Commerce instance.
 6. In the next step if a browser tab isnt opened, go to this link https://github.com/apps/aem-code-sync/installations/select_target.
 7. Select the appropriate account to install the AEM Sync Bot and complete the login process, if any.
 8. Select the option to only install on selected repositories. Enter the name of the repo from the 3rd step in the dropdown and click save.
@@ -328,7 +331,7 @@ This operation typically takes 30 seconds to a minute. To check the status of th
 aio api-mesh status
 ```
 Meanwhile, copy your **Mesh endpoint**. Navigate to your storefront configs (`https://da.live/sheet#/{owner}/{repo}/configs-stage`) and update the value of `commerce-endpoint` with the mesh endpoint. 
-> **Note**: Make sure to update this value in `configs-dev` and `config` as well. (`https://da.live/sheet#/{owner}/{repo}/configs-dev`, `https://da.live/sheet#/{owner}/{repo}/configs`)
+> **Note**: Make sure to update this value in `configs-dev` and `config` as well. (`https://da.live/sheet#/{owner}/{repo}/configs-dev`, `https://da.live/sheet#/{owner}/{repo}/configs`). Make sure to publish your changes to take effect.
 
 ![img_12.png](docs/storefront/img_12.png)
 ![img_13.png](docs/storefront/img_13.png)
@@ -343,7 +346,7 @@ Let's update the storefront to display ratings in PDP pages.
 
 ### Storefront Codespace Setup
 
-Go to the new storefront code repo created when `aio commerce init` was run in the terminal (the repo will follow the pattern https://github.com/<user>/<storefrontname>). Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
+Go to the new storefront code repo created when `aio commerce init` was run in the terminal (the repo will follow the pattern `https://github.com/<user>/<storefrontname>`). Use the codespaces setup instructions from earlier to start a new codespace on the Storefront repo. Wait for it to complete. This typically takes around 2 minutes.
 
 Once the codespace it ready, let's make code some changes to consume and display product ratings on the product pages.
 
@@ -627,7 +630,28 @@ This demonstrates how we can we use information sent from an external system to 
 Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
 
 1. Webhooks configuration in Platform as a Service (PaaS) varies slightly from configuration in Adobe Commerce as a Cloud Service. If you want to carry out this part of the lab you must follow the [official documentation](https://developer.adobe.com/commerce/extensibility/webhooks/create-webhooks/#define-webhook-properties) to set up the webhook in your Adobe Commerce. 
-When setting up the webhook properties, make sure to fill in the `hook.url` xml attribute with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured.
+When setting up the webhook properties, make sure to fill in the `hook.url` xml attribute with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured. Your `webhooks.xml` once this is done should look similar to: 
+
+```xml
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_AdobeCommerceWebhooks:etc/webhooks.xsd">
+   <method name="observer.sales_order_place_before" type="before">
+      <hooks>
+         <batch name="validate_stock">
+            <hook name="validate_stock"
+                  url="https://<your_app_builder>.adobeio-static.net/api/v1/web/webhook/check-order"
+                  method="POST" timeout="1000" softTimeout="0" priority="100" required="true"
+                  fallbackErrorMessage="Cannot perform the operation due to an error.">
+               <fields>
+                  <field name="order" source="data.order" />
+               </fields>
+            </hook>
+         </batch>
+      </hooks>
+   </method>
+</config>
+```
 
 1. The code for the `check-order` action, located in `actions/webhook/check-order/index.js`, retrieves item stock limit configuration data from a `get-config` action and uses it to perform validation of order item quantities. The `get-config` action is currently hardcoded to indicate that item quantities in an order should not be greater than 1.
 

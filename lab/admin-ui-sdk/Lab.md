@@ -275,7 +275,7 @@ When the application is added to Commerce, runtime actions registered with `requ
 
 1. Replace the contents of `src/commerce-backend-ui-1/web-src/src/pages/home.jsx` with the sample file located at `lab/admin-ui-sdk/bonus/home.jsx`.
 
-2. Set `require-adobe-auth: true` for both actions `get-config` and `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.
+2. Set `require-adobe-auth: true` for action `save-config` in `src/commerce-backend-ui-1/actions/data/actions.config.yaml`.
 
 3. Build and deploy the extension using:
 
@@ -293,7 +293,7 @@ When the application is added to Commerce, runtime actions registered with `requ
 
 - Check your `.env` file is updated and pointing to the correct project and workspace. If not, run `aio app use`, then deploy again `aio app deploy --force-build --force-deploy`.
 
-- If none of the above steps are woking, please reach out to an available technical assistant for help.
+- If none of the above steps are working, please reach out to an available technical assistant for help.
 
 ### 2. Menu is not appearing in the Adobe Commerce Admin Panel
 
@@ -301,7 +301,7 @@ When the application is added to Commerce, runtime actions registered with `requ
 
 - Go to Stores > Settings > Configuration > Adobe Services > Admin UI SDK, and in the general configuration section click on `Refresh registrations` button. Once you get a banner notification confirming registrations are refreshed successfully, check your menu.
 
-- If none of the above steps are woking, please reach out to an available technical assistant for help.
+- If none of the above steps are working, please reach out to an available technical assistant for help.
 
 ### 3. Selected org, project or workspace are incorrect
 
@@ -321,11 +321,11 @@ When the application is added to Commerce, runtime actions registered with `requ
 
     `aio console workspace select`
 
-- If none of the above steps are woking, please reach out to an available technical assistant for help.
+- If none of the above steps are working, please reach out to an available technical assistant for help.
 
 ### 4. Error on `config.json` when running the build
 
-- If you experience the followin error when running `aio app build`:
+- If you experience the following error when running `aio app build`:
 
 ```bash
 ✖ Building web assets for 'commerce/backend-ui/1'
