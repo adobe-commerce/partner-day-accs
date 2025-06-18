@@ -629,8 +629,11 @@ This demonstrates how we can we use information sent from an external system to 
 
 Adobe Commerce Webhooks allows for synchronous calls to be made from Commerce to external systems when a Commerce event triggers. In this part of the lab, we will setup a webhook that will be used to validate an order when an `observer.sales_order_place_before` event occurs.
 
-1. Webhooks configuration in Platform as a Service (PaaS) varies slightly from configuration in Adobe Commerce as a Cloud Service. If you want to carry out this part of the lab you must follow the [official documentation](https://developer.adobe.com/commerce/extensibility/webhooks/create-webhooks/#define-webhook-properties) to set up the webhook in your Adobe Commerce. 
-When setting up the webhook properties, make sure to fill in the `hook.url` xml attribute with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured. Your `webhooks.xml` once this is done should look similar to: 
+1. Webhooks configuration in Platform as a Service (PaaS) varies slightly from configuration in Adobe Commerce as a Cloud Service. If you want to carry out this part of the lab you must follow the [official documentation](https://developer.adobe.com/commerce/extensibility/webhooks/create-webhooks/#define-webhook-properties) to set up the webhook in your Adobe Commerce. This will ensure that requests are sent to the `check-order` web action when a `observer.sales_order_place_before` event is triggered once the webhook is configured. 
+
+> When setting up the webhook properties, make sure to fill in the `hook.url` xml attribute with the URL for the deployed `check-order` web action that was shown in the output for the `aio app deploy` command
+
+Your `webhooks.xml` once this is done should look similar to: 
 
 ```xml
 <?xml version="1.0"?>
@@ -641,7 +644,7 @@ When setting up the webhook properties, make sure to fill in the `hook.url` xml 
          <batch name="validate_stock">
             <hook name="validate_stock"
                   url="https://<your_app_builder>.adobeio-static.net/api/v1/web/webhook/check-order"
-                  method="POST" timeout="1000" softTimeout="0" priority="100" required="true"
+                  method="POST" timeout="2000" softTimeout="0" priority="100" required="true"
                   fallbackErrorMessage="Cannot perform the operation due to an error.">
                <fields>
                   <field name="order" source="data.order" />
@@ -668,6 +671,14 @@ When setting up the webhook properties, make sure to fill in the `hook.url` xml 
     ![Alt text](docs/webhooks/successful-order-placement.png "Successful order placement")
 
 In this part of the lab, we explored one way we can extend Commerce using webhooks to synchronously communicate with an external system. We will revisit this webhook scenario later to show how we can change the webhook behavior using a single page app UI injected into the Commerce Admin.
+
+## EDS and Dropins Lab
+
+Find [here](lab/storefront-dropins/Lab.md) the Dropins and EDS lab README. 
+
+## Admin UI SDK Lab
+
+Find [here](lab/admin-ui-sdk/Lab.md) the Admin UI SDK lab README.
 
 ## Local Development
 
