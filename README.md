@@ -476,7 +476,7 @@ For this part of the lab, you should make changes in the repo containing this RE
 
         ![Alt text](docs/starter-kit/oauth-credential.png "OAuth Server-to-Server Credential")
 
-    - Navigate to your Commerce Admin and create a Commerce intengration. Follow [this documentation](https://developer.adobe.com/commerce/extensibility/starter-kit/integration/create-integration/#create-an-integration-in-adobe-commerce-paas-only) to do so. Once it's done, fill in the Commerce OAuth variables in the `.env` file.
+    - Navigate to your Commerce Admin and create a Commerce integration. Follow [this documentation](https://developer.adobe.com/commerce/extensibility/starter-kit/integration/create-integration/#create-an-integration-in-adobe-commerce-paas-only) to do so. Once it's done, fill in the Commerce OAuth variables in the `.env` file. Make sure to update the value of `COMMERCE_BASE_URL` and replace `[BASE-URL]` with your Commerce URL.
 
     - Fill in the `IO_PROJECT_ID`, and values `IO_WORKSPACE_ID` using the downloaded `workspace.json` file and the commented instructions in the `.env` file.
 

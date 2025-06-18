@@ -302,9 +302,7 @@ Your webhook.xml file should look similar to this:
 ```
 
 
->You might already have the definition of the `validate-stock` webhook from the previous exercise, in this case add another batch with the definition of this new webhook. 
-
-You can run the following command to get the list of all subscribed webhooks: 
+>You might already have the definition of the `validate-stock` webhook from the previous exercise, in this case add another batch with the definition of this new webhook.
 
 ### Step 2.3: Verify Webhook Subscription in Admin
 1. You can run the following command to get the list of all subscribed webhooks:
