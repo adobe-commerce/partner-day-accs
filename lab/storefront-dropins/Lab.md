@@ -180,7 +180,12 @@ This lab walks through the manual steps to help you understand what happens behi
 export REST_API=<BASE-URL>/rest
 ```
 
-### Step 1.2: Generate and Set Access Token
+### Step 1.2: Authentication Setup
+You have two options for authentication depending on your Adobe Commerce configuration:
+
+#### Option A: Admin Token (Default)
+If you don't have the `AdminAdobeIms` module enabled yet, you can use admin tokens:
+
 1. In order to generate an access token, follow this [documentation](https://developer.adobe.com/commerce/webapi/rest/tutorials/prerequisite-tasks/). 
 
 ```bash
@@ -188,13 +193,45 @@ export REST_API=<BASE-URL>/rest
 export ACCESS_TOKEN=""
 ```
 
+#### Option B: OAuth1 Authentication
+If you have the `AdminAdobeIms` module enabled, you won't be able to create admin tokens and you can use OAuth1 authentication instead.
+
+**Recommended:** Use your preferred API client (Postman, Insomnia, etc.) with OAuth1 configuration.
+
+**Alternative:** Use our provided OAuth1 header generator script inside `lab/scripts`.
+
+> **Note:** If you prefer to use this alternative, continue with the lab - the specific usage instructions for the OAuth1 header generator script will be explained step-by-step as you go through each exercise.
+
 ### Step 1.3: Verify Existing Payment Methods
 1. Run the following command to check current payment methods:
 
+**Using Admin Token:**
 ```bash
 curl -s \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   $REST_API/V1/oope_payment_method | jq .
+```
+
+**Using OAuth1 (if AdminAdobeIms module is enabled):**
+- Navigate to the scripts directory:
+```bash
+cd lab/scripts
+```
+- Run the script with this appropriate method and endpoint:
+```bash
+node oauth1-header-generator.js "GET" "V1/oope_payment_method"
+```
+- Copy the output and export it as an environment variable:
+```bash
+# Paste the generated OAuth1 header between the quotes
+export OAUTH1_HEADER=""
+```
+
+- Use the OAuth1 header in your curl request:
+```bash
+curl --request GET \
+  --url $REST_API/V1/oope_payment_method \
+  --header "Authorization: $OAUTH1_HEADER"
 ```
 
 2. Review the output to ensure "PARTNER-PAY" is not already in the list.
@@ -210,9 +247,32 @@ PAYMENT_METHOD_JSON='{
     "active": true
   }
 }'
+```
 
+**Using Admin Token:**
+```bash
 curl -XPOST \
   -s -H "Authorization: Bearer $ACCESS_TOKEN" \
+  -H "Content-type: application/json" \
+  -d "$PAYMENT_METHOD_JSON" \
+  $REST_API/V1/oope_payment_method | jq .
+```
+
+**Using OAuth1 (if AdminAdobeIms module is enabled):**
+- Run the script with this appropriate method and endpoint:
+```bash
+node oauth1-header-generator.js "POST" "V1/oope_payment_method"
+```
+- Copy the output and export it as an environment variable:
+```bash
+# Paste the generated OAuth1 header between the quotes
+export OAUTH1_HEADER=""
+```
+
+- Use the OAuth1 header in your curl request:
+```bash
+curl -XPOST \
+  -s -H "Authorization: $OAUTH1_HEADER" \
   -H "Content-type: application/json" \
   -d "$PAYMENT_METHOD_JSON" \
   $REST_API/V1/oope_payment_method | jq .
@@ -221,10 +281,29 @@ curl -XPOST \
 ### Step 1.5: Verify Payment Method Creation
 1. Run the verification command again:
 
+**Using Admin Token:**
 ```bash
 curl -s \
   -H "Authorization: Bearer $ACCESS_TOKEN" \
   $REST_API/V1/oope_payment_method | jq .
+```
+
+**Using OAuth1 (if AdminAdobeIms module is enabled):**
+- Run the script with this appropriate method and endpoint:
+```bash
+node oauth1-header-generator.js "GET" "V1/oope_payment_method"
+```
+- Copy the output and export it as an environment variable:
+```bash
+# Paste the generated OAuth1 header between the quotes
+export OAUTH1_HEADER=""
+```
+
+- Use the OAuth1 header in your curl request:
+```bash
+curl --request GET \
+  --url $REST_API/V1/oope_payment_method \
+  --header "Authorization: $OAUTH1_HEADER"
 ```
 
 2. Confirm that "PARTNER-PAY" appears in the list of payment methods.
@@ -307,10 +386,29 @@ Your webhook.xml file should look similar to this:
 ### Step 2.3: Verify Webhook Subscription in Admin
 1. You can run the following command to get the list of all subscribed webhooks:
 
+**Using Admin Token:**
 ```bash
 curl --request GET \
    --url $REST_API/all/V1/webhooks/list \
    --header "Authorization: Bearer $ACCESS_TOKEN"
+```
+
+**Using OAuth1 (if AdminAdobeIms module is enabled):**
+- Run the script with this appropriate method and endpoint:
+```bash
+node oauth1-header-generator.js "GET" "all/V1/webhooks/list"
+```
+- Copy the output and export it as an environment variable:
+```bash
+# Paste the generated OAuth1 header between the quotes
+export OAUTH1_HEADER=""
+```
+
+- Use the OAuth1 header in your curl request:
+```bash
+curl --request GET \
+   --url $REST_API/all/V1/webhooks/list \
+   --header "Authorization: $OAUTH1_HEADER"
 ```
 
 4. Confirm the following settings:
