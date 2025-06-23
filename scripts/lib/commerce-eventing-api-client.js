@@ -55,7 +55,7 @@ async function eventSubscribe (baseUrl, params, data) {
 }
 
 /**
- * This function calls Adobe commerce rest API to subscribe to the webhook
+ * This function calls Adobe commerce rest API to subscribe to the webhook. This API is available for Adobe Commerce As a Cloud Service only.
  *
  * @returns {object} - API response object
  * @param {string} baseUrl - Adobe commerce rest api base url
